@@ -9,6 +9,14 @@ Review code for **Correctness, Quality, and Taste** while respecting the reposit
 
 The goal is not theoretical perfection. The goal is code whose behavior is reliable, intent is visible, decisions are correctly owned, abstractions are predictable, and important changes remain affordable.
 
+## Language behavior
+
+Read [references/language-behavior.md](references/language-behavior.md) when a finding depends on language or runtime semantics.
+
+Read [references/framework-behavior.md](references/framework-behavior.md) when framework lifecycle, reactivity, rendering, dependency injection, or server-client boundaries affect a finding.
+
+Confirm the language version, runtime, compiler settings, and framework behavior before reporting the finding. Do not turn a language preference into a correctness claim.
+
 ## Core model
 
 Evaluate three separate dimensions.
