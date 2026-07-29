@@ -4,33 +4,94 @@ Independent Codex skills with natural-language triggers for code review, impleme
 
 Released under the [MIT License](LICENSE).
 
-## Trigger a skill
+## How to trigger a skill
 
-Codex can select an installed skill when your request matches its description. You do not need a special command.
+Codex loads an installed skill when your request matches the skill description. The match uses meaning, not an exact keyword.
 
-Use a direct request:
+### CQT review
 
-| Request example | Skill that Codex can select |
-| :--- | :--- |
-| `Review this code for ownership, failure behavior, and migration risks.` | `cqt-review` |
-| `Review this pull request beyond correctness.` | `cqt-review` |
-| `Refactor this code without changing its behavior.` | `implementation-quality` |
-| `Implement this feature with clear ownership and simple control flow.` | `implementation-quality` |
-| `Review this rendered UI and list the visual problems.` | `nyan-ui-visual-review` |
-| `Use OpenCode to implement this change only in src/auth/.` | `opencode-cli` |
+Use `cqt-review` when you want findings, risks, or an architecture review. These requests match its trigger description:
 
-Use the skill name when you must select one skill:
+```text
+review this code
+audit this repository
+review this pull request beyond correctness
+find ownership and dependency problems
+assess this migration
+review this forked implementation
+check failure behavior and state modeling
+plan a safe ownership cutover
+```
+
+Share the files, diff, pull request, migration plan, or repository scope that Codex must review. To select it directly, write:
 
 ```text
 Use $cqt-review to review this code.
-Use $implementation-quality to refactor this code.
-Use $nyan-ui-visual-review to review this screen.
-Use $opencode-cli to implement this bounded task.
 ```
 
-The skill must be installed where Codex can discover it. Codex reads the `description` in `SKILL.md` to decide when to select a skill.
+### Implementation quality
 
-One request can use more than one skill. For example, `Review this code, then refactor the accepted findings` can use `cqt-review` first and `implementation-quality` second.
+Use `implementation-quality` when you want Codex to write or refactor code. These requests match its trigger description:
+
+```text
+refactor this code
+implement this feature
+move this behavior to the correct owner
+simplify this control flow
+replace this old implementation
+migrate this module with parity tests
+remove accidental complexity
+make this failure path explicit
+```
+
+State the required behavior, allowed scope, and compatibility limits. To select it directly, write:
+
+```text
+Use $implementation-quality to refactor this code.
+```
+
+### UI visual review
+
+Use `nyan-ui-visual-review` when you want a review of an existing rendered interface. These requests match its trigger description:
+
+```text
+review this UI
+audit this screen
+critique this dashboard
+review the responsive states
+find visual consistency problems
+review this user flow
+polish this existing interface
+check this page against the design system
+```
+
+Share screenshots, live routes, or frontend code. Include interaction and responsive states when they matter. To select it directly, write:
+
+```text
+Use $nyan-ui-visual-review to review this screen.
+```
+
+### OpenCode CLI
+
+Use `opencode-cli` when you want OpenCode to implement a limited, non-sensitive task. These requests match its trigger description:
+
+```text
+use OpenCode to implement this change
+delegate this bounded fix to OpenCode
+use a free OpenCode Zen model
+let OpenCode add these focused tests
+use DeepSeek V4 Flash Free for this task
+implement this on a new branch with OpenCode
+prepare this bounded OpenCode change for a pull request
+```
+
+State each file or folder that OpenCode can edit. Do not include secrets or confidential code. To select it directly, write:
+
+```text
+Use $opencode-cli to implement this task only in src/auth/.
+```
+
+One request can use more than one skill. For example, Codex can review code first and then refactor accepted findings.
 
 ## Skills
 
