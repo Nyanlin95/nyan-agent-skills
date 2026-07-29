@@ -1,8 +1,36 @@
 # Nyan Agent Skills
 
-Independent Codex skills for implementation quality, CQT code review, and evidence-based UI visual review. Each skill is self-contained under `skills/` and can be installed or linked independently.
+Independent Codex skills with natural-language triggers for code review, implementation quality, UI visual review, and bounded OpenCode delegation. Each skill is self-contained under `skills/`.
 
 Released under the [MIT License](LICENSE).
+
+## Trigger a skill
+
+Codex can select an installed skill when your request matches its description. You do not need a special command.
+
+Use a direct request:
+
+| Request example | Skill that Codex can select |
+| :--- | :--- |
+| `Review this code for ownership, failure behavior, and migration risks.` | `cqt-review` |
+| `Review this pull request beyond correctness.` | `cqt-review` |
+| `Refactor this code without changing its behavior.` | `implementation-quality` |
+| `Implement this feature with clear ownership and simple control flow.` | `implementation-quality` |
+| `Review this rendered UI and list the visual problems.` | `nyan-ui-visual-review` |
+| `Use OpenCode to implement this change only in src/auth/.` | `opencode-cli` |
+
+Use the skill name when you must select one skill:
+
+```text
+Use $cqt-review to review this code.
+Use $implementation-quality to refactor this code.
+Use $nyan-ui-visual-review to review this screen.
+Use $opencode-cli to implement this bounded task.
+```
+
+The skill must be installed where Codex can discover it. Codex reads the `description` in `SKILL.md` to decide when to select a skill.
+
+One request can use more than one skill. For example, `Review this code, then refactor the accepted findings` can use `cqt-review` first and `implementation-quality` second.
 
 ## Skills
 
