@@ -59,10 +59,13 @@ Do not delegate:
 1. State one implementation outcome.
 2. Name each file or folder that OpenCode can edit.
 3. Tell OpenCode not to edit any other path.
-4. State the behavior and compatibility constraints.
-5. Name the test commands that it can run.
-6. Require a summary of changed files, tests, and uncertainty.
-7. Do not include unrelated cleanup.
+4. Tell OpenCode that `--cwd` is the repository root.
+5. Require repository-relative paths for every workspace read, search, edit, and command.
+6. Tell OpenCode not to invent, translate, or substitute another workspace root.
+7. State the behavior and compatibility constraints.
+8. Name the test commands that it can run.
+9. Require a summary of changed files, tests, and uncertainty.
+10. Do not include unrelated cleanup.
 
 ## Select a Git mode
 
@@ -113,6 +116,10 @@ The wrapper:
 Use `--allow-non-free` only after the user approves a paid model.
 
 Use the narrowest practical edit paths. Do not pass `.` or the repository root. Add a command pattern only when the task needs that command. Never allow commit, push, destructive, installation, deployment, or credential commands.
+
+Always run delegated work through the bundled wrapper. Do not replace it with a raw `opencode run` invocation. The wrapper supplies the bounded agent, working directory, path rules, command rules, and lifecycle record.
+
+Set `--cwd` to the real repository root. Keep `--allow-path` values relative to that root. In the prompt, require OpenCode to use those relative paths exactly. Do not give OpenCode a generic, container-style, copied, or assumed workspace prefix.
 
 Do not continue an old OpenCode session unless the user requests it. Old sessions can contain unrelated context.
 
@@ -168,6 +175,16 @@ For `incomplete` or `failed`:
 2. Check whether the task or input caused the failure.
 3. Retry once only with a specific correction.
 4. Continue in Codex if the correction does not resolve the failure.
+
+For permission rejection:
+
+1. Inspect the requested path and the wrapper's effective `--cwd`.
+2. Compare the requested path with the assigned repository-relative paths.
+3. Treat an invented or substituted workspace root as a path-resolution failure, not as proof that repository reads are forbidden.
+4. Do not broaden `external_directory` permission to work around a path mismatch.
+5. Retry once with the real repository root and explicit repository-relative path instructions.
+6. Stop delegation if the corrected run requests an external path again.
+7. Report the rejected permission type, requested path category, effective working directory, and correction without exposing sensitive absolute paths.
 
 ## Review the result
 
