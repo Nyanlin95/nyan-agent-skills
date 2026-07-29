@@ -1,6 +1,6 @@
 ---
 name: opencode-cli
-description: Delegate limited, non-sensitive implementation work from Codex to the OpenCode CLI through an explicitly selected model and bounded file or folder paths. Use when the user asks Codex to use OpenCode, OpenCode Zen, a currently free Zen model such as DeepSeek V4 Flash Free, or a low-cost external model to implement a small change, add focused tests, fix a bounded defect, or provide a second opinion. Keep Codex responsible for scope, diff review, verification, and the final result. Do not use for secrets, personal data, confidential code, production access, broad autonomous changes, commits, or publishing.
+description: Delegate limited, non-sensitive implementation work from Codex to the OpenCode CLI through an explicitly selected model and bounded file or folder paths. Use when the user asks Codex to use OpenCode, OpenCode Zen, a currently free Zen model such as DeepSeek V4 Flash Free, or a low-cost external model to implement a small change, add focused tests, fix a bounded defect, work on a normal Git branch, or prepare changes for an optional pull request. Keep Codex responsible for branches, scope, diff review, verification, commits, publishing, and the final result. Do not use for secrets, personal data, confidential code, production access, or broad autonomous changes.
 ---
 
 # OpenCode CLI
@@ -63,6 +63,22 @@ Do not delegate:
 5. Name the test commands that it can run.
 6. Require a summary of changed files, tests, and uncertainty.
 7. Do not include unrelated cleanup.
+
+## Select a Git mode
+
+Follow repository instructions before this general workflow.
+
+Use the current branch when the user wants direct changes and repository instructions permit it.
+
+Use a normal branch when the user requests a branch or pull request, or when branch isolation helps:
+
+1. Inspect the current branch and working-tree status.
+2. Preserve unrelated user changes.
+3. Create or switch to a short `codex/<task>` branch in the current checkout.
+4. Do not create another worktree.
+5. Run OpenCode on that branch with bounded edit paths.
+
+Keep branch creation, commits, pushes, and pull requests under Codex control. Do not grant OpenCode Git publishing commands.
 
 ## Run OpenCode
 
@@ -169,6 +185,17 @@ Do not accept OpenCode's completion message as proof that the code works.
 
 If the status is not `completed`, use only independently verified parts of the partial output.
 
+## Deliver the change
+
+Use the delivery mode requested by the user and allowed by repository instructions:
+
+- leave reviewed changes uncommitted;
+- commit on the current branch;
+- commit and push a normal branch;
+- commit, push, and open a pull request.
+
+Before a commit, stage only accepted files. Before a push, confirm the target branch. Open a pull request only when the user requests it or the active repository workflow requires it. Put the verified outcome, tests, and remaining risk in the pull-request description.
+
 ## Completion
 
 Report:
@@ -176,6 +203,7 @@ Report:
 - the selected model;
 - the OpenCode session ID when available;
 - the lifecycle status and terminal reason;
+- the branch and delivery mode;
 - the delegated scope;
 - the data-safety decision;
 - the useful result;
