@@ -1,5 +1,7 @@
 # Nyan Agent Skills
 
+Agent ကို လိုအပ်သည်များ အောက်ပါအတိုင်း မှာကြားနိုင်ပါတယ်
+
 Independent Codex skills with natural-language triggers for code review, implementation quality, UI visual review, and bounded OpenCode delegation. Each skill is self-contained under `skills/`.
 
 Released under the [MIT License](LICENSE).
