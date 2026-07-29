@@ -1,0 +1,4 @@
+interface:
+  display_name: "CQT Review"
+  short_description: "Evidence-based correctness, quality, and taste review"
+  default_prompt: "Use $cqt-review to audit this codebase and rank bounded, evidence-based findings."

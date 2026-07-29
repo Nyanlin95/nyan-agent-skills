@@ -1,0 +1,4 @@
+interface:
+  display_name: "Implementation Quality"
+  short_description: "Simple, readable, correctly owned implementation"
+  default_prompt: "Use $implementation-quality to implement this change with clear ownership and the smallest responsible design."
