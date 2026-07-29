@@ -1,4 +1,4 @@
 interface:
   display_name: "OpenCode CLI"
-  short_description: "Delegate bounded work to free OpenCode models"
-  default_prompt: "Use $opencode-cli to delegate this bounded, non-sensitive task through an available free OpenCode model."
+  short_description: "Delegate bounded implementation to OpenCode"
+  default_prompt: "Use $opencode-cli to delegate this limited, non-sensitive implementation task within explicit file or folder paths."

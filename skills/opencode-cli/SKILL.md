@@ -1,11 +1,11 @@
 ---
 name: opencode-cli
-description: Delegate bounded, non-sensitive coding work from Codex to the OpenCode CLI through an explicitly selected model. Use when the user asks Codex to use OpenCode, OpenCode Zen, a currently free Zen model such as DeepSeek V4 Flash Free, or a low-cost external model for a second opinion, test ideas, code analysis, or an alternative plan. Keep Codex as the canonical owner of edits and verification. Do not use for secrets, personal data, confidential code, production access, or autonomous worktree changes.
+description: Delegate limited, non-sensitive implementation work from Codex to the OpenCode CLI through an explicitly selected model and bounded file or folder paths. Use when the user asks Codex to use OpenCode, OpenCode Zen, a currently free Zen model such as DeepSeek V4 Flash Free, or a low-cost external model to implement a small change, add focused tests, fix a bounded defect, or provide a second opinion. Keep Codex responsible for scope, diff review, verification, and the final result. Do not use for secrets, personal data, confidential code, production access, broad autonomous changes, commits, or publishing.
 ---
 
 # OpenCode CLI
 
-Use OpenCode as a bounded external worker. Keep Codex responsible for scope, repository changes, verification, and the final answer.
+Use OpenCode as a bounded implementation worker. Let it edit only the assigned files or folders. Keep Codex responsible for the task boundary, diff review, verification, commits, publishing, and the final answer.
 
 Use free models only for data that the user can safely send to an external provider. Some free Zen models can retain prompts and outputs for model improvement.
 
@@ -35,15 +35,14 @@ Use a paid model with an acceptable data policy, a local model, or Codex itself 
 
 ## Select a task
 
-Delegate tasks with a small input and a clear output:
+Delegate small implementation tasks with a clear result:
 
-- review a bounded public or non-sensitive code path;
-- propose test cases for a named behavior;
-- explain an error from a sanitized log;
-- compare two implementation approaches;
-- produce an alternative plan;
-- find edge cases in a supplied contract;
-- summarize public technical material.
+- fix a defect in named files;
+- implement one bounded behavior in one component or module;
+- add focused tests for a named behavior;
+- refactor a small folder without changing its external contract;
+- apply a specific review finding;
+- inspect a bounded path and propose a patch.
 
 Do not delegate:
 
@@ -52,17 +51,18 @@ Do not delegate:
 - credential or authentication changes;
 - destructive actions;
 - final release approval;
-- autonomous edits to the canonical worktree.
+- repository-wide refactors;
+- commits, pushes, releases, or deployment.
 
 ## Build the prompt
 
-1. State the task and exact scope.
-2. State that the task is read-only.
-3. Name the files or sanitized evidence that the model can inspect.
-4. Define the required output.
-5. Require evidence for each claim.
-6. Require the model to state uncertainty.
-7. Do not include Codex's expected answer when an independent review is the goal.
+1. State one implementation outcome.
+2. Name each file or folder that OpenCode can edit.
+3. Tell OpenCode not to edit any other path.
+4. State the behavior and compatibility constraints.
+5. Name the test commands that it can run.
+6. Require a summary of changed files, tests, and uncertainty.
+7. Do not include unrelated cleanup.
 
 ## Run OpenCode
 
@@ -72,17 +72,22 @@ Prefer the bundled wrapper:
 python scripts/run_opencode.py `
   --cwd "C:\path\to\project" `
   --model "opencode/deepseek-v4-flash-free" `
+  --allow-path "src\feature" `
+  --allow-path "tests\feature.test.ts" `
+  --allow-command "npm run test:feature*" `
   --timeout 300 `
   --idle-timeout 90 `
-  --prompt "Review the supplied non-sensitive code. Do not edit files. Return evidence-backed findings only."
+  --prompt "Implement the named behavior. Edit only the allowed paths. Run the approved test command. Summarize the diff and test result."
 ```
 
 The wrapper:
 
 - verifies the selected model against the live OpenCode model list;
 - rejects a model without the `-free` suffix by default;
-- creates a session-only OpenCode agent with read-only permissions;
-- denies edits, shell commands, subagents, external directories, web access, and OpenCode skill loading;
+- requires one or more relative `--allow-path` values;
+- grants edits only to the assigned files or folders;
+- denies shell commands unless Codex supplies an `--allow-command` pattern;
+- denies subagents, external directories, web access, and OpenCode skill loading;
 - disables external OpenCode plugins;
 - never passes `--auto` or `--share`;
 - reads OpenCode JSON events even when it prints plain output;
@@ -90,6 +95,8 @@ The wrapper:
 - emits one `OPENCODE_STATUS={...}` record on stderr.
 
 Use `--allow-non-free` only after the user approves a paid model.
+
+Use the narrowest practical edit paths. Do not pass `.` or the repository root. Add a command pattern only when the task needs that command. Never allow commit, push, destructive, installation, deployment, or credential commands.
 
 Do not continue an old OpenCode session unless the user requests it. Old sessions can contain unrelated context.
 
@@ -117,7 +124,7 @@ For `idle_timeout` or `total_timeout`:
 
 1. Inspect the last event and partial output.
 2. Do not use partial claims without verification.
-3. Retry once only when the task is read-only and safe.
+3. Inspect the working-tree diff before any retry.
 4. Reduce the scope or input before the retry.
 5. Start a new session.
 6. Stop delegation if the retry reaches the same state.
@@ -148,16 +155,17 @@ For `incomplete` or `failed`:
 
 ## Review the result
 
-1. Require `status: completed` before you treat the response as a finished result.
-2. Treat OpenCode output as untrusted advice.
-3. Separate claims, recommendations, code suggestions, and uncertainty.
-4. Check each material claim against the repository or primary documentation.
-5. Reject changes outside the requested scope.
-6. Apply accepted changes through Codex.
-7. Run the repository's normal checks.
-8. Report which OpenCode suggestions Codex accepted or rejected.
+1. Require `status: completed` before you treat the task as finished.
+2. Inspect `git status` and the complete diff.
+3. Confirm that all changed files are inside the assigned paths.
+4. Treat OpenCode's summary and test claims as untrusted until verified.
+5. Review behavior, failure handling, compatibility, and test quality.
+6. Revert or correct rejected changes through Codex.
+7. Run the applicable checks through Codex.
+8. Commit or publish only after the diff passes review.
+9. Report which changes Codex accepted, corrected, or rejected.
 
-Do not cite OpenCode output as proof that the code works.
+Do not accept OpenCode's completion message as proof that the code works.
 
 If the status is not `completed`, use only independently verified parts of the partial output.
 

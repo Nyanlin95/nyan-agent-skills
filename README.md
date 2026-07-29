@@ -11,7 +11,7 @@ Released under the [MIT License](LICENSE).
 | [cqt-review](skills/cqt-review/) | Review code and migrations for correctness, quality, taste, ownership, dependencies, state, and failure behavior. |
 | [implementation-quality](skills/implementation-quality/) | Keep implementation and ownership migrations simple, readable, correctly owned, and free of accidental complexity. |
 | [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Review rendered interfaces through bounded, evidence-backed domain coverage, systemic findings, targeted improvements, and a clear verdict. |
-| [opencode-cli](skills/opencode-cli/) | Delegate bounded, non-sensitive coding work from Codex to a live OpenCode model with free-model and privacy safeguards. |
+| [opencode-cli](skills/opencode-cli/) | Delegate limited implementation work to a live OpenCode model within explicit file or folder paths. |
 
 ## Library approach
 

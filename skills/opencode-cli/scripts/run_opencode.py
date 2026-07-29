@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run and monitor a bounded, read-only OpenCode task."""
+"""Run and monitor a bounded OpenCode implementation task."""
 
 from __future__ import annotations
 
@@ -17,17 +17,7 @@ from typing import TextIO
 
 
 DEFAULT_MODEL = "opencode/deepseek-v4-flash-free"
-READ_ONLY_AGENT = "codex-delegate"
-READ_ONLY_PERMISSIONS = {
-    "edit": "deny",
-    "bash": "deny",
-    "task": "deny",
-    "external_directory": "deny",
-    "webfetch": "deny",
-    "websearch": "deny",
-    "skill": "deny",
-    "question": "deny",
-}
+BOUNDED_AGENT = "codex-delegate"
 
 EXIT_CONFIGURATION = 2
 EXIT_QUOTA = 20
@@ -47,6 +37,20 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--prompt", required=True, help="Task prompt for OpenCode.")
     parser.add_argument("--model", default=DEFAULT_MODEL)
     parser.add_argument("--cwd", type=Path, default=Path.cwd())
+    parser.add_argument(
+        "--allow-path",
+        action="append",
+        required=True,
+        dest="allowed_paths",
+        help="Relative file or folder that OpenCode can edit. Repeat as needed.",
+    )
+    parser.add_argument(
+        "--allow-command",
+        action="append",
+        default=[],
+        dest="allowed_commands",
+        help="OpenCode bash permission pattern. Repeat as needed.",
+    )
     parser.add_argument(
         "--file",
         action="append",
@@ -96,6 +100,56 @@ def find_opencode() -> str:
         if executable:
             return executable
     raise RuntimeError("OpenCode CLI is not installed or is not on PATH.")
+
+
+def build_permissions(
+    cwd: Path,
+    allowed_paths: list[str],
+    allowed_commands: list[str],
+) -> tuple[dict[str, object], list[str]]:
+    edit_rules: dict[str, str] = {"*": "deny"}
+    normalized_paths: list[str] = []
+
+    for supplied_path in allowed_paths:
+        relative = Path(supplied_path)
+        if relative.is_absolute() or ".." in relative.parts:
+            raise RuntimeError(
+                f"Allowed paths must stay inside the working directory: {supplied_path}"
+            )
+        normalized = relative.as_posix().strip("/")
+        if not normalized or normalized == ".":
+            raise RuntimeError("Do not allow the whole working directory.")
+
+        resolved = (cwd / relative).resolve()
+        try:
+            resolved.relative_to(cwd)
+        except ValueError as error:
+            raise RuntimeError(
+                f"Allowed path escapes the working directory: {supplied_path}"
+            ) from error
+
+        normalized_paths.append(normalized)
+        edit_rules[normalized] = "allow"
+        if resolved.is_dir() or supplied_path.endswith(("/", "\\")):
+            edit_rules[f"{normalized}/*"] = "allow"
+
+    bash_rules: dict[str, str] = {"*": "deny"}
+    for pattern in allowed_commands:
+        if not pattern.strip():
+            raise RuntimeError("Allowed command patterns cannot be empty.")
+        bash_rules[pattern] = "allow"
+
+    permissions: dict[str, object] = {
+        "edit": edit_rules,
+        "bash": bash_rules,
+        "task": "deny",
+        "external_directory": "deny",
+        "webfetch": "deny",
+        "websearch": "deny",
+        "skill": "deny",
+        "question": "deny",
+    }
+    return permissions, normalized_paths
 
 
 def list_models(executable: str, provider: str) -> set[str]:
@@ -347,6 +401,16 @@ def main() -> int:
         )
         return EXIT_CONFIGURATION
 
+    try:
+        permissions, normalized_paths = build_permissions(
+            cwd,
+            args.allowed_paths,
+            args.allowed_commands,
+        )
+    except RuntimeError as error:
+        emit_status("configuration_error", reason=str(error))
+        return EXIT_CONFIGURATION
+
     if "/" not in args.model:
         emit_status(
             "configuration_error",
@@ -390,7 +454,7 @@ def main() -> int:
         "--dir",
         str(cwd),
         "--agent",
-        READ_ONLY_AGENT,
+        BOUNDED_AGENT,
     ]
     for file_path in args.files:
         command.extend(["--file", file_path])
@@ -404,13 +468,17 @@ def main() -> int:
     environment["OPENCODE_CONFIG_CONTENT"] = json.dumps(
         {
             "agent": {
-                READ_ONLY_AGENT: {
-                    "description": "Read-only worker delegated by Codex.",
+                BOUNDED_AGENT: {
+                    "description": "Bounded implementation worker delegated by Codex.",
                     "mode": "primary",
-                    "permission": READ_ONLY_PERMISSIONS,
+                    "permission": permissions,
                 }
             }
         }
+    )
+    print(
+        f"Editable paths: {', '.join(normalized_paths)}",
+        file=sys.stderr,
     )
     try:
         return run_monitored(
