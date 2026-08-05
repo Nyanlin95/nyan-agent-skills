@@ -2,13 +2,13 @@
 
 Agent ကို လိုအပ်သည်များ အောက်ပါအတိုင်း မှာကြားနိုင်ပါတယ်
 
-Independent Codex skills with natural-language triggers for code review, implementation quality, UI visual review, and bounded OpenCode delegation. Each skill is self-contained under `skills/`.
+Independent coding-agent skills with natural-language triggers for code review, implementation quality, UI visual review, and bounded OpenCode delegation. Each skill is self-contained under `skills/`.
 
 Released under the [MIT License](LICENSE).
 
 ## How to trigger a skill
 
-Codex loads an installed skill when your request matches the skill description. The match uses meaning, not an exact keyword.
+The coding agent loads an installed skill when a request matches its description. The match uses meaning, not an exact keyword.
 
 ### CQT review
 
@@ -25,7 +25,7 @@ check failure behavior and state modeling
 plan a safe ownership cutover
 ```
 
-Share the files, diff, pull request, migration plan, or repository scope that Codex must review. To select it directly, write:
+Share the files, diff, pull request, migration plan, or repository scope that the coding agent must review. To select it directly, write:
 
 ```text
 Use $cqt-review to review this code.
@@ -33,7 +33,7 @@ Use $cqt-review to review this code.
 
 ### Implementation quality
 
-Use `implementation-quality` when you want Codex to write or refactor code. These requests match its trigger description:
+Use `implementation-quality` when you want a coding agent to write or refactor code. These requests match its trigger description:
 
 ```text
 refactor this code
@@ -50,6 +50,25 @@ State the required behavior, allowed scope, and compatibility limits. To select 
 
 ```text
 Use $implementation-quality to refactor this code.
+```
+
+### Local Git Gates
+
+Use `local-git-gates` when you want to add, change, or review repository-local Git checks. These requests match its trigger description:
+
+```text
+add a pre-push check
+set up local Git hooks
+route changed paths to focused tests
+make this hook failure reproducible locally
+review our pre-commit checks
+install a repository-local hooks path
+```
+
+Share the repository scope, existing test commands, and hook requirements. To select it directly, write:
+
+```text
+Use $local-git-gates to add a path-aware pre-push check.
 ```
 
 ### UI visual review
@@ -93,7 +112,7 @@ State each file or folder that OpenCode can edit. Do not include secrets or conf
 Use $opencode-cli to implement this task only in src/auth/.
 ```
 
-One request can use more than one skill. For example, Codex can review code first and then refactor accepted findings.
+One request can use more than one skill. For example, a coding agent can review code first and then refactor accepted findings.
 
 ## Skills
 
