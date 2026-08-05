@@ -15,7 +15,25 @@ Use these checks only when the domain is relevant to the inspected interface.
 
 ## Layout
 
+- Read the repository domain model before judging a complex screen structure.
+- Identify the primary task, entity, user decision, entity state, and supporting relationships.
+- Classify a prominent control as navigation, a filter, a lifecycle view, or an action by its user effect.
+- Treat navigation as a change of task, context, collection, route, or selected item.
+- Treat a filter as a change to the current content set, not to the task or context.
+- Treat a lifecycle view as a change to the visible state of the same entity.
+- State all roles when one control has more than one effect.
+- Check whether tabs, sidebars, search, and filters communicate their actual effect.
+- Check whether the selected layout supports the task: list with context, master-detail, collection navigation, focused workspace, or another structure.
+- Check whether viewport allocation and persistent context match the user decision and entity relationships.
+- Trace a structural mismatch to information architecture, route state, component ownership, or layout implementation before recommending CSS changes.
+- Do not create or change domain-model files during a visual review.
 - Check grouping before recommending separators or more decoration.
+- Compare spacing inside a group with spacing between groups and sections.
+- Compare repeated component gaps, container padding, and alignment edges.
+- Check spacing with long, missing, loading, validation, and translated content.
+- Check intermediate widths, zoom, and text resizing for spacing drift after reflow.
+- Trace repeated spacing drift to a token, primitive, or component.
+- Distinguish a local optical correction from a shared spacing rule.
 - Check shared alignment edges and reading order.
 - Check that controls remain visually distinct from static content.
 - Select breakpoints from content failure, not common device widths.

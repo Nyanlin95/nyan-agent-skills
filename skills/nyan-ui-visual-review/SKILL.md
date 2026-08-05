@@ -66,6 +66,14 @@ Respect quiet constraints. A financial product needs precise number and status c
 
 State the posture when it materially affects the recommendations.
 
+## Change authorization
+
+Treat a change as broad when it changes a user task, information architecture, domain relationship, control meaning, route, navigation, workflow order, or multiple primary surfaces.
+
+Diagnose and recommend a broad change from the available evidence. Before you implement it, state the scope, affected tasks, protected behavior, and verification plan. Then get explicit user approval.
+
+An implementation request is enough for a localized change that preserves the existing task, structure, and control meaning. Do not request confirmation for ordinary review, evidence gathering, or a bounded visual fix.
+
 ## Inspect the implementation context
 
 When code is available, identify:
@@ -101,7 +109,7 @@ Flag a protected element if it creates a problem, but state that explicit produc
 
 1. Record available and unavailable evidence.
 2. Inspect the entry point and reading order.
-3. Inspect hierarchy, primary actions, grouping, density, alignment, and visual noise.
+3. Inspect hierarchy, primary actions, grouping, spacing rhythm, density, alignment, and visual noise.
 4. Compare repeated controls, cards, headings, tables, charts, badges, dialogs, lists, and empty states.
 5. Inspect all available interaction and data states.
 6. Inspect responsive transitions, not only the smallest and largest screenshots.
@@ -163,12 +171,62 @@ For dashboards and reports, verify KPI order, comparison context, metric definit
 
 For motion, ask what the motion communicates, how frequently it runs, whether feedback begins immediately, whether it is interruptible, whether it preserves layout stability, and whether reduced motion is supported. Do not add motion solely to make the interface feel active.
 
+## Spacing and density audit
+
+Review spacing as a relationship between elements. Do not judge a gap as an isolated number.
+
+1. Identify the spacing tokens, component gaps, and container padding that affect the inspected surface.
+2. Compare the same relationship across repeated instances and related states.
+3. Compare the spacing inside a group with the spacing between groups and sections.
+4. Check whether the spacing supports hierarchy, grouping, reading order, and intended information density.
+5. Inspect long content, missing content, loading states, validation states, and translated text when they can change the rhythm.
+6. Inspect intermediate widths, zoom, and text resizing when reflow can change the spacing.
+7. Distinguish a token or layout defect from a local optical correction.
+8. Trace repeated drift to the owning token, primitive, or component.
+
+Do not require one fixed spacing scale. Do not report a different gap as a defect unless it weakens hierarchy, consistency, readability, touch use, or responsive behavior.
+
+For a spacing finding, state the compared elements, viewport and state, expected relationship, actual relationship, owner, affected instances, and verification target.
+
+## Intent-aware layout structure
+
+Review layout as an expression of the user task and product model. Do not judge it as a generic page template.
+
+### Establish model evidence
+
+1. Look for `CONTEXT-MAP.md` and then the relevant `CONTEXT.md` files.
+2. Read product documentation, route definitions, types, state names, and tests when no usable domain model exists.
+3. Identify the primary task, primary entity, user decision, entity state, and supporting relationships for the inspected surface.
+4. Record the source of each model claim and state which model evidence was unavailable.
+5. Report a conflict between the screen and repository model as Inferred until a product owner confirms it.
+
+Use the repository model as evidence. Do not create or change a glossary, context file, or architecture decision record during a visual review.
+
+### Test structural fit
+
+1. Classify each prominent control by its user effect.
+2. Treat navigation as a control that changes the user's task, context, collection, route, or selected item.
+3. Treat a filter as a control that narrows or arranges the current content set without changing its task or context.
+4. Treat a lifecycle view as a control that changes which state of the same entity the user sees.
+5. Treat an action as a control that creates, changes, sends, or removes something.
+6. State every role when one control has more than one effect.
+7. Identify whether the surface needs a list with supporting context, a master-detail view, collection navigation, a focused workspace, or another structure.
+8. Check whether the layout gives the primary task, entity, and decision enough visual priority and working space.
+9. Check whether persistent context, selected detail, navigation depth, and controls match the relationships the user must understand.
+10. Check whether tabs, sidebars, search, and filters communicate their actual effect.
+11. Check whether empty, loading, error, and permission states preserve the same task and model cues.
+12. Trace a structural mismatch to information architecture, route state, component ownership, or layout implementation before you recommend CSS changes.
+
+Do not require a named layout pattern. Do not treat a tab as a filter only because it changes the visible list. Do not recommend a sidebar, tabs, or master-detail layout without evidence that it supports the task and model.
+
+For an intent-aware layout finding, state the task, entity, relevant relationship or state, control classification, visible mismatch, owner, affected surface, and verification target.
+
 ## Domain ownership
 
 Assign each finding to one owner:
 
 - **Accessibility:** semantics, focus, keyboard behavior, announcements, zoom, and reduced motion.
-- **Layout:** grouping, alignment, reading order, responsive structure, safe areas, RTL, and localization growth.
+- **Layout:** task structure, grouping, spacing rhythm, alignment, reading order, responsive structure, safe areas, RTL, and localization growth.
 - **Writing:** labels, actions, errors, empty states, terminology, and recovery guidance.
 - **Typography:** fonts, type roles, measure, wrapping, numeric alignment, truncation, and text direction.
 - **Color:** semantic roles, contrast, gamut, themes, and color-independent meaning.
@@ -199,7 +257,7 @@ Describe project-level rules rather than universal aesthetic rules:
 
 - Color roles and semantic states
 - Typography roles
-- Spacing relationships
+- Spacing rules across hierarchy, components, and responsive states
 - Shape and radius system
 - Control geometry
 - Interaction feedback
