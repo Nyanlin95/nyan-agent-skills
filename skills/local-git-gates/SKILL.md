@@ -7,6 +7,18 @@ description: Design, install, or review repository-local Git hooks and local ver
 
 Create repository-local Git checks that give fast, reliable feedback before a commit or push. Use the repository's existing test and format commands as the policy owners.
 
+## Gate design flow
+
+Use this flow in order. Keep the hook small and the project runner authoritative.
+
+1. Inspect repository rules, hook ownership, test commands, and changed-path groups.
+2. Select the enforcement point and the exact pushed object to validate.
+3. Route each changed-path group to an existing named check.
+4. Add the smallest repository-owned hook and runner.
+5. Install only with authorization for the selected configuration scope.
+6. Verify helpers, the runner, the real hook input, and controlled failure output.
+7. Report the installed scope, routed checks, and checks left to CI.
+
 ## Inspect before changing
 
 1. Read the repository instructions and testing guide.

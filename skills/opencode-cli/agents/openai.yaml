@@ -1,4 +1,0 @@
-interface:
-  display_name: "OpenCode CLI"
-  short_description: "Delegate bounded changes, branches, and PR prep"
-  default_prompt: "Use $opencode-cli to delegate this limited, non-sensitive implementation task within explicit paths, then review it and use the requested branch or pull-request delivery mode."

@@ -11,6 +11,18 @@ The canonical owner is the one module, component, or service that owns a rule or
 
 A good abstraction lets a caller express what it wants without taking ownership of the mechanics beneath it. It should align with a real responsibility boundary and remain understandable enough that a reader can predict what is underneath, where failures come from, and where to look when behavior changes.
 
+## Implementation flow
+
+Use this flow in order. Use later sections only when they apply to the current step.
+
+1. Define the observable behavior, owner, safety boundary, and proof.
+2. Trace the current owner, direct callers, state, effects, and failure path.
+3. Choose the smallest complete ownership correction.
+4. Change one independently checkable unit at a time.
+5. Run the focused proof after each unit.
+6. Run authorized runtime verification when the behavior crosses a runtime boundary.
+7. Report the accepted behavior, checks, and remaining risk.
+
 ## Refactor scope
 
 Set refactor scope from the behavior's ownership boundary, not from a file count or a preference for a local diff.

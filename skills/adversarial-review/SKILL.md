@@ -21,7 +21,9 @@ Keep this ownership boundary:
 - Do not repeat CQT findings unless the adversarial evidence changes their severity, confidence, owner, or required action.
 - Do not turn skepticism into a finding quota. A clean result is valid only when the attacks had enough evidence to run.
 
-## Workflow
+## Review flow
+
+Use this flow in order. Use the attack lists only to complete the selected attack.
 
 1. Extract the decision, scope, explicit claims, stated non-findings, assumptions, and required evidence.
 2. Convert each decision-relevant claim into a testable proposition with a concrete consequence if false.

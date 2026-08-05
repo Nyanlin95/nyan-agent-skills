@@ -1,0 +1,4 @@
+interface:
+  display_name: "Handoff to OpenCode"
+  short_description: "Delegate bounded changes; keep Git delivery primary-owned"
+  default_prompt: "Use $handoff-to-opencode to delegate this limited, non-sensitive implementation task within explicit paths, then review it and use the requested branch or pull-request delivery mode."

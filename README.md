@@ -6,13 +6,18 @@ Independent coding-agent skills with natural-language triggers for code review, 
 
 Released under the [MIT License](LICENSE).
 
-## How to trigger a skill
+## Use a skill
 
 The coding agent loads an installed skill when a request matches its description. The match uses meaning, not an exact keyword.
 
+1. State the outcome, scope, and limits.
+2. Share the relevant files, evidence, or rendered result.
+3. Use plain language or select the skill with `$skill-name`.
+4. Review the reported evidence before you authorize a change or publication.
+
 ### CQT review
 
-Use `cqt-review` when you want findings, risks, or an architecture review. These requests match its trigger description:
+Use `cqt-review` for findings, risks, or an architecture review. Use it for requests such as:
 
 ```text
 review this code
@@ -33,7 +38,7 @@ Use $cqt-review to review this code.
 
 ### Adversarial review
 
-Use `adversarial-review` when you want an independent attempt to disprove a plan, change, review, or CQT conclusion before acting on it. These requests match its trigger description:
+Use `adversarial-review` to challenge a plan, change, review, or CQT conclusion before you act. Use it for requests such as:
 
 ```text
 red-team this plan
@@ -52,7 +57,7 @@ Use $adversarial-review to challenge this CQT report before we implement its rec
 
 ### Implementation quality
 
-Use `implementation-quality` when you want a coding agent to write or refactor code. These requests match its trigger description:
+Use `implementation-quality` to write or refactor code. Use it for requests such as:
 
 ```text
 refactor this code
@@ -73,7 +78,7 @@ Use $implementation-quality to refactor this code.
 
 ### Local Git Gates
 
-Use `local-git-gates` when you want to add, change, or review repository-local Git checks. These requests match its trigger description:
+Use `local-git-gates` to add, change, or review repository-local Git checks. Use it for requests such as:
 
 ```text
 add a pre-push check
@@ -92,7 +97,7 @@ Use $local-git-gates to add a path-aware pre-push check.
 
 ### UI visual review
 
-Use `nyan-ui-visual-review` when you want a review of an existing rendered interface. These requests match its trigger description:
+Use `nyan-ui-visual-review` to review an existing rendered interface. Use it for requests such as:
 
 ```text
 review this UI
@@ -111,9 +116,9 @@ Share screenshots, live routes, or frontend code. Include interaction and respon
 Use $nyan-ui-visual-review to review this screen.
 ```
 
-### OpenCode CLI
+### Handoff to OpenCode
 
-Use `opencode-cli` when you want OpenCode to implement a limited, non-sensitive task. These requests match its trigger description:
+Use `handoff-to-opencode` to hand off a limited, non-sensitive implementation task to OpenCode. Use it for requests such as:
 
 ```text
 use OpenCode to implement this change
@@ -128,10 +133,27 @@ prepare this bounded OpenCode change for a pull request
 State each file or folder that OpenCode can edit. Do not include secrets or confidential code. To select it directly, write:
 
 ```text
-Use $opencode-cli to implement this task only in src/auth/.
+Use $handoff-to-opencode to implement this task only in src/auth/.
 ```
 
-One request can use more than one skill. For a high-stakes change, use the skills in this order:
+### Simplified technical writing
+
+Use `simplified-technical-writing` to make technical prose clear, controlled, and concise. Use it for requests such as:
+
+```text
+rewrite this README in plain technical English
+make these error messages less AI-generated
+write this runbook in strict simplified technical English
+make this pull-request description clear and direct
+```
+
+Share the prose and state whether it is a strict procedure or general technical prose. To select it directly, write:
+
+```text
+Use $simplified-technical-writing to rewrite this runbook in strict mode.
+```
+
+Use more than one skill when a task needs more than one owner. For a high-risk change, use this order:
 
 1. Use `cqt-review` to identify ownership, lifecycle, and code-quality concerns.
 2. Use `adversarial-review` to try to falsify the CQT conclusions and the underlying change claims.
@@ -146,15 +168,18 @@ One request can use more than one skill. For a high-stakes change, use the skill
 | [implementation-quality](skills/implementation-quality/) | Keep implementation and ownership migrations simple, readable, correctly owned, and free of accidental complexity. |
 | [local-git-gates](skills/local-git-gates/) | Design repository-local Git hooks that route changed paths to existing verification commands. |
 | [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Review rendered interfaces through bounded, evidence-backed domain coverage, systemic findings, targeted improvements, and a clear verdict. |
-| [opencode-cli](skills/opencode-cli/) | Delegate limited implementation work to a live OpenCode model within explicit paths, with optional branch and pull-request delivery. |
+| [handoff-to-opencode](skills/handoff-to-opencode/) | Hand off limited implementation work to a live OpenCode model within explicit paths, with optional branch and pull-request delivery. |
+| [simplified-technical-writing](skills/simplified-technical-writing/) | Rewrite technical prose in strict or STE-flavored Simplified Technical English. |
 
 ## Library approach
 
 - Keep implementation skills separate from review skills.
 - Give each behavior, rule, and finding one canonical owner.
+- Start each skill with one authoritative flow.
+- Use detailed checks only to complete the current flow step.
 - Keep core workflows in `SKILL.md` and detailed checks in one-level references.
 - Adapt external guidance to the owning skill instead of adding overlapping dependencies.
-- Verify rendered behavior from rendered evidence.
+- Verify rendered behavior with rendered evidence.
 
 ## Add a skill
 

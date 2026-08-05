@@ -49,6 +49,17 @@ Run only read-only inspection and local, hermetic verification by default. Befor
 
 When a user authorizes a fix, hand the accepted finding to `implementation-quality`. Keep CQT responsible for the finding, its evidence, the recommended owner, and the required verification.
 
+## Review flow
+
+Use this flow in order. Use the detailed review sections only to complete the current step.
+
+1. Set the scope, delivery stage, review authority, and evidence limits.
+2. Map the relevant system owners, state boundaries, external boundaries, and critical flows.
+3. Trace each selected flow from input to outcome, including failure and recovery.
+4. Review ownership, abstraction, dependencies, state, effects, and tests at the affected seams.
+5. Rank evidence-backed findings and name the smallest responsible correction.
+6. Report checks, unavailable coverage, remaining risk, and deliberate non-fixes.
+
 ## Change reach and rationale
 
 For a changed behavior, state the safety claim, then trace its direct callers, consumers, state or persistence boundary, external boundary, and failure or recovery path. Follow only the paths that can affect that claim. Run code when static inspection cannot prove the claim.
@@ -784,7 +795,9 @@ Escalate rather than implement only when:
 
 Do not cite “too many dependencies,” “large architecture,” or “would take too long” as sufficient reasons to refuse a bounded beta change.
 
-## Repository-review sequence
+## Detailed review passes
+
+Use these passes to complete steps 2 through 4 of the review flow. Do not restart the review flow for each pass.
 
 For a broad review, use these passes.
 

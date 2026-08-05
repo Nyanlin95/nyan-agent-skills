@@ -8,6 +8,7 @@ import json
 import os
 import queue
 import shutil
+import signal
 import subprocess
 import sys
 import threading
@@ -18,6 +19,49 @@ from typing import TextIO
 
 DEFAULT_MODEL = "opencode/deepseek-v4-flash-free"
 BOUNDED_AGENT = "bounded-delegate"
+
+VERIFICATION_COMMAND_PREFIXES = (
+    "npm test",
+    "npm run test",
+    "npm run lint",
+    "npm run typecheck",
+    "npm run check",
+    "npm run format:check",
+    "npm.cmd test",
+    "npm.cmd run test",
+    "npm.cmd run lint",
+    "npm.cmd run typecheck",
+    "npm.cmd run check",
+    "npm.cmd run format:check",
+    "pnpm test",
+    "pnpm run test",
+    "pnpm run lint",
+    "pnpm run typecheck",
+    "pnpm run check",
+    "yarn test",
+    "yarn run test",
+    "yarn lint",
+    "yarn typecheck",
+    "bun test",
+    "pytest",
+    "python -m pytest",
+    "py -m pytest",
+    "python -m unittest",
+    "py -m unittest",
+    "cargo test",
+    "go test",
+    "dotnet test",
+    "mvn test",
+    "./mvnw test",
+    "gradle test",
+    "./gradlew test",
+    "mix test",
+    "bundle exec rspec",
+    "phpunit",
+    "composer test",
+    "rake test",
+)
+UNSAFE_COMMAND_SYNTAX = (";", "&", "|", "`", "$(", "<", ">", "\n", "\r", "\0")
 
 EXIT_CONFIGURATION = 2
 EXIT_QUOTA = 20
@@ -50,13 +94,6 @@ def parse_args() -> argparse.Namespace:
         default=[],
         dest="allowed_commands",
         help="OpenCode bash permission pattern. Repeat as needed.",
-    )
-    parser.add_argument(
-        "--file",
-        action="append",
-        default=[],
-        dest="files",
-        help="Explicit file to attach. Repeat for multiple files.",
     )
     parser.add_argument(
         "--format",
@@ -102,6 +139,31 @@ def find_opencode() -> str:
     raise RuntimeError("OpenCode CLI is not installed or is not on PATH.")
 
 
+def normalize_verification_command(pattern: str) -> str:
+    normalized = pattern.strip()
+    if not normalized:
+        raise RuntimeError("Allowed command patterns cannot be empty.")
+    if any(marker in normalized for marker in UNSAFE_COMMAND_SYNTAX):
+        raise RuntimeError(
+            "Allowed commands cannot use shell chaining, redirection, "
+            "substitution, or multiline input."
+        )
+
+    normalized_lower = normalized.lower()
+    for prefix in VERIFICATION_COMMAND_PREFIXES:
+        if (
+            normalized_lower == prefix
+            or normalized_lower.startswith(f"{prefix} ")
+            or normalized_lower.startswith(f"{prefix}:")
+        ):
+            return normalized
+
+    raise RuntimeError(
+        "Allowed commands must be local test, lint, typecheck, or format-check "
+        "commands from the wrapper verification allowlist."
+    )
+
+
 def build_permissions(
     cwd: Path,
     allowed_paths: list[str],
@@ -112,7 +174,12 @@ def build_permissions(
 
     for supplied_path in allowed_paths:
         relative = Path(supplied_path)
-        if relative.is_absolute() or ".." in relative.parts:
+        if (
+            relative.is_absolute()
+            or relative.drive
+            or relative.root
+            or ".." in relative.parts
+        ):
             raise RuntimeError(
                 f"Allowed paths must stay inside the working directory: {supplied_path}"
             )
@@ -130,14 +197,12 @@ def build_permissions(
 
         normalized_paths.append(normalized)
         edit_rules[normalized] = "allow"
-        if resolved.is_dir() or supplied_path.endswith(("/", "\\")):
-            edit_rules[f"{normalized}/*"] = "allow"
+        edit_rules[f"{normalized}/*"] = "allow"
 
     bash_rules: dict[str, str] = {"*": "deny"}
     for pattern in allowed_commands:
-        if not pattern.strip():
-            raise RuntimeError("Allowed command patterns cannot be empty.")
-        bash_rules[pattern] = "allow"
+        normalized_command = normalize_verification_command(pattern)
+        bash_rules[normalized_command] = "allow"
 
     permissions: dict[str, object] = {
         "edit": edit_rules,
@@ -187,11 +252,33 @@ def stream_reader(
 def stop_process(process: subprocess.Popen[str]) -> None:
     if process.poll() is not None:
         return
-    process.terminate()
+    if os.name == "nt":
+        try:
+            subprocess.run(
+                ["taskkill", "/PID", str(process.pid), "/T", "/F"],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+        except OSError:
+            process.terminate()
+    else:
+        os.killpg(process.pid, signal.SIGTERM)
     try:
         process.wait(timeout=5)
     except subprocess.TimeoutExpired:
-        process.kill()
+        if os.name == "nt":
+            try:
+                subprocess.run(
+                    ["taskkill", "/PID", str(process.pid), "/T", "/F"],
+                    check=False,
+                    capture_output=True,
+                    text=True,
+                )
+            except OSError:
+                process.kill()
+        else:
+            os.killpg(process.pid, signal.SIGKILL)
         process.wait(timeout=5)
 
 
@@ -269,6 +356,7 @@ def run_monitored(
         errors="replace",
         bufsize=1,
         env=environment,
+        start_new_session=os.name != "nt",
     )
     assert process.stdout is not None
     assert process.stderr is not None
@@ -456,8 +544,6 @@ def main() -> int:
         "--agent",
         BOUNDED_AGENT,
     ]
-    for file_path in args.files:
-        command.extend(["--file", file_path])
     command.append(args.prompt)
 
     print(

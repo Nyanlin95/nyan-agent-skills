@@ -1,13 +1,25 @@
 ---
-name: opencode-cli
-description: Delegate limited, non-sensitive implementation work from a coding agent to the OpenCode CLI through an explicitly selected model and bounded file or folder paths. Use when the user asks to use OpenCode, OpenCode Zen, a currently free Zen model such as DeepSeek V4 Flash Free, or a low-cost external model to implement a small change, add focused tests, fix a bounded defect, work on a normal Git branch, or prepare changes for an optional pull request. Keep the primary coding agent responsible for branches, scope, diff review, verification, commits, publishing, and the final result. Do not use for secrets, personal data, confidential code, production access, or broad autonomous changes.
+name: handoff-to-opencode
+description: Hand off limited, non-sensitive implementation work from a coding agent to the OpenCode CLI through an explicitly selected model and bounded file or folder paths. Use when the user asks to hand off work to OpenCode, use OpenCode or OpenCode Zen, use a currently free Zen model such as DeepSeek V4 Flash Free, or use a low-cost external model to implement a small change, add focused tests, fix a bounded defect, work on a normal Git branch, or prepare changes for an optional pull request. Keep the primary coding agent responsible for branches, scope, diff review, verification, commits, publishing, and the final result. Do not use for secrets, personal data, confidential code, production access, or broad autonomous changes.
 ---
 
-# OpenCode CLI
+# Handoff to OpenCode
 
 Use OpenCode as a bounded implementation worker. Let it edit only the assigned files or folders. Keep the primary coding agent responsible for the task boundary, diff review, verification, commits, publishing, and the final answer.
 
 Use free models only for data that the user can safely send to an external provider. Some free Zen models can retain prompts and outputs for model improvement.
+
+## Handoff flow
+
+Use this flow in order. Keep the primary coding agent responsible for every step.
+
+1. Check the model, data safety, and task boundary.
+2. Define the acceptance rubric and allowed edit paths.
+3. Build the prompt and select the Git mode.
+4. Run the bounded wrapper.
+5. Interpret the lifecycle status and recover once when the rules allow it.
+6. Inspect and verify the complete result.
+7. Deliver only accepted changes through the requested Git workflow.
 
 ## Before delegation
 
@@ -111,18 +123,20 @@ The wrapper:
 - verifies the selected model against the live OpenCode model list;
 - rejects a model without the `-free` suffix by default;
 - requires one or more relative `--allow-path` values;
-- grants edits only to the assigned files or folders;
-- denies shell commands unless the primary coding agent supplies an `--allow-command` pattern;
+- grants edits only to the assigned paths and their descendants;
+- denies shell commands unless the primary coding agent supplies a local test, lint, typecheck, or format-check `--allow-command` pattern;
 - denies subagents, external directories, web access, and OpenCode skill loading;
 - disables external OpenCode plugins;
 - never passes `--auto` or `--share`;
 - reads OpenCode JSON events even when it prints plain output;
-- stops after the total timeout or the idle timeout;
+- stops the delegated process tree after the total timeout or the idle timeout;
 - emits one `OPENCODE_STATUS={...}` record on stderr.
 
 Use `--allow-non-free` only after the user approves a paid model.
 
 Use the narrowest practical edit paths. Do not pass `.` or the repository root. Add a command pattern only when the task needs that command. Never allow commit, push, destructive, installation, deployment, or credential commands.
+
+Do not attach arbitrary files to a delegated session. Put only approved, non-sensitive material under an assigned repository-relative path. The wrapper rejects command chaining, redirection, substitution, and command patterns outside its local verification allowlist.
 
 Always run delegated work through the bundled wrapper. Do not replace it with a raw `opencode run` invocation. The wrapper supplies the bounded agent, working directory, path rules, command rules, and lifecycle record.
 
@@ -139,6 +153,9 @@ Use `OPENCODE_STATUS` as the lifecycle record.
 - **quota_limited:** The failed run reported exhausted credits, quota, billing limits, or payment requirements.
 - **rate_limited:** The failed run reported HTTP 429, too many requests, or a provider rate limit.
 - **authentication_failed:** The failed run reported an invalid key, unauthorized access, or HTTP 401.
+- **configuration_error:** The wrapper rejected the working directory, allowed path, command pattern, timeout, or local OpenCode setup before delegation started.
+- **model_not_approved:** The selected model is not free and the user did not approve paid-model use.
+- **model_unavailable:** The selected model is absent from the current provider model list.
 - **idle_timeout:** OpenCode produced no output for the configured idle period. Treat this as suspected stuck behavior.
 - **total_timeout:** The session exceeded its total time budget.
 - **failed:** The process failed without a more specific classification.
@@ -175,6 +192,13 @@ For `authentication_failed`:
 2. Report that OpenCode Zen authentication needs attention.
 3. Do not request or expose the API key in the task transcript.
 4. Continue the task directly when possible.
+
+For `configuration_error`, `model_not_approved`, or `model_unavailable`:
+
+1. Report the wrapper reason without exposing sensitive paths or configuration.
+2. Correct the bounded input or select another approved live free model.
+3. Start a new session only after the correction.
+4. Continue the task directly when no safe delegated session is available.
 
 For `incomplete` or `failed`:
 
