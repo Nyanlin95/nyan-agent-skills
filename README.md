@@ -2,7 +2,7 @@
 
 Agent ကို လိုအပ်သည်များ အောက်ပါအတိုင်း မှာကြားနိုင်ပါတယ်
 
-Independent coding-agent skills with natural-language triggers for code review, implementation quality, UI visual review, and bounded OpenCode delegation. Each skill is self-contained under `skills/`.
+Independent coding-agent skills for constructive and adversarial review, implementation, local Git gates, visual review, technical writing, and bounded OpenCode handoffs. Each skill is self-contained under `skills/`.
 
 Released under the [MIT License](LICENSE).
 
