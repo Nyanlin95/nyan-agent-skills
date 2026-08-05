@@ -15,24 +15,55 @@ Use this skill when a rendered baseline exists: a screenshot, live route, workin
 
 Do not use this skill for greenfield concepting, backend or API design, or copywriting-first strategy. If no render is available, state the limitation and request one. Never claim to have inspected a state that was unavailable.
 
-## Operating mode
+## Evidence budget
 
-Follow these stages:
+Start with the smallest rendered baseline that can test the request. Do not load or retain every route, viewport, state, screenshot, or implementation file before the initial read.
 
-1. **Inspect:** Record the evidence, product context, implementation constraints, and current design system.
-2. **Diagnose:** Report strengths, problems, causes, and priorities from the evidence.
-3. **Implement:** Change code only when the user requests changes.
-4. **Verify:** Render the changed routes and states again.
-5. Compare the new render with the original evidence.
-6. Check for regressions.
+- **Quick:** Inspect one target surface and the one state that contains the reported problem.
+- **Standard:** Inspect the target route or workflow at its primary viewport, then add only the responsive or non-default states that can change a reported finding.
+- **Production:** Name the primary routes and high-risk states before inspection. Establish one baseline per route, then expand only where shared components, product risk, or a finding requires comparison.
 
-For an implementation request, report the diagnosis and make the authorized changes.
+Record compact evidence references: route or surface, viewport, state, and observation. Reopen a render when detail is needed instead of retaining large rendered artifacts in working context. Mark uninspected routes and states as unavailable. Expand the evidence budget only when the user broadens the scope or the current evidence indicates a systemic, accessibility, responsive, or release-risk problem.
 
-If the user requests recommendations first, wait for approval before you change code.
+## Interview the repository first
+
+Before asking the user for information that the repository can provide, inspect the smallest relevant evidence set. Start from the rendered surface, then read the route, owning component, current state names, relevant types, tests, product documentation, and design-system rules that explain it.
+
+Use the render and identified owners to bound repository inspection. Do not search the whole repository or load unrelated implementation detail merely to avoid a question.
+
+Ask the user only when the repository evidence is unavailable, conflicts, or cannot answer a product-direction question. Always ask before a decision that needs product authority, including a broad implementation scope or a protected behavior change. Do not infer that authority from source code, tests, or historical conventions.
+
+## Mandatory flow
+
+Use this sequence for every implementation request. Do not change code before you complete the required pre-change steps.
+
+### Pre-change
+
+1. Set the review depth and evidence budget.
+2. Inspect the target render and read the relevant repository evidence.
+3. Record the baseline, product context, implementation constraints, and design system.
+4. Diagnose the strengths, problems, causes, priorities, and affected states.
+5. Select and justify the change posture.
+6. Classify the proposed scope as localized or broad.
+7. State a broad implementation proposal when the scope is broad.
+8. Get explicit authority before you implement a broad scope.
+9. Implement only the authorized scope.
+
+### Post-change
+
+1. Render the changed surface again within the evidence budget.
+2. Compare the new render with the baseline.
+3. Check the named regression surfaces.
+4. Report the verified result and any remaining risk.
+5. Ask whether to stop or authorize a separately scoped next iteration.
+
+Do not treat a post-change question as authority to change an unapproved surface. If the user requests recommendations only, stop after the pre-change diagnosis.
 
 ## Select review depth
 
 Choose the smallest depth that can answer the request and state it in the review summary.
+
+Set the review depth before you inspect the interface.
 
 - **Quick** — one component or narrow screenshot. Report a contextual read, strengths, up to five findings, meaningful before/after changes, and a verification list.
 - **Standard** — one route or workflow. Report up to ten findings. Inspect relevant responsive and non-default states.
@@ -42,15 +73,15 @@ Do not fill the finding cap. A short review or no findings is a valid result.
 
 ## Read the interface before judging it
 
-Identify:
+Record:
 
-- Identify the interface type and primary task.
-- Identify the audience and usage frequency.
-- Select an appropriate information density.
-- Identify the design language and brand anchors.
-- Identify accessibility, platform, regulatory, and trust constraints.
-- Identify protected product structure, terms, analytics, and behavior.
-- Read the user references and design-system documentation.
+- The interface type and primary task.
+- The audience and usage frequency.
+- The appropriate information density.
+- The design language and brand anchors.
+- The accessibility, platform, regulatory, and trust constraints.
+- The protected product structure, terms, analytics, and behavior.
+- The relevant user references and design-system documentation.
 
 Start a substantial review with one sentence about the interface, audience, task, and visual priorities.
 
@@ -64,28 +95,43 @@ Respect quiet constraints. A financial product needs precise number and status c
 - **Modernize** — preserve information architecture and brand anchors while improving tokens, components, hierarchy, responsiveness, and interaction behavior.
 - **Overhaul** — use only when the current structure prevents task completion, responsive behavior is fundamentally broken, the design system cannot support the product, or the user explicitly requests a major redesign.
 
-State the posture when it materially affects the recommendations.
+State the posture and the evidence that supports it whenever you recommend or implement a change. When the user asks to modernize, replace, recompose, redesign, or make a substantial visual change, assess Modernize before choosing Preserve. State why Preserve is sufficient or why it would leave a structural problem unresolved.
 
 ## Change authorization
 
 Treat a change as broad when it changes a user task, information architecture, domain relationship, control meaning, route, navigation, workflow order, or multiple primary surfaces.
 
+Classify the scope before you implement a change.
+
 Diagnose and recommend a broad change from the available evidence. Before you implement it, state the scope, affected tasks, protected behavior, and verification plan. Then get explicit user approval.
 
 An implementation request is enough for a localized change that preserves the existing task, structure, and control meaning. Do not request confirmation for ordinary review, evidence gathering, or a bounded visual fix.
+
+## Broad implementation proposal
+
+Before requesting authority for a broad implementation, state:
+
+1. The selected posture and the observed problem it addresses.
+2. The affected routes, surfaces, and user tasks.
+3. The visual-system changes, such as layout, hierarchy, density, shared components, tokens, or responsive behavior.
+4. The protected behavior that must not change.
+5. Any proposed change to information architecture, navigation meaning, workflow order, or control meaning.
+6. The bounded rendered-evidence and regression plan.
+
+Get explicit approval before you edit a broad scope. After the authorized fix, use the post-change render to ask whether the user wants another scoped proposal. Do not roll an unapproved next phase into the completed change.
 
 ## Inspect the implementation context
 
 When code is available, identify:
 
-- Identify the framework, router, and rendering model.
-- Identify the styling system and its version.
-- Identify the theme and design tokens.
-- Identify shared components and their owners.
-- Identify icon, asset, chart, and animation sources.
-- Identify component-preview tools.
-- Identify visual, accessibility, and responsive test tools.
-- Check available dependencies before you recommend a new package.
+- The framework, router, and rendering model.
+- The styling system and its version.
+- The theme and design tokens.
+- The shared components and their owners.
+- The icon, asset, chart, and animation sources.
+- The component-preview tools.
+- The visual, accessibility, and responsive test tools.
+- The available dependencies before you recommend a new package.
 
 Follow the existing stack. Do not migrate frameworks or styling libraries for visual polish. Verify that every proposed import and dependency exists.
 
@@ -105,20 +151,22 @@ Never silently change:
 
 Flag a protected element if it creates a problem, but state that explicit product or engineering approval is required.
 
-## Evidence workflow
+## Inspect the evidence
+
+Use this checklist in pre-change steps 2 through 4. Inspect only the evidence that fits the selected budget and scope.
 
 1. Record available and unavailable evidence.
 2. Inspect the entry point and reading order.
 3. Inspect hierarchy, primary actions, grouping, spacing rhythm, density, alignment, and visual noise.
 4. Compare repeated controls, cards, headings, tables, charts, badges, dialogs, lists, and empty states.
-5. Inspect all available interaction and data states.
+5. Inspect the interaction and data states that can affect a finding.
 6. Inspect responsive transitions, not only the smallest and largest screenshots.
 7. Check wrapping, reflow, overflow, sticky elements, touch targets, safe areas, and reading order.
 8. Check the responsive strategy for tables and charts.
 9. Trace each visible problem to its owning component, primitive, token, or utility.
 10. Rank the findings.
 11. Recommend targeted changes.
-12. After an authorized change, render the same routes, viewports, content, and states again.
+12. Use the post-change flow after an authorized change.
 
 Prefer a live route over a single screenshot when it is available. Resize the viewport and exercise real states rather than guessing between breakpoints.
 
@@ -344,7 +392,7 @@ Adapt the output to the selected review depth. A Standard or Production review s
 9. **Design rules update:** Separate confirmed rules, recommended rules, and local exceptions.
 10. **Verification:** List completed and unavailable checks.
 11. **Verdict:** End with Block, Needs changes, or Approve.
-12. **Next iteration prompt:** Include this only when implementation is expected.
+12. **Next-scope question:** After implementation and post-change verification, ask whether to stop or authorize a separately scoped next iteration.
 
 Do not pad the report with empty sections or dimensions without meaningful findings.
 

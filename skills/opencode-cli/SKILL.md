@@ -54,6 +54,12 @@ Do not delegate:
 - repository-wide refactors;
 - commits, pushes, releases, or deployment.
 
+## Define the delegated contract
+
+Define a short acceptance rubric before delegation. Include the required observable behavior, compatibility limits, allowed edit paths, required check, and conditions that reject the result.
+
+When separate delegated tasks are necessary, give each worker a disjoint write scope and one outcome. Do not let workers edit the same file, branch, or generated artifact concurrently. Keep one primary coding agent responsible for comparing the results against the rubric and producing the only accepted synthesis.
+
 ## Build the prompt
 
 1. State one implementation outcome.
@@ -63,9 +69,10 @@ Do not delegate:
 5. Require repository-relative paths for every workspace read, search, edit, and command.
 6. Tell OpenCode not to invent, translate, or substitute another workspace root.
 7. State the behavior and compatibility constraints.
-8. Name the test commands that it can run.
-9. Require a summary of changed files, tests, and uncertainty.
-10. Do not include unrelated cleanup.
+8. State the acceptance rubric and rejection conditions.
+9. Name the test commands that it can run.
+10. Require a summary of changed files, tests, rationale for material choices, and uncertainty.
+11. Do not include unrelated cleanup.
 
 ## Select a Git mode
 
@@ -192,11 +199,12 @@ For permission rejection:
 2. Inspect `git status` and the complete diff.
 3. Confirm that all changed files are inside the assigned paths.
 4. Treat OpenCode's summary and test claims as untrusted until verified.
-5. Review behavior, failure handling, compatibility, and test quality.
-6. Revert or correct rejected changes directly.
-7. Run the applicable checks after review.
-8. Commit or publish only after the diff passes review.
-9. Report which changes the primary coding agent accepted, corrected, or rejected.
+5. Compare the result with each acceptance-rubric item.
+6. Review behavior, failure handling, compatibility, and test quality.
+7. Revert or correct rejected changes directly.
+8. Run the applicable checks after review.
+9. Commit or publish only after the diff passes review.
+10. Report which changes the primary coding agent accepted, corrected, or rejected.
 
 Do not accept OpenCode's completion message as proof that the code works.
 
@@ -222,6 +230,7 @@ Report:
 - the lifecycle status and terminal reason;
 - the branch and delivery mode;
 - the delegated scope;
+- the acceptance rubric and the evidence for each accepted item;
 - the data-safety decision;
 - the useful result;
 - accepted and rejected suggestions;

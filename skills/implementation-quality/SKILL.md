@@ -21,6 +21,22 @@ Do not retain a duplicate owner, compatibility facade, stale test, or partial ro
 
 Limit unrelated expansion. Do not add speculative abstractions, features, dependency upgrades, or repository-wide conventions that are not necessary to complete the ownership correction.
 
+## Execution discipline
+
+For a non-trivial change:
+
+1. State the observable behavior that must hold.
+2. Build the smallest rerunnable proof for that behavior.
+3. Change one unit that can be checked independently.
+4. Run the relevant check before changing the next unit.
+5. Exercise the real artifact or complete data flow when the behavior crosses a runtime boundary.
+
+Keep a script, focused test, fixture, trace query, or documented command when it makes future verification cheaper. Do not treat a one-time manual assertion or a delegate report as the only proof of a durable behavior.
+
+Prefer removal before addition. Delete dead paths, redundant guards, obsolete tests, and temporary migration code when their removal is required to leave one canonical owner. Do not preserve accidental complexity merely because it is already present.
+
+Fix the owner, lifecycle, state transition, or routing rule that causes a defect. Reproduce the failure, trace it to that cause, and inspect sibling paths for the same fault. Do not add a wording-specific suppression, fallback, or UI exception that only hides the defect.
+
 ## Before editing
 
 1. Find the current owner of the behavior and its callers.
@@ -209,6 +225,7 @@ If the parity test finds an intentional difference, stop the migration. Ask the 
 4. Remove unused configuration, modes, extension points, and generic behavior.
 5. Trace success, side effects, and failure through the changed path.
 6. Run the smallest reliable test for the changed behavior and failure path.
-7. For a migration, confirm that you completed each lifecycle step in order.
+7. Run the rerunnable proof and record any unverified boundary.
+8. For a migration, confirm that you completed each lifecycle step in order.
 
 Report the requested intent, chosen owner, any new or rejected abstraction, checks run, and remaining risk concisely.

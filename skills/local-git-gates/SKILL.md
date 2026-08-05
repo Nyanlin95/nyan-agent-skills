@@ -70,6 +70,18 @@ Run the full local gate when the change is broad, when the path routing is uncer
 
 Do not report a path-routed check as proof that the whole repository passes.
 
+## Promote repeat failures carefully
+
+Promote a repeated correction into a validator or local gate only when the rule is objective, deterministic, and has a clear owner.
+
+1. Record the concrete failure that recurs.
+2. Prefer the lowest-cost enforcement point that prevents it.
+3. Reuse an existing project command when it already owns the rule.
+4. Add a focused validator or runner check only when no owner can enforce it.
+5. Verify that the rule passes for valid input and fails with a direct rerun command for the invalid case.
+
+Do not automate subjective review judgment, product choices, or rules with unstable inputs. Keep those decisions in the review or implementation skill that owns them.
+
 ## Install without surprising the developer
 
 Store hook files in the repository. Use a documented installer to set the repository-local `core.hooksPath` value.

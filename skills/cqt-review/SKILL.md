@@ -41,6 +41,12 @@ Do not attribute an existing defect to the reviewed change without evidence.
 
 Use static checks and architecture contracts to prove static properties. Use a test, trace, or rendered user journey to prove runtime behavior. Do not claim a workflow succeeds from static evidence alone.
 
+## Change reach and rationale
+
+For a changed behavior, state the safety claim, then trace its direct callers, consumers, state or persistence boundary, external boundary, and failure or recovery path. Follow only the paths that can affect that claim. Run code when static inspection cannot prove the claim.
+
+Do not infer design intent from code shape alone. When rationale affects a finding, inspect available decision records, issue or pull-request discussion, tests, documentation, and commit history separately. Label the rationale as observed, inferred, or unavailable. State competing plausible explanations when the evidence cannot select one.
+
 ## Core model
 
 Evaluate three separate dimensions.
@@ -813,6 +819,12 @@ Relevant symbols, call paths, tests, or runtime behavior.
 
 Evidence status:
 Observed, inferred, or unavailable coverage. State any material limit.
+
+Change reach:
+The direct consumers and runtime boundaries checked, or the unverified boundary.
+
+Rationale status:
+Observed, inferred, unavailable, or not material to this finding.
 
 Domain-language status:
 Resolved, or the unresolved term, scenario, and affected ownership boundary.
