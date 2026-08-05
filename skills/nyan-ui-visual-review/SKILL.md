@@ -155,6 +155,8 @@ Flag a protected element if it creates a problem, but state that explicit produc
 
 Use this checklist in pre-change steps 2 through 4. Inspect only the evidence that fits the selected budget and scope.
 
+Use non-mutating interactions and isolated test data by default. Do not submit forms, send messages, alter records, trigger payments, or perform destructive actions merely to inspect a state. Require explicit authorization for the exact non-production target before a state-changing interaction. Mark the state as unavailable when safe inspection evidence is not available.
+
 1. Record available and unavailable evidence.
 2. Inspect the entry point and reading order.
 3. Inspect hierarchy, primary actions, grouping, spacing rhythm, density, alignment, and visual noise.
@@ -391,7 +393,7 @@ Adapt the output to the selected review depth. A Standard or Production review s
 8. **Implementation recommendations:** Separate required fixes, system improvements, and optional polish.
 9. **Design rules update:** Separate confirmed rules, recommended rules, and local exceptions.
 10. **Verification:** List completed and unavailable checks.
-11. **Verdict:** End with Block, Needs changes, or Approve.
+11. **Verdict:** End with Block, Needs changes, Approve with follow-ups, or Approve.
 12. **Next-scope question:** After implementation and post-change verification, ask whether to stop or authorize a separately scoped next iteration.
 
 Do not pad the report with empty sections or dimensions without meaningful findings.
@@ -409,7 +411,8 @@ Do not invent rejected candidates to meet a count.
 For Verdict:
 
 - Use **Block** when a Critical finding remains.
-- Use **Needs changes** when only Major, Moderate, or Minor findings remain.
+- Use **Needs changes** when a required Major, Moderate, or Minor finding remains.
+- Use **Approve with follow-ups** when required fixes are complete and only optional polish remains. List the optional work and its reason for deferral.
 - Use **Approve** only when no actionable findings remain and the claimed coverage was verified.
 
 ## Design rules across iterations
@@ -467,4 +470,4 @@ In the final review:
 6. Give the first action.
 7. Give the verification method.
 8. State whether the inspected result is ready to ship.
-9. End with Block, Needs changes, or Approve.
+9. End with Block, Needs changes, Approve with follow-ups, or Approve.

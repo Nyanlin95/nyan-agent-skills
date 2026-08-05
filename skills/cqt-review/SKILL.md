@@ -41,6 +41,14 @@ Do not attribute an existing defect to the reviewed change without evidence.
 
 Use static checks and architecture contracts to prove static properties. Use a test, trace, or rendered user journey to prove runtime behavior. Do not claim a workflow succeeds from static evidence alone.
 
+## Review authority and active checks
+
+Review artifacts and report findings by default. Do not edit code, data, configuration, infrastructure, or external systems unless the user separately authorizes implementation.
+
+Run only read-only inspection and local, hermetic verification by default. Before an active check can mutate data, call a provider, send a message, charge a payment method, or interrupt a process, require explicit authorization for the exact non-production target. Otherwise, record the runtime evidence as unavailable.
+
+When a user authorizes a fix, hand the accepted finding to `implementation-quality`. Keep CQT responsible for the finding, its evidence, the recommended owner, and the required verification.
+
 ## Change reach and rationale
 
 For a changed behavior, state the safety claim, then trace its direct callers, consumers, state or persistence boundary, external boundary, and failure or recovery path. Follow only the paths that can affect that claim. Run code when static inspection cannot prove the claim.
@@ -603,9 +611,9 @@ P2 findings do not block beta delivery unless several combine into a concrete P1
 
 ## Beta change policy
 
-When reviewing or fixing beta code, apply this rule:
+When reviewing beta code, apply this rule to the recommended correction:
 
-> Implement a complete ownership correction that preserves current behavior, gives the changed behavior a clear owner, and creates no new irreversible coupling.
+> Recommend a complete ownership correction that preserves current behavior, gives the changed behavior a clear owner, and creates no new irreversible coupling.
 
 Smallest does not mean careless. Coherent means:
 
@@ -618,9 +626,9 @@ Smallest does not mean careless. Coherent means:
 
 Complete does not mean few files. Include the destination owner, direct callers, contracts, state boundaries, generated artifacts, and tests that must change to leave one canonical owner. Do not preserve a duplicate owner or partial route merely to make the diff smaller.
 
-## Agent change budget
+## Recommended change budget
 
-Coding agents must not turn a review finding into an unlimited migration.
+Do not turn a review finding into an unlimited migration.
 
 Unless the user sets another budget, use these defaults for a single fix:
 
@@ -640,7 +648,7 @@ Do not reject a beta task because the ideal architecture requires too many depen
 
 When a dependency is broad, old, or difficult to replace, prefer containment.
 
-### Migration and fork lifecycle
+### Code-owner and fork lifecycle
 
 Treat a fork as a temporary parallel implementation. Flag a fork that becomes a second owner.
 
@@ -662,6 +670,20 @@ Review or plan the migration in this order:
 If both paths cannot use the same input, accept contract fixtures or recorded outputs. State the limits of this comparison.
 
 Flag any fork that gets separate features, policies, or callers.
+
+### Schema and data migration lifecycle
+
+Use this lifecycle when a change alters persisted schema, stored data, or compatibility between deployed versions. Do not treat code-path parity as proof that the data migration is safe.
+
+1. Identify the old and new schemas, data owners, compatibility window, and source of truth.
+2. Require an additive schema change that old and new readers and writers can use before the rollout.
+3. Require an idempotent, resumable backfill with explicit checkpoints and retry behavior.
+4. Require production-shaped legacy fixtures that include malformed, partial, duplicate, and boundary records.
+5. Define data invariants and a reconciliation method such as counts, checksums, or sampled record comparison.
+6. Define deployment order and reader/writer authority for mixed-version clients.
+7. Define the stop condition and the rollback boundary, or state the forward-recovery path when rollback is unsafe.
+8. Require progress, error, invariant, and reconciliation signals before and during cutover.
+9. Remove old reads, writes, schema, and migration code only after compatibility ends and reconciliation succeeds.
 
 ### Adapter
 

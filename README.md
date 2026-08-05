@@ -31,6 +31,25 @@ Share the files, diff, pull request, migration plan, or repository scope that th
 Use $cqt-review to review this code.
 ```
 
+### Adversarial review
+
+Use `adversarial-review` when you want an independent attempt to disprove a plan, change, review, or CQT conclusion before acting on it. These requests match its trigger description:
+
+```text
+red-team this plan
+stress-test this pull request
+try to falsify this architecture decision
+challenge this CQT review
+find the failure case we missed
+play devil's advocate before we merge
+```
+
+Share the artifact and the decision it supports. To select it directly, write:
+
+```text
+Use $adversarial-review to challenge this CQT report before we implement its recommendations.
+```
+
 ### Implementation quality
 
 Use `implementation-quality` when you want a coding agent to write or refactor code. These requests match its trigger description:
@@ -112,13 +131,18 @@ State each file or folder that OpenCode can edit. Do not include secrets or conf
 Use $opencode-cli to implement this task only in src/auth/.
 ```
 
-One request can use more than one skill. For example, a coding agent can review code first and then refactor accepted findings.
+One request can use more than one skill. For a high-stakes change, use the skills in this order:
+
+1. Use `cqt-review` to identify ownership, lifecycle, and code-quality concerns.
+2. Use `adversarial-review` to try to falsify the CQT conclusions and the underlying change claims.
+3. Use `implementation-quality` to implement only the accepted, bounded corrections.
 
 ## Skills
 
 | Skill | Purpose |
 | :--- | :--- |
 | [cqt-review](skills/cqt-review/) | Review code and migrations for correctness, quality, taste, ownership, dependencies, state, and failure behavior. |
+| [adversarial-review](skills/adversarial-review/) | Try to falsify material claims in plans, changes, and reviews before a decision. |
 | [implementation-quality](skills/implementation-quality/) | Keep implementation and ownership migrations simple, readable, correctly owned, and free of accidental complexity. |
 | [local-git-gates](skills/local-git-gates/) | Design repository-local Git hooks that route changed paths to existing verification commands. |
 | [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Review rendered interfaces through bounded, evidence-backed domain coverage, systemic findings, targeted improvements, and a clear verdict. |

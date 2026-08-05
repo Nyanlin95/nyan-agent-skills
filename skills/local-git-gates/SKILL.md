@@ -60,6 +60,18 @@ Run whitespace checks against the pushed ranges. Respect the repository's end-of
 
 Do not validate only tracked working-tree files. Do not ignore untracked additions that the push contains. Do not bypass a failed hook with `--no-verify` as a normal workflow.
 
+## Run checks against the pushed object
+
+Do not assume that the checked-out `HEAD` is the local object named by a pre-push record. A developer can push a non-checked-out ref, and local changes can mask a defect in the pushed commit.
+
+1. Verify each local object before deriving ranges or running checks.
+2. Run a check that needs a working tree in an isolated temporary worktree at that local object.
+3. Run object-aware checks directly against the local object when they do not need a working tree.
+4. Reject the push with a direct rerun command when the runner cannot validate the exact local object safely.
+5. Keep uncommitted working-tree state out of the validation result.
+
+For a push with multiple non-deleted refs, validate each local object or report the exact object coverage that remains unavailable.
+
 ## Route checks by changed path
 
 Use the narrowest existing named check that covers each changed-path group.
@@ -69,6 +81,10 @@ Run a repository-wide static gate when the change crosses shared configuration, 
 Run the full local gate when the change is broad, when the path routing is uncertain, or before a large merge. State when the full gate was not run.
 
 Do not report a path-routed check as proof that the whole repository passes.
+
+Treat changed paths as opaque data. Use NUL-delimited Git output such as `git diff --name-only -z`, parse it without line splitting, and retain paths in an argument-safe collection. Pass paths after `--` where a command accepts paths. Never use `eval`, shell interpolation, or newline-delimited parsing for changed paths.
+
+Test routing with paths that contain whitespace, newlines, shell metacharacters, and a leading dash.
 
 ## Promote repeat failures carefully
 
@@ -88,17 +104,21 @@ Store hook files in the repository. Use a documented installer to set the reposi
 
 Check the current hook path before changing it. Ask for direction when another hook manager owns the path.
 
+State whether the installer changes the shared repository configuration or only the current worktree. Before changing configuration, inspect linked worktrees and their effective hook paths.
+
+Require explicit authorization before changing shared repository configuration, because a normal local Git config applies to every linked worktree. Use `git config --worktree` only when the repository enables worktree-specific configuration and the user authorizes that scope.
+
 Do not modify the global Git configuration. Do not overwrite an unknown hook path. Preserve executable permissions where the platform uses them.
 
 ## Verify the gate
 
-Test pure hook helpers without Git state. Cover ref parsing, new refs, deleted refs, multiple refs, empty changes, changed-path collection, and exit-status propagation.
+Test pure hook helpers without Git state. Cover ref parsing, new refs, deleted refs, multiple refs, empty changes, changed-path collection, hostile pathnames, and exit-status propagation.
 
 Run the runner directly with representative paths or ranges.
 
-Run the real hook entry point with representative ref-update input.
+Run the real hook entry point with representative ref-update input, including a pushed ref that is not the checked-out `HEAD`.
 
-Verify that the installer sets only the local repository configuration.
+Verify that the installer changes only the authorized repository-wide or worktree-specific configuration.
 
 Verify a successful check and a controlled failing check. Make sure the failure output identifies the failed named check and gives a direct rerun command.
 

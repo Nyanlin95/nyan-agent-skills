@@ -37,6 +37,12 @@ Prefer removal before addition. Delete dead paths, redundant guards, obsolete te
 
 Fix the owner, lifecycle, state transition, or routing rule that causes a defect. Reproduce the failure, trace it to that cause, and inspect sibling paths for the same fault. Do not add a wording-specific suppression, fallback, or UI exception that only hides the defect.
 
+## Active verification safety
+
+Run local, hermetic verification by default. Before a check can mutate data, call a provider, send a message, charge a payment method, or interrupt a process, require explicit authorization for the exact non-production target.
+
+Treat authorization to implement a change as separate from authorization to exercise a shared or external runtime. When safe runtime verification is unavailable, state the unverified boundary and its remaining risk.
+
 ## Before editing
 
 1. Find the current owner of the behavior and its callers.
@@ -216,6 +222,20 @@ If both paths cannot use the same input, use contract fixtures or recorded outpu
 Do not add separate features, policies, or callers to the fork.
 
 If the parity test finds an intentional difference, stop the migration. Ask the user to select the required behavior and owner.
+
+## Schema and data migration lifecycle
+
+Use this lifecycle when a change alters persisted schema, stored data, or compatibility between deployed versions. Do not treat code-path parity as proof that the data migration is safe.
+
+1. Identify the old and new schemas, data owners, compatibility window, and source of truth.
+2. Implement an additive schema change that old and new readers and writers can use before the rollout.
+3. Implement an idempotent, resumable backfill with explicit checkpoints and retry behavior.
+4. Test production-shaped legacy fixtures that include malformed, partial, duplicate, and boundary records.
+5. Define data invariants and a reconciliation method such as counts, checksums, or sampled record comparison.
+6. Define deployment order and reader/writer authority for mixed-version clients.
+7. Define the stop condition and the rollback boundary, or state the forward-recovery path when rollback is unsafe.
+8. Verify progress, error, invariant, and reconciliation signals before and during cutover.
+9. Remove old reads, writes, schema, and migration code only after compatibility ends and reconciliation succeeds.
 
 ## Before finishing
 

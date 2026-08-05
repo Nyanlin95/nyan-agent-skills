@@ -1,0 +1,4 @@
+interface:
+  display_name: "Adversarial Review"
+  short_description: "Falsify claims in plans, code, and reviews"
+  default_prompt: "Use $adversarial-review to stress-test this plan, change, or CQT review before acting on it."
