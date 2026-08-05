@@ -101,6 +101,7 @@ One request can use more than one skill. For example, Codex can review code firs
 | :--- | :--- |
 | [cqt-review](skills/cqt-review/) | Review code and migrations for correctness, quality, taste, ownership, dependencies, state, and failure behavior. |
 | [implementation-quality](skills/implementation-quality/) | Keep implementation and ownership migrations simple, readable, correctly owned, and free of accidental complexity. |
+| [local-git-gates](skills/local-git-gates/) | Design repository-local Git hooks that route changed paths to existing verification commands. |
 | [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Review rendered interfaces through bounded, evidence-backed domain coverage, systemic findings, targeted improvements, and a clear verdict. |
 | [opencode-cli](skills/opencode-cli/) | Delegate limited implementation work to a live OpenCode model within explicit paths, with optional branch and pull-request delivery. |
 

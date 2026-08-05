@@ -1,0 +1,4 @@
+interface:
+  display_name: "Local Git Gates"
+  short_description: "Design safe local Git verification gates"
+  default_prompt: "Use $local-git-gates to add local Git checks that reuse this repository's existing test commands."

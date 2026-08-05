@@ -7,7 +7,9 @@ description: Review a repository for code quality, code taste, ownership, abstra
 
 Review code for **Correctness, Quality, and Taste** while respecting the repository's current architecture, delivery stage, and change budget.
 
-The goal is not theoretical perfection. The goal is code whose behavior is reliable, intent is visible, decisions are correctly owned, abstractions are predictable, and important changes remain affordable.
+Review code for reliable behavior, visible intent, clear ownership, predictable abstractions, and affordable change.
+
+The canonical owner is the one module, component, or service that owns a rule or decision.
 
 ## Language behavior
 
@@ -16,6 +18,28 @@ Read [references/language-behavior.md](references/language-behavior.md) when a f
 Read [references/framework-behavior.md](references/framework-behavior.md) when framework lifecycle, reactivity, rendering, dependency injection, or server-client boundaries affect a finding.
 
 Confirm the language version, runtime, compiler settings, and framework behavior before reporting the finding. Do not turn a language preference into a correctness claim.
+
+## Evidence discipline
+
+Classify each material claim as one of these:
+
+- **Observed:** a current source, test, configuration, diff, trace, log, or rendered result proves the claim.
+- **Inferred:** the claim follows from observed evidence but needs an assumption about an unobserved path.
+- **Unavailable:** the required artifact, environment, credential, or runtime path was not available.
+
+State the evidence type and its limit. Do not present an inference as an observed defect. Reduce confidence or omit a finding when the evidence cannot support it.
+
+For a pull request or feature review:
+
+1. Read the repository status and relevant diff.
+2. Identify the behavior that the diff changes.
+3. Trace the changed path and its direct canonical owners.
+4. Compare the new behavior with the established contract and direct tests.
+5. Separate a change-introduced finding from pre-existing debt.
+
+Do not attribute an existing defect to the reviewed change without evidence.
+
+Use static checks and architecture contracts to prove static properties. Use a test, trace, or rendered user journey to prove runtime behavior. Do not claim a workflow succeeds from static evidence alone.
 
 ## Core model
 
@@ -79,7 +103,7 @@ Use these principles throughout the review:
 
 1. **Express intent.** Higher-level code should state what the system is trying to accomplish rather than narrating low-level mechanics.
 2. **Follow ownership boundaries.** Put each policy, invariant, lifecycle, and integration decision in its canonical owner.
-3. **Keep the underneath understandable.** An abstraction may hide details, but callers should still predict its effects, costs, failure modes, and conceptual implementation.
+3. **Make the underlying behavior understandable.** An abstraction may hide details, but callers should predict its effects, costs, failures, and purpose.
 4. **Prefer coherent local design.** Do not demand a repository-wide architecture migration to improve one critical seam.
 5. **Preserve useful repository conventions.** Do not replace an established pattern merely because another pattern is fashionable.
 6. **Distinguish blockers from adjacent debt.** Broad existing problems are not automatically blockers for a bounded beta change.
@@ -94,8 +118,6 @@ Connect each architecture finding to a critical user journey.
 4. Define the failure that the user can observe.
 5. Identify the runtime evidence that proves the behavior.
 
-Use static checks, dependency rules, and architecture contracts as supporting evidence. Do not use them as runtime proof.
-
 For a multi-phase workflow, find evidence for:
 
 - input identity and revision;
@@ -109,6 +131,21 @@ For a multi-phase workflow, find evidence for:
 Prioritize provenance, idempotency, recovery, and canonical-state correctness at trust boundaries.
 
 Recommend new test infrastructure only when it protects a durable product invariant or closes an evidence gap.
+
+## Domain language
+
+Use the existing domain model as review evidence. Read the relevant `CONTEXT-MAP.md` and `CONTEXT.md` when they exist. Compare the terms in code, tests, APIs, and user-visible behavior with the glossary.
+
+Flag a domain-language issue when an ambiguous, overloaded, conflicting, or missing term causes an incorrect owner, invalid state, contradictory policy, unsafe boundary, or misleading workflow. Report a term variation only when it affects behavior, ownership, state, or a boundary.
+
+When the review cannot identify a canonical owner because the model itself is unresolved, state:
+
+1. The ambiguous term or relationship.
+2. The competing meanings found in the code or glossary.
+3. The concrete scenario that requires a decision.
+4. The affected workflow, policy, or ownership boundary.
+
+Do not create or edit a glossary or ADR during a CQT review. Report the unresolved question for a separate domain-modeling decision. Resume the review against the resolved model.
 
 ## Review preparation
 
@@ -283,7 +320,7 @@ over:
 <Experience mode="conversion" context={data} />
 ```
 
-The first examples compress understanding. The second examples create opacity.
+The first examples name the action. The second examples hide the action.
 
 ### Decomposition is not automatically abstraction
 
@@ -562,7 +599,7 @@ P2 findings do not block beta delivery unless several combine into a concrete P1
 
 When reviewing or fixing beta code, apply this rule:
 
-> Implement the smallest coherent vertical slice that preserves current behavior, gives the changed behavior a clear owner, and creates no new irreversible coupling.
+> Implement a complete ownership correction that preserves current behavior, gives the changed behavior a clear owner, and creates no new irreversible coupling.
 
 Smallest does not mean careless. Coherent means:
 
@@ -573,16 +610,18 @@ Smallest does not mean careless. Coherent means:
 - verification exists;
 - temporary debt is narrow and removable.
 
+Complete does not mean few files. Include the destination owner, direct callers, contracts, state boundaries, generated artifacts, and tests that must change to leave one canonical owner. Do not preserve a duplicate owner or partial route merely to make the diff smaller.
+
 ## Agent change budget
 
 Coding agents must not turn a review finding into an unlimited migration.
 
 Unless the user sets another budget, use these defaults for a single fix:
 
-- Modify the affected feature and its direct tests.
+- Modify every direct participant required to complete the ownership correction.
 - Do not rename or move unrelated repository areas.
 - Do not upgrade dependencies unless the behavior requires an upgrade.
-- Add at most one abstraction for a meaningful boundary.
+- Add only the abstractions required by the corrected ownership boundary.
 - Preserve public APIs when practical.
 - Do not add a framework, registry, or general extension system.
 - Stop when an issue is unrelated to the requested behavior.
@@ -772,6 +811,12 @@ What the code currently does.
 Evidence:
 Relevant symbols, call paths, tests, or runtime behavior.
 
+Evidence status:
+Observed, inferred, or unavailable coverage. State any material limit.
+
+Domain-language status:
+Resolved, or the unresolved term, scenario, and affected ownership boundary.
+
 Why it matters:
 The concrete correctness, ownership, comprehension, misuse, or change-cost impact.
 
@@ -836,9 +881,10 @@ For a repository review, report:
 4. Report ownership and abstraction findings.
 5. Report dependency hotspots and safe containment options.
 6. Separate code-taste findings from correctness findings.
-7. Give the recommended fix order.
-8. List deliberate non-fixes.
-9. List completed checks and evidence limits.
+7. List unresolved domain-language questions.
+8. Give the recommended fix order.
+9. List deliberate non-fixes.
+10. List completed checks and evidence limits.
 
 For a pull-request or feature review, report:
 
@@ -846,9 +892,10 @@ For a pull-request or feature review, report:
 2. Report correctness and failure findings.
 3. Identify the canonical owner.
 4. Report abstraction and dependency findings.
-5. Recommend the smallest responsible changes.
-6. List the required tests and checks.
-7. State the remaining risk.
+5. List unresolved domain-language questions.
+6. Recommend the smallest responsible changes.
+7. List the required tests and checks.
+8. State the remaining risk.
 
 Keep findings concise, evidence-based, and ranked. Do not produce a long inventory of minor observations merely to appear comprehensive.
 

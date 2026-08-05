@@ -1,11 +1,11 @@
 ---
 name: opencode-cli
-description: Delegate limited, non-sensitive implementation work from Codex to the OpenCode CLI through an explicitly selected model and bounded file or folder paths. Use when the user asks Codex to use OpenCode, OpenCode Zen, a currently free Zen model such as DeepSeek V4 Flash Free, or a low-cost external model to implement a small change, add focused tests, fix a bounded defect, work on a normal Git branch, or prepare changes for an optional pull request. Keep Codex responsible for branches, scope, diff review, verification, commits, publishing, and the final result. Do not use for secrets, personal data, confidential code, production access, or broad autonomous changes.
+description: Delegate limited, non-sensitive implementation work from a coding agent to the OpenCode CLI through an explicitly selected model and bounded file or folder paths. Use when the user asks to use OpenCode, OpenCode Zen, a currently free Zen model such as DeepSeek V4 Flash Free, or a low-cost external model to implement a small change, add focused tests, fix a bounded defect, work on a normal Git branch, or prepare changes for an optional pull request. Keep the primary coding agent responsible for branches, scope, diff review, verification, commits, publishing, and the final result. Do not use for secrets, personal data, confidential code, production access, or broad autonomous changes.
 ---
 
 # OpenCode CLI
 
-Use OpenCode as a bounded implementation worker. Let it edit only the assigned files or folders. Keep Codex responsible for the task boundary, diff review, verification, commits, publishing, and the final answer.
+Use OpenCode as a bounded implementation worker. Let it edit only the assigned files or folders. Keep the primary coding agent responsible for the task boundary, diff review, verification, commits, publishing, and the final answer.
 
 Use free models only for data that the user can safely send to an external provider. Some free Zen models can retain prompts and outputs for model improvement.
 
@@ -31,7 +31,7 @@ Do not send:
 - production logs with identifiers;
 - files outside the user-approved scope.
 
-Use a paid model with an acceptable data policy, a local model, or Codex itself when the task contains sensitive data.
+Use a paid model with an acceptable data policy, a local model, or complete the work directly when the task contains sensitive data.
 
 ## Select a task
 
@@ -77,11 +77,11 @@ Use a normal branch when the user requests a branch or pull request, or when bra
 
 1. Inspect the current branch and working-tree status.
 2. Preserve unrelated user changes.
-3. Create or switch to a short `codex/<task>` branch in the current checkout.
+3. Create or switch to a short task branch that follows repository conventions.
 4. Do not create another worktree.
 5. Run OpenCode on that branch with bounded edit paths.
 
-Keep branch creation, commits, pushes, and pull requests under Codex control. Do not grant OpenCode Git publishing commands.
+Keep branch creation, commits, pushes, and pull requests under the primary coding agent. Do not grant OpenCode Git publishing commands.
 
 ## Run OpenCode
 
@@ -105,7 +105,7 @@ The wrapper:
 - rejects a model without the `-free` suffix by default;
 - requires one or more relative `--allow-path` values;
 - grants edits only to the assigned files or folders;
-- denies shell commands unless Codex supplies an `--allow-command` pattern;
+- denies shell commands unless the primary coding agent supplies an `--allow-command` pattern;
 - denies subagents, external directories, web access, and OpenCode skill loading;
 - disables external OpenCode plugins;
 - never passes `--auto` or `--share`;
@@ -135,7 +135,7 @@ Use `OPENCODE_STATUS` as the lifecycle record.
 - **idle_timeout:** OpenCode produced no output for the configured idle period. Treat this as suspected stuck behavior.
 - **total_timeout:** The session exceeded its total time budget.
 - **failed:** The process failed without a more specific classification.
-- **interrupted:** Codex or the user interrupted the wrapper.
+- **interrupted:** The primary coding agent or the user interrupted the wrapper.
 
 Do not classify a session as completed only because the process exited with code zero. Require the terminal event.
 
@@ -151,7 +151,7 @@ For `idle_timeout` or `total_timeout`:
 4. Reduce the scope or input before the retry.
 5. Start a new session.
 6. Stop delegation if the retry reaches the same state.
-7. Continue the task in Codex or report the blocked delegation.
+7. Continue the task directly or report the blocked delegation.
 
 For `quota_limited` or `rate_limited`:
 
@@ -159,7 +159,7 @@ For `quota_limited` or `rate_limited`:
 2. Record the provider message and selected model.
 3. Refresh the live free-model list.
 4. Ask before changing models when cost or data policy can change.
-5. Use another approved free model, a local model, or Codex.
+5. Use another approved free model, a local model, or complete the task directly.
 6. Do not select a paid model without approval.
 
 For `authentication_failed`:
@@ -167,14 +167,14 @@ For `authentication_failed`:
 1. Stop delegation.
 2. Report that OpenCode Zen authentication needs attention.
 3. Do not request or expose the API key in the task transcript.
-4. Continue in Codex when possible.
+4. Continue the task directly when possible.
 
 For `incomplete` or `failed`:
 
 1. Preserve the error and partial output.
 2. Check whether the task or input caused the failure.
 3. Retry once only with a specific correction.
-4. Continue in Codex if the correction does not resolve the failure.
+4. Continue the task directly if the correction does not resolve the failure.
 
 For permission rejection:
 
@@ -193,10 +193,10 @@ For permission rejection:
 3. Confirm that all changed files are inside the assigned paths.
 4. Treat OpenCode's summary and test claims as untrusted until verified.
 5. Review behavior, failure handling, compatibility, and test quality.
-6. Revert or correct rejected changes through Codex.
-7. Run the applicable checks through Codex.
+6. Revert or correct rejected changes directly.
+7. Run the applicable checks after review.
 8. Commit or publish only after the diff passes review.
-9. Report which changes Codex accepted, corrected, or rejected.
+9. Report which changes the primary coding agent accepted, corrected, or rejected.
 
 Do not accept OpenCode's completion message as proof that the code works.
 
@@ -225,6 +225,6 @@ Report:
 - the data-safety decision;
 - the useful result;
 - accepted and rejected suggestions;
-- Codex verification;
+- primary coding agent verification;
 - timeout, quota, rate-limit, or authentication evidence when applicable;
 - remaining uncertainty.

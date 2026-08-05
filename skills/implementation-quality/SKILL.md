@@ -1,20 +1,33 @@
 ---
 name: implementation-quality
-description: Implement or refactor application code with simple design, clear ownership, readable control flow, and explicit failure behavior. Use when Codex must write code, move behavior to a new owner, choose an abstraction or component boundary, or replace old code through a parity-tested migration or temporary fork. Do not use for reviews or trivial mechanical edits.
+description: Implement or refactor application code with simple design, clear ownership, readable control flow, and explicit failure behavior. Use when a coding agent must write code, move behavior to a new owner, choose an abstraction or component boundary, or replace old code through a parity-tested migration or temporary fork. Do not use for reviews or trivial mechanical edits.
 ---
 
 # Implementation Quality
 
-Implement the requested behavior with the smallest design that makes intent, ownership, invariants, and failure paths clear. Preserve the repository's established architecture.
+Implement the requested behavior with a complete design that makes intent, ownership, invariants, and failure paths clear. Preserve the repository's established architecture.
+
+The canonical owner is the one module, component, or service that owns a rule or decision.
 
 A good abstraction lets a caller express what it wants without taking ownership of the mechanics beneath it. It should align with a real responsibility boundary and remain understandable enough that a reader can predict what is underneath, where failures come from, and where to look when behavior changes.
+
+## Refactor scope
+
+Set refactor scope from the behavior's ownership boundary, not from a file count or a preference for a local diff.
+
+A complete ownership correction can include the current owner, the destination owner, direct callers, public or generated contracts, state or persistence boundaries, and the tests and documentation that describe the moved behavior. Change every direct participant that is necessary to leave one canonical owner.
+
+Do not retain a duplicate owner, compatibility facade, stale test, or partial routing path merely to keep the refactor smaller. Use a temporary bridge only when compatibility requires it. State its owner and removal condition.
+
+Limit unrelated expansion. Do not add speculative abstractions, features, dependency upgrades, or repository-wide conventions that are not necessary to complete the ownership correction.
 
 ## Before editing
 
 1. Find the current owner of the behavior and its callers.
 2. Record the caller intent, input, result, failure behavior, and verification method.
 3. Assign each decision to its owning layer.
-4. Extend the existing owner unless the change establishes a real new boundary.
+4. Extend the existing owner only when it is the canonical owner.
+5. Establish the destination owner when the current owner crosses a real boundary.
 
 For product behavior:
 
@@ -25,6 +38,30 @@ For product behavior:
 5. Define the runtime evidence that proves the workflow.
 
 Do not use an architecture improvement as the only reason for a product change. Test the smallest realistic user journey.
+
+## Boundary contract changes
+
+Treat an API, event, IPC, serialization, tool, or provider change as one contract across its boundaries.
+
+1. Identify each producer of the contract.
+2. Identify each parser and validator of the contract.
+3. Identify each mapping layer and canonical internal model.
+4. Identify each consumer and generated artifact.
+5. Identify the success, invalid-input, and unavailable-dependency results.
+6. Update the direct tests, fixtures, and runtime evidence for the changed contract.
+7. Verify the full path at the smallest reliable seam.
+
+Keep external or transport shapes at their boundary. Do not spread them through domain code. Do not add a wording-specific suppression, fallback, or UI exception that only hides a broken owner, lifecycle, state transition, or routing rule.
+
+## Verification strength
+
+Match the proof to the risk of the changed behavior.
+
+- Use static checks to prove type, formatting, dependency, or generated-artifact constraints.
+- Use focused tests to prove policies, state transitions, mapping, and expected failures.
+- Use an integration test, trace, or rendered user journey when behavior crosses a process, persistence, provider, or UI boundary.
+
+Do not report runtime success from static checks alone. State any unverified boundary and its remaining risk.
 
 ## Abstraction model
 

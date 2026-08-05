@@ -17,7 +17,7 @@ from typing import TextIO
 
 
 DEFAULT_MODEL = "opencode/deepseek-v4-flash-free"
-BOUNDED_AGENT = "codex-delegate"
+BOUNDED_AGENT = "bounded-delegate"
 
 EXIT_CONFIGURATION = 2
 EXIT_QUOTA = 20
@@ -469,7 +469,7 @@ def main() -> int:
         {
             "agent": {
                 BOUNDED_AGENT: {
-                    "description": "Bounded implementation worker delegated by Codex.",
+                    "description": "Bounded implementation worker delegated by a coding agent.",
                     "mode": "primary",
                     "permission": permissions,
                 }
