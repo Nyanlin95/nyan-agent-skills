@@ -41,6 +41,18 @@ Do not attribute an existing defect to the reviewed change without evidence.
 
 Use static checks and architecture contracts to prove static properties. Use a test, trace, or rendered user journey to prove runtime behavior. Do not claim a workflow succeeds from static evidence alone.
 
+## Generated evidence
+
+When a release or approval claim depends on a generated artifact:
+
+1. Trace the producer that writes the artifact.
+2. Inspect the emitted artifact, not only the producer source.
+3. Check that the consumer validates the fields that carry the claim.
+4. Distinguish a current runtime result from a stored artifact that may be stale or manually changed.
+5. Record the artifact version, provenance, timestamp convention, and freshness rule when they affect the decision.
+
+Do not treat a passing status field as proof of the workflow unless the producer, consumer, and observable artifact agree on the claimed behavior.
+
 ## Review authority and active checks
 
 Review artifacts and report findings by default. Do not edit code, data, configuration, infrastructure, or external systems unless the user separately authorizes implementation.
@@ -187,6 +199,7 @@ Before evaluating individual files:
 9. Locate the test layers and deployment units.
 10. Infer the architecture from repeated code, not only folder names or documentation.
 11. Identify the critical user flows before you review files alphabetically.
+12. Locate the versioned plan or roadmap that tracks the requested scope and compare its status markers with the delivered state; a stale status marker is evidence of an undocumented or incomplete change.
 
 If scope is broad, first produce a system map. Do not immediately generate a long list of local style observations.
 
@@ -559,6 +572,8 @@ Check whether tests cover:
 - state transitions;
 - retry or idempotency behavior;
 - integration mapping at external boundaries.
+
+Run the repository's verification gates for the changed path, not only the unit tests. A change is incomplete when typecheck, build, format, or a scoped local gate fails, even if the tests pass. State which gates ran and which are unavailable.
 
 Prefer tests that describe behavior and outcomes.
 

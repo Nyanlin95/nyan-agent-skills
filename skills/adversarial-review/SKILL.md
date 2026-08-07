@@ -85,8 +85,11 @@ Choose attacks that can change the decision. Follow a critical input to its obse
 ### Verification and observability
 
 - Distinguish a test that executes code from one that proves the stated behavior at an observable seam.
+- Challenge generated evidence that can be accepted solely from a status flag: test whether its producer, version, provenance, timestamps, and freshness constraints are actually validated by the decision gate.
 - Exercise malformed, empty, oversized, delayed, duplicated, and boundary-value inputs only in an authorized test environment.
 - Challenge evidence that does not run the changed path, does not assert the required invariant, or cannot reveal production failure.
+- Challenge a completion claim that rests on passing tests when the repository's typecheck, build, format, or scoped local gate fails for the changed path.
+- Challenge an accessibility claim backed only by `tabindex` or handler presence when ARIA state values, focus lifecycle, skip-link routing, or reduced-motion behavior are untested.
 - Verify diagnostics, metrics, traces, user-visible status, and recovery instructions when the decision depends on operability.
 
 ### CQT report challenge

@@ -54,8 +54,9 @@ Use this sequence for every implementation request. Do not change code before yo
 1. Render the changed surface again within the evidence budget.
 2. Compare the new render with the baseline.
 3. Check the named regression surfaces.
-4. Report the verified result and any remaining risk.
-5. Ask whether to stop or authorize a separately scoped next iteration.
+4. Run the repository's verification gates for the changed path (typecheck, build, format, and tests) and report their results.
+5. Report the verified result and any remaining risk.
+6. Ask whether to stop or authorize a separately scoped next iteration.
 
 Do not treat a post-change question as authority to change an unapproved surface. If the user requests recommendations only, stop after the pre-change diagnosis.
 

@@ -257,7 +257,9 @@ Use this lifecycle when a change alters persisted schema, stored data, or compat
 4. Remove unused configuration, modes, extension points, and generic behavior.
 5. Trace success, side effects, and failure through the changed path.
 6. Run the smallest reliable test for the changed behavior and failure path.
-7. Run the rerunnable proof and record any unverified boundary.
-8. For a migration, confirm that you completed each lifecycle step in order.
+7. Run the repository's complete verification gate for the changed path (typecheck, build, format, and tests). Tests passing alone do not complete a change when a required gate fails.
+8. Update the versioned plan or roadmap status markers that track the delivered scope so they match the implemented state.
+9. Run the rerunnable proof and record any unverified boundary.
+10. For a migration, confirm that you completed each lifecycle step in order.
 
 Report the requested intent, chosen owner, any new or rejected abstraction, checks run, and remaining risk concisely.

@@ -12,6 +12,9 @@ Use these checks only when the domain is relevant to the inspected interface.
 - Check dynamic content announcements.
 - Check reduced-motion behavior.
 - Test browser zoom and text resizing when the interface can reflow.
+- Check skip links and in-page anchors against the actual router: a `href="#anchor"` target breaks a hash router by replacing the routed hash, and the target (for example `<main>`) must be focusable, such as with `tabindex="-1"`.
+- Check route-change focus lifecycle: move focus once per navigation, and flag effects or observers that refocus on every DOM update.
+- For adjustable controls, check the ARIA state values (`aria-valuenow`, `aria-valuemin`, `aria-valuemax`) and require tests that assert state and keyboard behavior, not only `tabindex` or handler presence.
 
 ## Layout
 
@@ -38,6 +41,8 @@ Use these checks only when the domain is relevant to the inspected interface.
 - Check that controls remain visually distinct from static content.
 - Select breakpoints from content failure, not common device widths.
 - Check intermediate widths, not only endpoint screenshots.
+- Record desktop and mobile evidence for every primary route; a desktop-only test or screenshot does not prove responsive behavior.
+- Require `matchMedia`-driven tests for mobile layouts and reduced-motion behavior when the interface reflows or animates.
 - Check safe areas, sticky regions, overflow, and clipped actions.
 - Check logical direction properties and RTL behavior.
 - Check localization growth and wrapping.

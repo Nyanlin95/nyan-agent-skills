@@ -166,7 +166,7 @@ Use more than one skill when a task needs more than one owner. For a high-risk c
 | [cqt-review](skills/cqt-review/) | Review code and migrations for correctness, quality, taste, ownership, dependencies, state, and failure behavior. |
 | [adversarial-review](skills/adversarial-review/) | Try to falsify material claims in plans, changes, and reviews before a decision. |
 | [implementation-quality](skills/implementation-quality/) | Keep implementation and ownership migrations simple, readable, correctly owned, and free of accidental complexity. |
-| [local-git-gates](skills/local-git-gates/) | Design repository-local Git hooks that route changed paths to existing verification commands. |
+| [local-git-gates](skills/local-git-gates/) | Design, install, or review repository-local Git hooks that route changed paths to existing verification commands. |
 | [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Review rendered interfaces through bounded, evidence-backed domain coverage, systemic findings, targeted improvements, and a clear verdict. |
 | [handoff-to-opencode](skills/handoff-to-opencode/) | Hand off limited implementation work to a live OpenCode model within explicit paths, with optional branch and pull-request delivery. |
 | [simplified-technical-writing](skills/simplified-technical-writing/) | Rewrite technical prose in strict or STE-flavored Simplified Technical English. |
