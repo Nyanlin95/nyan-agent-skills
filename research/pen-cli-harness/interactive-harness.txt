@@ -1,0 +1,115 @@
+pen.dev interactive CLI harness
+===============================
+
+Purpose
+-------
+
+The interactive harness calls pen.dev MCP tools directly against a .pen design.
+It can connect to a running desktop/IDE app or run a local headless editor.
+
+Commands
+--------
+
+Connect to the desktop app:
+
+  pen.cmd interactive --app desktop --in design.pen
+
+Start a headless editor:
+
+  pen.cmd interactive --in input.pen --out output.pen
+
+Start a new headless document:
+
+  pen.cmd interactive --out output.pen
+
+Options
+-------
+
+  --app, -a <name>          Connect to a running pen.dev app.
+  --in, -i <path>           Open an existing .pen file.
+  --out, -o <path>          Save path required by headless mode.
+  --preview-output <path>   Preview PNG path.
+  --enable-preview          Save a preview after each design change.
+  --help, -h                Print tool documentation.
+
+Shell syntax
+------------
+
+  tool_name({ key: value })   Call an MCP tool.
+  tool_name()                 Call a tool without arguments.
+  save()                      Save the document.
+  exit()                      Exit the shell.
+
+The harness injects the design file path. Tool calls do not take a file path.
+
+Exposed tools in version 0.3.2
+------------------------------
+
+browser
+  Loads a website in the integrated browser, imports editable layers, captures a
+  screenshot, or returns a selected element's DOM and computed styles.
+
+execute
+  Runs the design operation language. It supports new snippets through `input`
+  and repairs a failed snippet through `editId` plus ordered `edits`.
+
+export_html
+  Exports selected nodes as HTML with Tailwind or CSS.
+
+export_nodes
+  Exports selected nodes as PNG, JPEG, WEBP, or PDF.
+
+get_app_state
+  Returns editor state and optional schema, canvas-design instructions, and
+  script/shader instructions.
+
+get_guidelines
+  Lists or loads task guides and visual style references.
+
+get_screenshot
+  Renders one node, or the full document when nodeId is `document`.
+
+Recommended discovery sequence
+------------------------------
+
+  get_app_state({
+    include_canvas_design: true,
+    include_schema: true,
+    include_scripts_and_shaders: false
+  })
+
+  execute({
+    input: 'Get((n,c)=>{c.skipChildren();Print(n.id,n.name)})'
+  })
+
+  execute({
+    input: 'Get(n=>n.reusable&&Print(n.id,n.name))'
+  })
+
+  save()
+  exit()
+
+Failure repair contract
+-----------------------
+
+When an `execute` snippet fails, the response supplies an editId. Repair that
+same failed snippet with `editId` and `edits`; do not resend the entire snippet as
+a new `input`. Each edit replaces one exact `find` string with `replace`.
+
+Runtime structure visible in the compiled package
+-------------------------------------------------
+
+The compiled runtime contains an AgentHarness abstraction with:
+
+- session storage and context building;
+- model and reasoning-level selection;
+- active tool registration;
+- provider request/response hooks;
+- tool-call and tool-result hooks;
+- retry callbacks;
+- steering, follow-up, and next-turn queues;
+- compaction and branch summaries;
+- abort and error handling.
+
+This structure is inferred from readable symbols and strings in the compiled
+bundle. It is not the original source layout.

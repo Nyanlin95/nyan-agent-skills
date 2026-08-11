@@ -25,6 +25,10 @@ Start with the smallest rendered baseline that can test the request. Do not load
 
 Record compact evidence references: route or surface, viewport, state, and observation. Reopen a render when detail is needed instead of retaining large rendered artifacts in working context. Mark uninspected routes and states as unavailable. Expand the evidence budget only when the user broadens the scope or the current evidence indicates a systemic, accessibility, responsive, or release-risk problem.
 
+Treat screenshots as observations, not durable working memory. After the first inspection, record a compact evidence packet with the render path, viewport, state, findings, relevant geometry, and implementation owners. Reuse that packet until a new visual judgment requires reopening the render. Prefer selector-level crops and DOM geometry over repeated full-page screenshots.
+
+For a live HTML, React, Tailwind, or CSS interface, read [references/rendered-evidence-harness.md](references/rendered-evidence-harness.md) before a Standard or Production review. For a Quick review, read its Screenshot budget and Geometry probe sections when memory pressure or measurable layout claims are relevant.
+
 ## Interview the repository first
 
 Before asking the user for information that the repository can provide, inspect the smallest relevant evidence set. Start from the rendered surface, then read the route, owning component, current state names, relevant types, tests, product documentation, and design-system rules that explain it.
@@ -51,12 +55,13 @@ Use this sequence for every implementation request. Do not change code before yo
 
 ### Post-change
 
-1. Render the changed surface again within the evidence budget.
-2. Compare the new render with the baseline.
-3. Check the named regression surfaces.
-4. Run the repository's verification gates for the changed path (typecheck, build, format, and tests) and report their results.
-5. Report the verified result and any remaining risk.
-6. Ask whether to stop or authorize a separately scoped next iteration.
+1. Repeat the baseline geometry probe when the finding is measurable.
+2. Render the changed surface again within the evidence budget.
+3. Compare the same viewport, content, interaction state, and crop with the baseline.
+4. Check the named regression surfaces.
+5. Run the repository's verification gates for the changed path (typecheck, build, format, and tests) and report their results.
+6. Report the verified result and any remaining risk.
+7. Ask whether to stop or authorize a separately scoped next iteration.
 
 Do not treat a post-change question as authority to change an unapproved surface. If the user requests recommendations only, stop after the pre-change diagnosis.
 
@@ -171,6 +176,8 @@ Use non-mutating interactions and isolated test data by default. Do not submit f
 11. Recommend targeted changes.
 12. Use the post-change flow after an authorized change.
 
+Use screenshots for perceptual judgments such as hierarchy, balance, typography, color, depth, density, and optical alignment. Use DOM bounds, scroll geometry, and selected computed styles for measurable claims such as dimensions, spacing, clipping, overflow, shared axes, sticky behavior, and responsive thresholds. Do not dump the full DOM or all computed styles.
+
 Prefer a live route over a single screenshot when it is available. Resize the viewport and exercise real states rather than guessing between breakpoints.
 
 ## Evidence requirements
@@ -194,6 +201,8 @@ Give each inferred finding a High, Medium, or Low confidence level.
 Do not present an inference as a confirmed observation.
 
 For implemented changes, capture or describe comparable before and after states using the same viewport, content, and interaction state.
+
+Retain the screenshot path or artifact identifier and the compact evidence packet after inspection. Do not repeatedly inject the same image into working context.
 
 Do not infer a visual defect from source code when the rendered result determines the outcome.
 

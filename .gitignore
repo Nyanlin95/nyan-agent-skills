@@ -1,3 +1,5 @@
 __pycache__/
 *.py[cod]
-research/
+research/*
+!research/pen-cli-harness/
+!research/pen-cli-harness/**

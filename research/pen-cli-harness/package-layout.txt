@@ -1,0 +1,68 @@
+@pen.dev/cli 0.3.2 package layout
+=================================
+
+First-party readable documentation
+----------------------------------
+
+README.md
+  User-facing CLI documentation.
+
+SKILL.md
+  Agent-facing workflow instructions.
+
+package.json
+  Entry point: dist/index.mjs
+  Executables: pen and pencil
+  Description: AI agent for manipulating .pen design files
+
+Editor declarations
+-------------------
+
+dist/node_modules/@highagency/pencil-wasm/pencil.d.ts
+dist/node_modules/@highagency/pencil-wasm/enums.gen.d.ts
+
+Compiled harness/runtime
+------------------------
+
+dist/index.mjs
+  Main CLI entry and the largest compiled module.
+
+dist/dist-BEo0Z8Vf.mjs
+  Contains readable AgentHarness symbols and supporting agent/session runtime.
+
+dist/openai-codex-responses-*.mjs
+dist/openai-responses-*.mjs
+dist/anthropic-messages-*.mjs
+dist/google-*.mjs
+  Compiled provider adapters.
+
+dist/provider-env-*.mjs
+dist/provider-retry-*.mjs
+  Compiled provider environment and retry behavior.
+
+Headless editor assets
+----------------------
+
+dist/out/mcp-server-windows-x64.exe
+  Windows MCP server binary used by the editor harness.
+
+dist/out/data/*.lib.pen
+  Bundled design libraries: halo, lunaris, nitro, and shadcn.
+
+dist/node_modules/@highagency/pencil-wasm/pencil.wasm
+  Headless editor/rendering engine.
+
+Unavailable from the npm release
+--------------------------------
+
+- Original TypeScript source.
+- Source maps.
+- A public repository URL in npm metadata.
+- Separate readable source files for the AgentHarness implementation.
+
+Published tarball
+-----------------
+
+https://registry.npmjs.org/@pen.dev/cli/-/cli-0.3.2.tgz
+
+The tarball is the same release payload as the installed package.
