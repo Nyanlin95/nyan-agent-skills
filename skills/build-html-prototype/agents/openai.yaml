@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build HTML Prototype"
+  short_description: "Build disposable folder-contained browser prototypes"
+  default_prompt: "Use $build-html-prototype to turn this idea into a folder-contained HTML prototype."

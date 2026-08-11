@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI Copy Review"
+  short_description: "Review UI copy and accessible language changes"
+  default_prompt: "Use $ui-copy-review to review the interface copy changed on my current branch."

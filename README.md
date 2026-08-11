@@ -4,7 +4,8 @@ Nyan Agent Skills is a library of independent skills for coding agents. Each
 skill has one clear job and lives under `skills/`.
 
 The library covers code review, adversarial review, implementation, Git gates,
-visual review, technical writing, and bounded OpenCode handoffs.
+visual and UI-copy review, contained HTML prototypes, technical writing, and
+bounded OpenCode handoffs.
 
 The project uses the [MIT License](LICENSE).
 
@@ -34,6 +35,8 @@ For a useful result:
 | [implementation-quality](skills/implementation-quality/) | Implement or refactor code with clear ownership, readable control flow, and explicit failures. |
 | [local-git-gates](skills/local-git-gates/) | Add or review repository-local Git checks that reuse existing verification commands. |
 | [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Review rendered interfaces with bounded evidence, systemic findings, targeted fixes, and a clear verdict. |
+| [ui-copy-review](skills/ui-copy-review/) | Review changed interface copy for clarity, recovery, consistency, and copy-related accessibility. |
+| [build-html-prototype](skills/build-html-prototype/) | Build document, interface, or visual HTML prototypes inside one disposable folder. |
 | [handoff-to-opencode](skills/handoff-to-opencode/) | Send limited, non-sensitive implementation work to OpenCode within explicit paths. |
 | [simplified-technical-writing](skills/simplified-technical-writing/) | Rewrite technical prose in strict or STE-flavored Simplified Technical English. |
 
@@ -71,6 +74,24 @@ Use $nyan-ui-visual-review to review this existing workflow and its responsive s
 
 Provide a screenshot, live route, component preview, recording, or visual-regression
 image. Include non-default states when they can change the result.
+
+### Review changed UI copy
+
+```text
+Use $ui-copy-review to review the interface copy changed on this branch.
+```
+
+The review compares added and removed language, follows it to affected interface
+states, and checks accessible names, instructions, errors, status, and recovery.
+
+### Build a contained HTML prototype
+
+```text
+Use $build-html-prototype to turn this workflow idea into an interactive browser prototype.
+```
+
+The skill can produce document-style artifacts, UI experiments, or richer
+Canvas and Three.js studies. It keeps the complete output in one removable folder.
 
 ### Hand off bounded work
 
