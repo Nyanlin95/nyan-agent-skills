@@ -1,12 +1,14 @@
 # Codex-native orchestration plan for Wer Ywet Studio
 
+> **Research note — non-authoritative.** This document records an external proposal for Wer Ywet Studio at the dated snapshot below. It does not define rules or configuration for Nyan Agent Skills. Use this repository's `AGENTS.md` and `.codex/config.toml` as its authority. Before applying any Studio guidance, verify it against Studio's current code and repository instructions.
+
 Research date: 2026-08-12
 
 Upstream comparison snapshot: `alvinunreal/oh-my-opencode-slim@282d5f26a4ad2665118a73014fcf02e57869bd38`
 
 ## Decision
 
-Codex can implement the useful core of `oh-my-opencode-slim` without installing the OpenCode plugin. For `C:\Users\nyanl\Desktop\Apps\Wer Ywet Studio`, use Codex's native subagent workflow with artifact-owned specialists. Keep the primary thread as the only planner, delegation owner, conflict resolver, final verifier, and publication owner. The primary thread guides and reconciles; it does not implement product changes.
+Codex can implement the useful core of `oh-my-opencode-slim` without installing the OpenCode plugin. For `<target-repository-root>`, use Codex's native subagent workflow with artifact-owned specialists. Keep the primary thread as the only planner, delegation owner, conflict resolver, final verifier, and publication owner. The primary thread guides and reconciles; it does not implement product changes.
 
 Studio's release slices normally cross a migration, Rust repository, service, route, authorization, tests, acceptance, and release evidence. Use one default implementation owner for the full bounded product-code invariant, plus specialists for artifacts that have separate ownership:
 
@@ -19,11 +21,11 @@ Studio's release slices normally cross a migration, Rust repository, service, ro
 
 Use `security-isolation-reviewer` for independent tenancy, authorization, RunPermit, secret, retry, and deletion scrutiny. Use `dependency-researcher` only for an approved dependency, specification, or ADR question. Do not assign overlapping paths or invariants to concurrent writers.
 
-This architecture provides most of the practical quality and context-isolation benefit while keeping Codex itself responsible for spawning, steering, waiting, interrupting, and synthesizing agent work. Current Codex releases enable subagent workflows by default. Local Codex clients support personal agents in `~/.codex/agents/` and project agents in `.codex/agents/`. Each agent can define its model, reasoning effort, sandbox, MCP servers, skills, and instructions. [OpenAI: Subagents](https://learn.chatgpt.com/docs/agent-configuration/subagents)
+This architecture provides most of the practical quality and context-isolation benefit while keeping Codex itself responsible for spawning, steering, waiting, interrupting, and synthesizing agent work. Current Codex releases enable subagent workflows by default. Local Codex clients support personal agents in `~/.codex/agents/` and project agents in `.codex/agents/`. Each agent can define its model, reasoning effort, sandbox, MCP servers, and instructions. Name applicable skills in those instructions so runtime skill discovery can load them. Use `[[skills.config]]` only for path-based enablement overrides. [OpenAI: Subagents](https://learn.chatgpt.com/docs/agent-configuration/subagents)
 
 ## Wer Ywet Studio binding
 
-This section is authoritative for Studio. The later generic capability material explains the Codex mechanism but does not override these repository-specific rules.
+This section records the proposed Studio-specific binding at the research snapshot. Studio's current code and repository instructions override it.
 
 ### Repository snapshot
 
@@ -72,9 +74,9 @@ Run the primary Studio orchestrator and planner on `gpt-5.6-sol` with `model_rea
 | `design-engineer` | `gpt-5.6-terra` | `high` | Workspace write | Inspect and implement bounded React, shared-component, token, style, responsive, motion, feedback, and UI-performance work. | Changed UI paths, render evidence, checks, and unavailable coverage. |
 | `dependency-researcher` | `gpt-5.6-luna` | `medium` | Read-only | Verify an approved dependency/API/specification against primary sources. | Version-pinned facts, risks, licenses/maintenance evidence, and links. |
 | `default-implementer` | `gpt-5.6-terra` | `high` | Workspace write | Implement the primary orchestrator's bounded general product-code contract as the single owner of that invariant. | Changed paths, focused tests, failures, and remaining uncertainty. |
-| `git-pr-manager` | `gpt-5.6-terra` | `high` | Workspace write plus authorized GitHub operations | Commit an intentional feature branch, file a ready PR, babysit CI/review, and merge when explicitly authorized and green. | Branch, commit, PR URL, checks, review disposition, merge result, and remote proof. |
+| `git_pr_manager` | `gpt-5.6-terra` | `high` | Workspace write plus authorized GitHub operations | Commit an intentional feature branch, file a ready PR, babysit CI/review, and merge when explicitly authorized and green. | Branch, commit, PR URL, checks, review disposition, merge result, and remote proof. |
 
-Assign skills explicitly in each agent file so specialists load their owning procedures instead of relying on role prose alone:
+Name applicable skills explicitly in each agent's instructions so runtime discovery loads the owning procedures instead of relying on role prose alone:
 
 | Role | Assigned skills |
 | --- | --- |
@@ -86,9 +88,9 @@ Assign skills explicitly in each agent file so specialists load their owning pro
 | `product-manager` | `domain-modeling`, `ui-copy-review`, `simplified-technical-writing` |
 | `design-engineer` | `nyan-ui-visual-review`, `emil-design-eng`, `apple-design`, `implementation-quality` |
 | `dependency-researcher` | `research` |
-| `git-pr-manager` | `file-pr`, `babysit-pr`, `local-git-gates`, `implementation-quality` |
+| `git_pr_manager` | `file-pr`, `babysit-pr`, `local-git-gates`, `implementation-quality` |
 
-Each specialist must read every configured skill before acting. Keep the set minimal: role instructions define identity and scope; skills own reusable procedures. Add a skill only when it directly applies to that role's normal work.
+Each specialist must read every named skill before acting. Keep the set minimal: role instructions define identity and scope; skills own reusable procedures. Add a skill only when it directly applies to that role's normal work.
 
 These assignments optimize for token cost: Sol Medium is reserved for orchestration and planning, Luna owns bounded exploration and test work, and Terra High owns implementation, product management, design engineering, and security judgment. Escalate one failed or materially disputed lane to `gpt-5.6-sol` at `high` only when the result can change a security-sensitive, destructive, expensive, or hard-to-reverse decision. Do not rerun every lane on a stronger model.
 
@@ -110,7 +112,7 @@ The primary thread must retain:
 - roadmap, release matrix, acceptance evidence, and release-decision updates;
 - final full-diff inspection and authoritative gates;
 - publication scope and merge authority. Delegate branch, commit, PR,
-  monitoring, and merge mechanics to `git-pr-manager`; keep Docker and Clerk
+  monitoring, and merge mechanics to `git_pr_manager`; keep Docker and Clerk
   lifecycle in the primary thread.
 
 Never give secrets to a subagent. Real-Clerk proof needs local secret-bearing configuration and must stay in the primary thread. Do not run concurrent agents against machine-global Docker or Clerk state.
@@ -197,7 +199,7 @@ After an authorized commit and before final deployment or release proof:
 6. Record the commit ID, image identity when available, compose/service target, port override, health result, and proof result.
 7. If the commit changes after the image build, rebuild and redeploy again before claiming release evidence.
 
-Commit, feature-branch push, ready PR creation, babysitting, and merge remain under primary-thread publication authority but execute through `git-pr-manager`. Image rebuild, redeployment, and runtime proof remain primary-thread actions. A successful pre-commit or pre-push code gate does not prove that the deployed container runs the merged commit.
+Commit, feature-branch push, ready PR creation, babysitting, and merge remain under primary-thread publication authority but execute through `git_pr_manager`. Image rebuild, redeployment, and runtime proof remain primary-thread actions. A successful pre-commit or pre-push code gate does not prove that the deployed container runs the merged commit.
 
 ### Short orchestration triggers
 
@@ -698,7 +700,7 @@ Do not call the setup complete until:
 
 ## Recommended first implementation packet
 
-This packet is installed in Wer Ywet Studio. Use the verification steps when the configuration changes:
+If Studio adopts this packet, use these verification steps when its configuration changes:
 
 1. Recheck `git status --porcelain=v2 --branch`; preserve the current local commits and any newer user work.
 2. Keep narrow `.gitignore` exceptions for `.codex/config.toml` and `.codex/agents/**`. Preserve the existing hook exceptions.
@@ -721,16 +723,16 @@ The smallest useful Studio outcome is not “seven agents installed.” It is a 
 
 These repository-owned sources support the Studio binding. Recheck them at implementation time because the local branch can move after this research snapshot.
 
-- `C:\Users\nyanl\Desktop\Apps\Wer Ywet Studio\AGENTS.md` — cloud law, hard boundaries, task routing, test economy, and mandatory gates.
-- `C:\Users\nyanl\Desktop\Apps\Wer Ywet Studio\docs\AGENTS.md` — documentation authority and cloud ownership.
-- `C:\Users\nyanl\Desktop\Apps\Wer Ywet Studio\CONTEXT.md` — Account, WorkspaceMembership, Workspace, Project, and Project Type language.
-- `C:\Users\nyanl\Desktop\Apps\Wer Ywet Studio\docs\architecture\mvp-rust-mysql-horizontal-expansion-plan.md` — live release status, one-slice execution contract, migration order, canonical owners, and exit gates.
-- `C:\Users\nyanl\Desktop\Apps\Wer Ywet Studio\docs\architecture\react-cloud-frontend-plan.md` — browser ownership, routes, rendered states, and web verification.
-- `C:\Users\nyanl\Desktop\Apps\Wer Ywet Studio\apps\platform\README.md` — current API and runtime boundary.
-- `C:\Users\nyanl\Desktop\Apps\Wer Ywet Studio\package.json` — repository-owned command definitions.
-- `C:\Users\nyanl\Desktop\Apps\Wer Ywet Studio\scripts\local-git-gate.cjs` — changed-path routing and authoritative local checks.
-- `C:\Users\nyanl\Desktop\Apps\Wer Ywet Studio\.codex\hooks.json` and `.codex\hooks\*.cjs` — existing Codex validation lifecycle.
-- `C:\Users\nyanl\Desktop\Apps\Wer Ywet Studio\.gitignore` — current `.codex` tracking boundary.
+- `<target-repository-root>/AGENTS.md` — cloud law, hard boundaries, task routing, test economy, and mandatory gates.
+- `<target-repository-root>/docs/AGENTS.md` — documentation authority and cloud ownership.
+- `<target-repository-root>/CONTEXT.md` — Account, WorkspaceMembership, Workspace, Project, and Project Type language.
+- `<target-repository-root>/docs/architecture/mvp-rust-mysql-horizontal-expansion-plan.md` — live release status, one-slice execution contract, migration order, canonical owners, and exit gates.
+- `<target-repository-root>/docs/architecture/react-cloud-frontend-plan.md` — browser ownership, routes, rendered states, and web verification.
+- `<target-repository-root>/apps/platform/README.md` — current API and runtime boundary.
+- `<target-repository-root>/package.json` — repository-owned command definitions.
+- `<target-repository-root>/scripts/local-git-gate.cjs` — changed-path routing and authoritative local checks.
+- `<target-repository-root>/.codex/hooks.json` and `<target-repository-root>/.codex/hooks/*.cjs` — existing Codex validation lifecycle.
+- `<target-repository-root>/.gitignore` — current `.codex` tracking boundary.
 
 ## Primary sources
 

@@ -2,7 +2,7 @@ model = "gpt-5.6-sol"
 model_reasoning_effort = "medium"
 
 [agents]
-max_threads = 4
+max_concurrent_threads_per_session = 4
 
 [agents.history_analyst]
 description = "Find recurring failures and strong examples in installed coding-agent logs and memories. Read-only and privacy-bounded."

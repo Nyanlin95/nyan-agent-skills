@@ -1,6 +1,6 @@
 ---
 name: implementation-quality
-description: Implement or refactor application code with simple design, clear ownership, readable control flow, and explicit failure behavior. Use when a coding agent must write code, move behavior to a new owner, choose an abstraction or component boundary, or replace old code through a parity-tested migration or temporary fork. Do not use for read-only reviews, audit findings, planning-only work, or trivial mechanical edits; use cqt-review for evidence-based review and recommendations.
+description: Implement or refactor repository code and skill-library files with simple design, clear ownership, readable control flow, and explicit failure behavior. Use when a coding agent must write code, move behavior to a new owner, choose an abstraction or component boundary, or replace old code through a parity-tested migration or temporary fork. Do not use for read-only reviews, audit findings, planning-only work, or trivial mechanical edits; use cqt-review for evidence-based review and recommendations.
 ---
 
 # Implementation Quality

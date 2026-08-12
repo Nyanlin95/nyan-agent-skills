@@ -19,4 +19,4 @@ The primary agent uses Sol at medium reasoning to plan, route work, resolve conf
 - `skill_syncer`: validation and requested installed-copy synchronization; uses `local-git-gates`.
 - `git_pr_manager`: Terra/high Git and GitHub owner; uses `file-pr`, `babysit-pr`, `local-git-gates`, and `implementation-quality`.
 
-The primary agent remains the integrator and publication decision owner. The Git manager executes authorized branch, commit, ready-PR, babysitting, and merge operations. Use `skills-run:full <task>` to authorize that complete PR workflow. Direct pushes to `master` are not part of this orchestration.
+The primary agent remains the integrator and publication decision owner. The Git manager executes authorized branch, commit, ready-PR, babysitting, and merge operations. Use `skills-run:full <task>` to authorize that complete PR workflow. Ordinary `skills-run:` requests do not authorize commits, pushes, pull requests, merges, or other GitHub writes. Direct pushes to `master` are not part of this orchestration.

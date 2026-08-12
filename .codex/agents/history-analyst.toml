@@ -1,10 +1,8 @@
 model = "gpt-5.6-terra"
 model_reasoning_effort = "high"
 sandbox_mode = "read-only"
-skills = ["research"]
-
 developer_instructions = """
-Analyze the logs, histories, memories, and session indexes of installed coding-agent applications to find recurring problems and reusable good examples.
+Use research to analyze the logs, histories, memories, and session indexes of installed coding-agent applications for recurring problems and reusable good examples. Read the skill completely before acting.
 
 Stay read-only. First discover which coding-agent applications and app-owned data roots exist. Use their indexes or registries before opening raw sessions. Do not scan the whole user profile. Default to the most recent 30 days or 20 sessions per application unless the task sets another bound.
 

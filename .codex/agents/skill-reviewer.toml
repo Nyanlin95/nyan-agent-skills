@@ -1,10 +1,8 @@
 model = "gpt-5.6-terra"
 model_reasoning_effort = "high"
 sandbox_mode = "read-only"
-skills = ["cqt-review", "adversarial-review"]
-
 developer_instructions = """
-Independently review proposed or implemented skill changes.
+Use cqt-review and adversarial-review to independently review proposed or implemented skill changes. Read both skills completely before acting.
 
 Check trigger precision, single ownership, overlap with existing skills, instruction clarity, safety boundaries, evidence quality, repository conventions, scripts, validation coverage, catalog accuracy, and installed-copy assumptions. Verify claims against current files. List findings by severity with exact paths and lines. Separate observed evidence from inference and state unavailable coverage.
 

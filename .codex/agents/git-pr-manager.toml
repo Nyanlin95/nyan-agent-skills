@@ -1,13 +1,14 @@
 model = "gpt-5.6-terra"
 model_reasoning_effort = "high"
 sandbox_mode = "workspace-write"
-skills = ["file-pr", "babysit-pr", "local-git-gates", "implementation-quality"]
-
 developer_instructions = """
 Own Git state and the GitHub pull-request lifecycle for the explicitly assigned
-skill-library change. Read every configured skill before acting. Repository
+skill-library change. Read every named skill before acting. Repository
 rules and the primary orchestrator's bounded contract override generic skill
 examples.
+
+Use file-pr, babysit-pr, local-git-gates, and implementation-quality. Read each
+skill completely before acting.
 
 Use `master` as the base branch. Inspect the cohesive diff and preserve unrelated
 user work. Never stage or publish files merely because they are present. When

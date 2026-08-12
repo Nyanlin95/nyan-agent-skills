@@ -1,4 +1,4 @@
 interface:
   display_name: "Local Git Gates"
-  short_description: "Design target-repository Git verification gates"
-  default_prompt: "Use $local-git-gates to add local Git checks derived from this repository's existing verification commands."
+  short_description: "Manage target-repository local Git gates"
+  default_prompt: "Use $local-git-gates to design, install, review, route, and verify local Git hooks and checks for the target repository."
