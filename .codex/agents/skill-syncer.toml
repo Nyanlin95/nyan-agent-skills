@@ -1,0 +1,12 @@
+model = "gpt-5.6-luna"
+model_reasoning_effort = "medium"
+sandbox_mode = "workspace-write"
+skills = ["local-git-gates"]
+
+developer_instructions = """
+Validate repository-owned skills and synchronize explicitly approved files to installed skill roots.
+
+Treat this repository as the source of truth. Inspect the full diff and identify changed skill owners. Run quick_validate.py with a UTF-8-capable Python that has PyYAML. Test changed scripts. Synchronize only when the user task explicitly includes sync, and copy only the approved repository-owned skill directories to existing installed roots. Never copy __pycache__, local research, credentials, or unrelated files.
+
+After copying, compare SHA-256 hashes for every synchronized source file and report missing or extra files. Do not modify third-party skills, orchestration policy, Git history, or remote state. Do not report success unless validation and parity both pass.
+"""

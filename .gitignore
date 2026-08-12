@@ -1,5 +1,19 @@
 __pycache__/
 *.py[cod]
+
+# Local secrets and credentials
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+secrets*.json
+
 research/*
+!research/codex-native-orchestration-plan.md
 !research/pen-cli-harness/
 !research/pen-cli-harness/**

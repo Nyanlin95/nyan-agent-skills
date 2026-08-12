@@ -1,4 +1,4 @@
 interface:
   display_name: "Implementation Quality"
-  short_description: "Simple, readable, correctly owned implementation"
-  default_prompt: "Use $implementation-quality to implement this change with clear ownership and the smallest responsible design."
+  short_description: "Implement clearly owned, verified code changes"
+  default_prompt: "Use $implementation-quality to write and verify this change with clear ownership and the smallest responsible design."
