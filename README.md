@@ -135,16 +135,23 @@ staging. `.editorconfig` configures compatible editors to save LF before staging
 
 ## Add or update a skill
 
+The repository folder `skills/<skill-name>/` is the canonical source for each library skill. Global skill roots are installation or synchronization destinations only; do not treat an installed copy as the source to edit.
+
 1. Read `AGENTS.md`.
 2. Create or edit `skills/<skill-name>/`.
 3. Keep the folder name equal to the frontmatter `name`.
 4. Add or update `agents/openai.yaml`.
 5. Put detailed material in `references/`, `scripts/`, or `assets/`.
-6. Validate the skill.
+6. Keep every `SKILL.md` reference direct and one level deep.
 7. Update the skill catalog in this README.
+8. Validate after the last material edit.
+9. Run `git diff --check`.
 
 Run the validator from the repository root:
 
 ```powershell
-py "$env:USERPROFILE\.codex\skills\.system\skill-creator\scripts\quick_validate.py" "skills\<skill-name>"
+$env:PYTHONUTF8 = '1'
+py -3.14 "$env:USERPROFILE\.codex\skills\.system\skill-creator\scripts\quick_validate.py" "skills\<skill-name>"
 ```
+
+Before finishing, confirm that `agents/openai.yaml` matches the final skill, that this catalog has one current entry, and that the validation command ran after the final material edit.

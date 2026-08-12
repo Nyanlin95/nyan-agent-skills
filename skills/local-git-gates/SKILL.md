@@ -1,6 +1,6 @@
 ---
 name: local-git-gates
-description: Design, install, or review repository-local Git hooks and local verification gates. Use when a coding agent must add or improve pre-commit or pre-push checks, route changed paths to existing tests, make local validation runnable outside Git, or verify hook setup in a target repository. Keep hooks small, reuse existing policy-owned checks, and avoid hardcoding another repository’s commands.
+description: Design, install, or review repository-local Git hooks and local verification gates. Use when a coding agent must add or improve pre-commit or pre-push checks, route changed paths to existing tests, make local validation runnable outside Git, or verify hook setup in a target repository. Keep hooks small, derive commands from the target repository, reuse existing policy-owned checks, and never copy another repository's commands.
 ---
 
 # Local Git Gates
@@ -185,6 +185,10 @@ Verify output includes failed named check and exact rerun command.
 Run focused regression tests for changed hook/runner files.
 
 ## Completion
+
+After the last gate or runner edit, run the selected target-repository commands through the changed entrypoint. Derive those commands from the target repository's scripts, documentation, and existing gate setup; never reuse a command only because another repository uses it.
+
+Run `git diff --check` before reporting completion.
 
 Report:
 
