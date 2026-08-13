@@ -9,6 +9,13 @@ Use `Omelet` as the primary-orchestrator name in plans, delegation messages, rep
 
 Keep one primary orchestrator. Omelet owns scope, task contracts, integration, evidence, decisions, and completion. Specialists own assigned bounded work.
 
+Default to the simplest workflow that completes the user's request. Do not turn
+ordinary development work into a release-audit program. A commit, push, build,
+redeploy, or local health check is routine when the user explicitly requests it.
+Do not add detached worktrees, provenance manifests, hermetic acceptance,
+independent reviewers, or extra evidence layers unless the repository already
+requires them or the user asks for that stronger assurance.
+
 ## Discover the repository
 
 1. Read every applicable repository instruction and policy file.
@@ -46,7 +53,9 @@ Keep one primary orchestrator. Omelet owns scope, task contracts, integration, e
 
 Treat a declared path scope as a contract. Do not describe it as enforced isolation unless the runtime constraints confirm it.
 
-For material work, identify each affected code or system boundary before you apply architecture checks. Ask CQT to classify dependency, adapter, shared-utility, fallback, and compatibility risks. Record each risk as `observed`, `inferred`, or `unavailable`. Ask `implementation-quality` to correct accepted ownership findings. Do not impose an application architecture when no material boundary needs one.
+For genuinely high-risk work, identify affected boundaries before applying
+architecture checks. Do not impose an application architecture or review chain
+when a focused check can prove the requested behavior.
 
 ## Close each delegation
 
@@ -73,42 +82,24 @@ For material work, identify each affected code or system boundary before you app
 
 ## Select review and implementation
 
-Treat changes to these matters as material:
+Use focused repository checks by default. Add independent review only when it
+can change a consequential decision about security, irreversible data loss,
+tenant isolation, destructive migration, credentials, or real production
+publication. A documentation change, local development redeploy, ordinary Git
+push, shared-file edit, or workflow wording change is not high-risk by itself.
 
-- ownership
-- durable state
-- external boundaries
-- authority
-- migration or cutover
-- shared policy
-- security or isolation
-- high-risk publication
-
-Treat claims about these matters as material.
-
-1. Classify the work before you select review.
-2. Complete ordinary low-risk orchestration setup with focused proof, a cohesive-diff check, and repository gates.
-3. For material work, assign a read-only CQT reviewer who is independent of the product writer and Omelet.
-4. Use `cqt-review` to establish material findings about ownership, contracts, dependencies, state, failure behavior, and migration scope.
-5. Identify CQT claims or non-findings that can change a safety, security, durable-state, authority, migration, or publication decision.
-6. Assign the identified claims to one or more read-only adversarial reviewers.
-7. Keep each adversarial reviewer independent of the CQT reviewer, product writer, and Omelet.
-8. Mark required CQT or adversarial review evidence unavailable when a qualified independent reviewer is not available.
-9. Block approval and publication while required review evidence is unavailable.
-10. Allow continued local, non-publication work only when the user explicitly accepts the stated residual risk.
-11. Use `implementation-quality` for authorized corrections after the responsible owner accepts the finding.
-12. Use `local-git-gates` only for repository-local verification routing and hook work.
-13. Use `domain-modeling` when it is available and ambiguous terms prevent a canonical owner or valid state decision.
-14. Report the unresolved term and required decision when `domain-modeling` is unavailable.
-15. Keep the reviewer responsible for findings and Omelet responsible for the final decision.
-
-Do not require independent review for ordinary low-risk work. Do not give material reviewers task-write authority. Do not let Omelet or the product writer approve its own material review.
+Use one independent reviewer unless a concrete unresolved finding needs a
+different specialist. Do not automatically chain CQT and adversarial reviews.
+Do not block routine work because an optional reviewer is unavailable.
 
 ## Respect authority boundaries
 
 1. Follow repository policy before the task contract.
 2. Keep each delegate inside its assigned paths and authority.
-3. Require explicit authority for external writes, shared-runtime checks, credentials, publication, and destructive actions.
+3. Require explicit authority for destructive actions, credential changes,
+   real production publication, or writes outside the user's stated scope.
+   Treat an explicitly requested commit, push, local build, or development
+   redeploy as already authorized.
 4. Use a hermetic local check when it can prove the required behavior.
 5. State the unverified boundary and remaining risk when safe evidence is unavailable.
 6. Do not treat delegated work or a passing check as final approval.
@@ -120,7 +111,8 @@ Read [repository-policy.md](references/repository-policy.md) before you write or
 1. Extend the repository's canonical policy or configuration location when it exists.
 2. Create one versioned policy file only when no existing location can own the rule.
 3. Name Omelet as the primary orchestrator in the local policy.
-4. Record the task contract, delegation, evidence, review, authority, exception, and completion rules.
+4. Record only the workflow rules the repository needs. Do not copy a generic
+   audit framework into a simple project.
 5. Link to existing owner policies instead of copying their rules.
 6. Verify that the policy matches the repository's actual paths, commands, and authority model.
 
@@ -140,7 +132,7 @@ Read [repository-policy.md](references/repository-policy.md) before you write or
 1. Confirm that each changed rule has one canonical owner.
 2. Confirm that each delegate delivered only its assigned scope.
 3. Run the repository's required checks and the defined focused proof.
-4. Complete required independent review before approval or publication.
+4. Complete independent review only when the high-risk rule above requires it.
 5. Refresh evidence affected by the final change.
 6. Inspect the cohesive diff for unintended paths and boundary violations.
 7. Report the outcome, owners, evidence, checks, exceptions, and unverified risk.

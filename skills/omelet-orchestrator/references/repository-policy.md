@@ -21,7 +21,9 @@ Write these sections in the policy:
 3. **Task contract:** Require an outcome, scope, protected behavior, owner, paths, proof, and authority limits before work starts.
 4. **Delegation:** Require bounded deliverables, one writer per file, disclosed shared roots, repository-relative paths, a return format, and the checked runtime capability limits.
 5. **Evidence:** Require the source, command or observation, scope, time, environment, result, freshness rule, and an `observed`, `inferred`, or `unavailable` status.
-6. **Review:** Define material work with the criteria in this reference. Require independent read-only CQT only for material work. Require separate independent adversarial review for decision-critical CQT claims or non-findings. Block approval and publication while required review is unavailable.
+6. **Review:** Use focused checks by default. Require independent review only
+   for security, irreversible data loss, tenant isolation, destructive
+   migration, credentials, or real production publication.
 7. **Authority:** Name the actions that need explicit approval, including external writes, shared runtimes, credentials, publication, and destructive work.
 8. **Exceptions:** Require an owner, reason, bounded scope, removal condition, and verification for each exception.
 9. **Completion:** Require the focused proof, repository gates, final evidence refresh, cohesive-diff check, and remaining-risk report.
@@ -52,35 +54,21 @@ Write these sections in the policy:
 
 ## Select review
 
-Treat changes to these matters as material:
-
-- ownership
-- durable state
-- external boundaries
-- authority
-- migration or cutover
-- shared policy
-- security or isolation
-- high-risk publication
-
-Treat claims about these matters as material.
-
-1. Complete ordinary low-risk orchestration setup with focused proof, a cohesive-diff check, and repository gates.
-2. Assign a read-only CQT reviewer independent of Omelet and the product writer for material work.
-3. Identify CQT claims or non-findings that can change a safety, security, durable-state, authority, migration, or publication decision.
-4. Assign the identified claims to one or more read-only adversarial reviewers.
-5. Keep each adversarial reviewer independent of the CQT reviewer, product writer, and Omelet.
-6. Mark required CQT or adversarial review evidence unavailable when a qualified independent reviewer is not available.
-7. Block approval and publication while required review is unavailable.
-8. Allow continued local, non-publication work only when the user explicitly accepts the stated residual risk.
-9. Do not let a reviewer write the product change or approve its own material review.
+1. Use focused repository checks for routine work.
+2. Use one independent reviewer when a decision could cause a security breach,
+   irreversible data loss, tenant-isolation failure, destructive migration,
+   credential exposure, or real production publication.
+3. Add a second specialist only for a concrete unresolved finding.
+4. Do not classify documentation, local redeploys, ordinary Git pushes,
+   shared-file edits, or workflow wording as high-risk by category alone.
+5. Do not block routine work because an optional reviewer is unavailable.
 
 ## Check affected boundaries
 
-1. For material work, identify each affected code or system boundary before you apply architecture checks.
-2. Ask CQT to classify dependency, adapter, shared-utility, fallback, and compatibility risks.
-3. Record each risk as `observed`, `inferred`, or `unavailable`.
-4. Ask implementation-quality to make authorized ownership corrections for accepted findings.
+1. For genuinely high-risk work, identify each affected code or system boundary before applying architecture checks.
+2. Use the specialist most relevant to the concrete risk.
+3. Record important risks as `observed`, `inferred`, or `unavailable`.
+4. Use implementation-quality for accepted ownership corrections when needed.
 5. Keep new components isolated until an observed integration point requires a connection.
 6. Do not add a shared utility, fallback route, or compatibility path without a named owner and removal condition.
 7. Do not require a dependency direction or adapter pattern when the task has no material affected boundary.
@@ -90,9 +78,9 @@ Treat claims about these matters as material.
 1. Compare each policy claim with the repository's current layout, commands, and authority model.
 2. Confirm that Omelet can identify one writer for every shared path.
 3. Confirm that the evidence rules distinguish static proof from runtime proof.
-4. Confirm that the policy requires independent read-only review only for material work.
-5. Confirm that material reviewers have read-only authority and are independent of Omelet and the product writer.
-6. Confirm that the policy marks unavailable required review as unavailable evidence.
+4. Confirm that the policy does not turn routine work into a review chain.
+5. Confirm that any required high-risk reviewer is independent and read-only.
+6. Confirm that optional review cannot block routine work.
 7. Confirm that the declared scope and enforced runtime capability limits are distinct.
 8. Confirm that no rule grants authority beyond repository policy or the user request.
 
