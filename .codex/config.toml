@@ -1,3 +1,4 @@
+# Omelet is this repository's primary orchestration identity.
 model = "gpt-5.6-sol"
 model_reasoning_effort = "medium"
 

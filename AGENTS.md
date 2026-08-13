@@ -60,34 +60,50 @@ Add each skill to the root `README.md`. Describe its purpose in one sentence and
 
 ## Skill-library orchestration
 
-Use `skills-run:` as the short trigger for repository research, skill creation, skill improvement, validation, or synchronization.
+Use `skills-run:` followed by one route. Omelet is the primary orchestrator. It owns scope, contracts, integration, evidence, decisions, and completion. It does not become the normal writer.
 
-- Keep the primary orchestrator on `gpt-5.6-sol` with medium reasoning. It plans, delegates bounded work, resolves conflicts, integrates changes, and owns final verification.
-- Use `skill_implementer` as the default writer. It uses `gpt-5.6-terra` with high reasoning and owns assigned skill files plus their root catalog entries.
-- Use `skill_researcher` for bounded repository or primary-source research.
-- Use `history_analyst` to inspect installed coding-agent logs and memories for recurring failures and strong examples.
-- Use `skill_reviewer` for independent review after material changes.
-- Use `skill_syncer` only when the task explicitly includes installed-copy synchronization.
-- Use `git_pr_manager` for feature-branch commits, ready PR creation, CI and review babysitting, and explicitly authorized merge.
+Treat an orchestration-config change as `policy-only` until a fresh trusted-project session loads it, resolves the named roles, and completes one bounded read-only delegation round trip. Do not claim active setup or approve publication while this proof is unavailable.
 
-Each specialist must read every skill assigned to its role or task and any directly related owner skill before acting. Treat the agent file as role identity and the skills as the owning procedures. Do not load unrelated skills only because they are available.
+| Route | Required work | Authority |
+| --- | --- | --- |
+| `skills-run:research <question>` | Use `skill_researcher` or `history_analyst` for a bounded read-only question. | No writes. |
+| `skills-run:create <outcome>` | Find the existing owner, research unresolved facts, then assign `skill_implementer`. | Repository writes only. |
+| `skills-run:maintain <outcome>` | Find the existing owner, research only unresolved facts, then assign `skill_implementer`. | Repository writes only. |
+| `skills-run:validate <scope>` | Assign `skill_syncer` to validate named repository skills and changed scripts. | No installed-copy writes. |
+| `skills-run:sync <scope>` | Validate, then assign `skill_syncer` to copy explicitly approved source skills and prove SHA-256 parity. | Requires explicit sync authority. |
+| `skills-run:publish <scope>` | Assign `git_pr_manager` to perform only the explicitly authorized Git or GitHub actions. | Requires explicit publication authority. |
 
-Keep one writer for each file. Parallelize read-only research and review, but do not let two agents edit the same skill or root catalog at the same time. The orchestrator must reconcile findings before assigning implementation.
+Use `skills-run:full <task>` only when the user authorizes the complete feature-branch, ready-PR, review, and merge workflow. Ordinary `skills-run:` requests do not authorize synchronization, commits, pushes, pull requests, merges, or other GitHub writes. Never push repository changes directly to `master`.
 
-Treat this repository as the canonical skill source. Extend an existing owner before creating a new skill. Create a skill only when it has an independent trigger, owner, workflow, and completion check.
+Before delegation, Omelet must read applicable instructions, inspect the relevant owner, and record this task contract:
+
+1. State the observable outcome and out-of-scope work.
+2. Name the canonical owner for each changed rule.
+3. List the allowed repository-relative paths and protected behavior.
+4. Define the smallest success proof and one relevant failure proof.
+5. State each required authority, shared runtime, external system, and destructive action.
+6. Record the evidence baseline as `HEAD`, dirty-tree identity, time, and environment.
+
+Set the dirty-tree identity to `clean` only when `git status --porcelain=v2 --untracked-files=all` has no output. Otherwise record that status snapshot and its digest. Refresh evidence after a material change to the commit, dirty tree, producer, environment, or relevant state. Mark each material claim `observed`, `inferred`, or `unavailable`.
+
+Each specialist must read every skill assigned to its role or task and any directly related owner skill before acting. Treat the agent file as role identity and the skills as the owning procedures. Do not load unrelated skills only because they are available. `skill_researcher` executes its bounded research directly. It does not delegate again unless Omelet explicitly requires it.
+
+Give one writer each file and rule owner. Declare shared files, contracts, and roots before work starts. Run only independent read-only lanes in parallel. Serialize work that shares a file, contract, state owner, or integration point. Extend an existing owner before creating a new skill. Create a skill only when it has an independent trigger, owner, workflow, and completion check.
+
+Require every delegate to return this terminal result:
+
+```text
+status: complete | partial | blocked | cancelled
+contract: <task identifier and assigned scope>
+changed_paths: <paths or none>
+checks: <command, result, and relevant failure coverage>
+evidence: <status, source, freshness identity, and result>
+uncertainty: <unverified boundary or none>
+next_action: <required decision or none>
+```
+
+Do not integrate an incomplete, blocked, cancelled, or out-of-contract result. Recontract it or narrow the task explicitly. Independently verify each complete material result before integration.
+
+Treat changes to skill triggers, ownership, workflow, safety, synchronization, publication, shared policy, or validator behavior as material. Assign `skill_reviewer` for an independent read-only review after a material change. Reconcile material findings, rerun affected validation, then inspect the cohesive diff and run `git diff --check`.
 
 The history analyst is read-only. It must discover installed applications before inspection, use app-owned indexes before raw sessions, bound its sample, exclude credential and personal-data stores, sanitize examples, and separate repeated patterns from isolated incidents. It must report unavailable coverage.
-
-For a normal skill change, use this sequence:
-
-1. Inspect the current owner, related skills, applicable evidence, and current Git state.
-2. Research only the unresolved questions.
-3. Assign one bounded implementation owner.
-4. Run the skill validator and any changed scripts.
-5. Run an independent skill review for material trigger, ownership, workflow, or safety changes.
-6. Reconcile findings and rerun affected validation.
-7. Synchronize exact repository-owned files only when the user requested sync.
-8. Compare SHA-256 parity for synchronized files and exclude generated caches.
-9. Inspect the cohesive diff and run `git diff --check`.
-
-For publication, the orchestrator defines the intentional diff and delegates Git and GitHub state to `git_pr_manager`. Never push repository changes directly to `master`. `skills-run:full <task>` explicitly authorizes a feature-branch commit, ready non-draft PR, babysitting, and merge after every required check and review item is clear. Ordinary `skills-run:` does not authorize Git or GitHub writes.

@@ -62,7 +62,12 @@ Studio's `.gitignore` currently ignores `.codex/*` except the hook files and REA
 
 ### Studio specialist set
 
-Run the primary Studio orchestrator and planner on `gpt-5.6-sol` with `model_reasoning_effort = "medium"`. This primary thread owns intent, task-graph design, release-slice selection, delegation, disagreement resolution, final verification, and publication. Do not use a separate permanent planner subagent and do not use the primary thread as the normal product-code writer.
+Studio calls its primary Codex thread Omelet. Omelet is a workflow identity, not
+a configured agent. Run Omelet on `gpt-5.6-sol` with
+`model_reasoning_effort = "medium"`. Omelet owns intent, task-graph design,
+release-slice selection, delegation, disagreement resolution, final
+verification, and publication. Do not use a separate permanent planner agent.
+Do not use Omelet as the normal product-code writer.
 
 | Role | Model | Effort | Default | Job | Must return |
 | --- | --- | --- | --- | --- | --- |
@@ -70,6 +75,8 @@ Run the primary Studio orchestrator and planner on `gpt-5.6-sol` with `model_rea
 | `roadmap-verifier` | `gpt-5.6-luna` | `medium` | Read-only | Compare one requested slice against the live implementation, predecessor exit, and canonical packet. | Implemented, missing, conflicting, blocked, and required evidence. |
 | `test-engineer` | `gpt-5.6-luna` | `medium` | Workspace write | Extend explicitly assigned existing test files and fixtures. | Changed tests, cases, commands, results, and runtime gaps. |
 | `security-isolation-reviewer` | `gpt-5.6-terra` | `high` | Read-only | Challenge Workspace/Project scope, membership authorization, RunPermit, idempotency, retries, deletion, redaction, and secret boundaries. | Severity-ordered evidence-backed findings and untested claims. |
+| `cqt-reviewer` | `gpt-5.6-terra` | `high` | Read-only | Review material ownership, state, dependency, failure, and migration changes. | Severity-ordered findings, non-findings, and decision-critical claims. |
+| `adversarial-reviewer` | `gpt-5.6-terra` | `high` | Read-only | Falsify decision-critical CQT claims and non-findings. | Counterexamples, untested claims, verdict, and unavailable coverage. |
 | `product-manager` | `gpt-5.6-terra` | `high` | Workspace write | Own bounded product and UX docs for goals, journeys, hierarchy, language, roles, states, recovery, and acceptance criteria. | Changed docs, evidence, decisions, and unresolved product questions. |
 | `design-engineer` | `gpt-5.6-terra` | `high` | Workspace write | Inspect and implement bounded React, shared-component, token, style, responsive, motion, feedback, and UI-performance work. | Changed UI paths, render evidence, checks, and unavailable coverage. |
 | `dependency-researcher` | `gpt-5.6-luna` | `medium` | Read-only | Verify an approved dependency/API/specification against primary sources. | Version-pinned facts, risks, licenses/maintenance evidence, and links. |
@@ -84,7 +91,9 @@ Name applicable skills explicitly in each agent's instructions so runtime discov
 | `roadmap-verifier` | `cqt-review` |
 | `default-implementer` | `implementation-quality` |
 | `test-engineer` | `implementation-quality`, `local-git-gates` |
-| `security-isolation-reviewer` | `adversarial-review`, `cqt-review` |
+| `security-isolation-reviewer` | `adversarial-review` |
+| `cqt-reviewer` | `cqt-review` |
+| `adversarial-reviewer` | `adversarial-review` |
 | `product-manager` | `domain-modeling`, `ui-copy-review`, `simplified-technical-writing` |
 | `design-engineer` | `nyan-ui-visual-review`, `emil-design-eng`, `apple-design`, `implementation-quality` |
 | `dependency-researcher` | `research` |

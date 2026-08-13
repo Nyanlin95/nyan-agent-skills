@@ -1,0 +1,4 @@
+interface:
+  display_name: "Omelet Orchestrator"
+  short_description: "Set up a repository's Omelet orchestrator"
+  default_prompt: "Use $omelet-orchestrator to set up the primary Omelet orchestrator for this repository."
