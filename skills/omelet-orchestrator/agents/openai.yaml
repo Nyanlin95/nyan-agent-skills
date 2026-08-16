@@ -1,4 +1,4 @@
 interface:
   display_name: "Omelet Orchestrator"
-  short_description: "Set up a repository's Omelet orchestrator"
-  default_prompt: "Use $omelet-orchestrator to set up the primary Omelet orchestrator for this repository."
+  short_description: "Plan and compile the repository's Omelet orchestrator from discovery"
+  default_prompt: "Use $omelet-orchestrator to plan and compile the primary Omelet orchestrator for this repository in semantic orchestration patterns, reconstructing the task semantic from discovered work."

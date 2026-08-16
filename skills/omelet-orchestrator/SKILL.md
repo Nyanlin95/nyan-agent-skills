@@ -9,12 +9,51 @@ Use `Omelet` as the primary-orchestrator name in plans, delegation messages, rep
 
 Keep one primary orchestrator. Omelet owns scope, task contracts, integration, evidence, decisions, and completion. Specialists own assigned bounded work.
 
-Default to the simplest workflow that completes the user's request. Do not turn
-ordinary development work into a release-audit program. A commit, push, build,
-redeploy, or local health check is routine when the user explicitly requests it.
-Do not add detached worktrees, provenance manifests, hermetic acceptance,
-independent reviewers, or extra evidence layers unless the repository already
-requires them or the user asks for that stronger assurance.
+Plan in semantic orchestration patterns. Compile them into agent roles. Reconstruct the task semantic from what the work turns out to be. Do not make primitive roles the public planning language.
+
+## Think in orchestration layers
+
+Model every orchestrated task as a task semantic composed from orchestration semantics and compiled into orchestration primitives:
+
+```text
+Task Semantic
+    ↓ composed from
+Orchestration Semantics
+    ↓ compiled into
+Orchestration Primitives
+```
+
+Read the full catalogs in [orchestration-layers.md](references/orchestration-layers.md).
+
+Form the task semantic as a working hypothesis. Reconstruct it from the orchestration semantics and primitives actually used as the work proceeds; do not treat the catalog label as fixed.
+
+State the plan as a hypothesis in semantics:
+
+```text
+Feature Development :=
+    Spec-Driven Development
+    → Test-Driven Development
+    → CQT Review?
+    → Blast-Radius Validation?
+```
+
+Do not plan in primitive roles:
+
+```text
+Coordinator → Tester → Worker → Reviewer → Fixer
+```
+
+Topology is a modifier on a semantic, not the abstraction itself:
+
+```text
+Swarm(Research)
+Arena(Test Design)
+Committee(Architecture Review)
+Debate(Hypothesis Evaluation)
+Hierarchy(Migration)
+```
+
+Default to the simplest workflow that completes the user's request. Do not turn ordinary development work into a release-audit program. A commit, push, build, redeploy, or local health check is routine when the user explicitly requests it. Do not add detached worktrees, provenance manifests, hermetic acceptance, independent reviewers, or extra evidence layers unless the repository already requires them or the user asks for that stronger assurance.
 
 ## Discover the repository
 
@@ -25,6 +64,30 @@ requires them or the user asks for that stronger assurance.
 5. Record unknown or shared ownership as a risk before delegation.
 6. Extend an existing canonical owner when it covers the requested behavior.
 7. Create a new owner only when it has a distinct trigger, responsibility, workflow, and completion proof.
+
+## Compose the semantic plan
+
+1. Form a working hypothesis for the L1 task semantic from the outcome.
+2. List the L2 orchestration semantics the hypothesis requires, in dependency order.
+3. Mark optional semantics with `?`.
+4. Attach a topology modifier where it changes how work is organized.
+5. Write the plan as a hypothesis in the form `Task := Semantic → Semantic → Semantic?`.
+6. Choose the simplest composition that reaches the outcome.
+
+## Compile semantics into roles
+
+1. Resolve each L2 semantic into its pipeline of L3 primitives.
+2. Assign one writer to each file or ownership boundary.
+3. Keep Omelet as the single coordinator over the compiled plan.
+4. Put the compiled primitive plan in delegation messages only.
+5. Keep the semantic plan as the language used with the user and in reports.
+
+## Reconstruct the task semantic
+
+1. Treat the opening label as a hypothesis, not the final task semantic.
+2. After each delegation closes, follow the [reconstruction policy](references/orchestration-layers.md) to re-derive the label from the discovered composition.
+3. Revise the remaining plan when the reconstructed label changes the required semantics.
+4. Report the final task semantic and the evidence that confirmed it.
 
 ## Define the task contract
 
@@ -40,27 +103,24 @@ requires them or the user asks for that stronger assurance.
 
 1. Inspect available sandbox, permission, and tool constraints before delegation.
 2. Delegate only work that has a clear deliverable and acceptance check.
-3. Assign one writer to each file or ownership boundary.
-4. Give each delegate exact repository-relative paths and a task contract.
-5. Disclose every shared root, shared contract, and likely overlap to all affected delegates.
-6. Give each delegate the narrowest enforced capability mode that can complete its work.
-7. Withhold secrets, credentials, external-write authority, publication authority, and destructive authority by default.
-8. Permit a bounded writer only when runtime controls enforce its required write scope and external authority.
-9. If those controls are unavailable, remove secrets and personal data from task inputs.
-10. In that case, delegate read-only work only.
-11. Keep Omelet responsible for cross-task decisions and final integration.
-12. Require a new task contract before a delegate expands scope.
+3. Give each delegate exact repository-relative paths and a task contract.
+4. Disclose every shared root, shared contract, and likely overlap to all affected delegates.
+5. Give each delegate the narrowest enforced capability mode that can complete its work.
+6. Withhold secrets, credentials, external-write authority, publication authority, and destructive authority by default.
+7. Permit a bounded writer only when runtime controls enforce its required write scope and external authority.
+8. If those controls are unavailable, remove secrets and personal data from task inputs.
+9. In that case, delegate read-only work only.
+10. Keep Omelet responsible for cross-task decisions and final integration.
+11. Require a new task contract before a delegate expands scope.
 
 Treat a declared path scope as a contract. Do not describe it as enforced isolation unless the runtime constraints confirm it.
 
-For genuinely high-risk work, identify affected boundaries before applying
-architecture checks. Do not impose an application architecture or review chain
-when a focused check can prove the requested behavior.
+For genuinely high-risk work, identify affected boundaries before applying architecture checks. Do not impose an application architecture or review chain when a focused check can prove the requested behavior.
 
 ## Close each delegation
 
 1. Require a terminal status of `complete`, `partial`, `blocked`, or `cancelled`.
-2. Require the delegate to report changed paths, checks, evidence, and uncertainty.
+2. Require the delegate to report changed paths, checks, evidence, uncertainty, and the orchestration semantics that fired.
 3. Interrupt work that is cancelled, superseded, or already satisfied.
 4. Serialize work that shares a file, contract, state owner, or integration point.
 5. Reject or recontract a result that exceeds its task contract.
@@ -82,24 +142,15 @@ when a focused check can prove the requested behavior.
 
 ## Select review and implementation
 
-Use focused repository checks by default. Add independent review only when it
-can change a consequential decision about security, irreversible data loss,
-tenant isolation, destructive migration, credentials, or real production
-publication. A documentation change, local development redeploy, ordinary Git
-push, shared-file edit, or workflow wording change is not high-risk by itself.
+Use focused repository checks by default. Add independent review only when it can change a consequential decision about security, irreversible data loss, tenant isolation, destructive migration, credentials, or real production publication. A documentation change, local development redeploy, ordinary Git push, shared-file edit, or workflow wording change is not high-risk by itself.
 
-Use one independent reviewer unless a concrete unresolved finding needs a
-different specialist. Do not automatically chain CQT and adversarial reviews.
-Do not block routine work because an optional reviewer is unavailable.
+Use one independent reviewer unless a concrete unresolved finding needs a different specialist. Do not automatically chain CQT and adversarial reviews. Do not block routine work because an optional reviewer is unavailable.
 
 ## Respect authority boundaries
 
 1. Follow repository policy before the task contract.
 2. Keep each delegate inside its assigned paths and authority.
-3. Require explicit authority for destructive actions, credential changes,
-   real production publication, or writes outside the user's stated scope.
-   Treat an explicitly requested commit, push, local build, or development
-   redeploy as already authorized.
+3. Require explicit authority for destructive actions, credential changes, real production publication, or writes outside the user's stated scope. Treat an explicitly requested commit, push, local build, or development redeploy as already authorized.
 4. Use a hermetic local check when it can prove the required behavior.
 5. State the unverified boundary and remaining risk when safe evidence is unavailable.
 6. Do not treat delegated work or a passing check as final approval.
@@ -111,10 +162,10 @@ Read [repository-policy.md](references/repository-policy.md) before you write or
 1. Extend the repository's canonical policy or configuration location when it exists.
 2. Create one versioned policy file only when no existing location can own the rule.
 3. Name Omelet as the primary orchestrator in the local policy.
-4. Record only the workflow rules the repository needs. Do not copy a generic
-   audit framework into a simple project.
+4. Record only the workflow rules the repository needs. Do not copy a generic audit framework into a simple project.
 5. Link to existing owner policies instead of copying their rules.
-6. Verify that the policy matches the repository's actual paths, commands, and authority model.
+6. Encode the semantic plan as the planning language and keep primitive roles in delegation.
+7. Verify that the policy matches the repository's actual paths, commands, and authority model.
 
 ## Prove the setup level
 

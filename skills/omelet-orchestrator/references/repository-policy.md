@@ -2,6 +2,8 @@
 
 Use this reference to write a repository-local orchestration policy or configuration. Keep the policy short. Extend an existing canonical file if it owns agent work, delivery rules, or automation configuration.
 
+Plan policy rules in semantic orchestration patterns. Read [orchestration-layers.md](orchestration-layers.md) for the catalogs. Keep `SKILL.md` as the canonical owner of each operating rule; record rules in the policy as brief requirements and link to the owning section instead of copying step text.
+
 ## Select the location
 
 1. Read the repository instructions, contribution guide, automation files, and existing agent configuration.
@@ -14,64 +16,18 @@ Use machine-readable configuration only when an existing tool reads it. Keep hum
 
 ## Record the local contract
 
-Write these sections in the policy:
+Write each section in the policy and link its rule content to the owning `SKILL.md` section.
 
 1. **Primary orchestrator:** Name `Omelet` as the role that owns scope, integration, decisions, evidence, and completion.
-2. **Discovery:** Name the instruction files, canonical plans, owners, contracts, state boundaries, and gates that Omelet must inspect.
-3. **Task contract:** Require an outcome, scope, protected behavior, owner, paths, proof, and authority limits before work starts.
-4. **Delegation:** Require bounded deliverables, one writer per file, disclosed shared roots, repository-relative paths, a return format, and the checked runtime capability limits.
-5. **Evidence:** Require the source, command or observation, scope, time, environment, result, freshness rule, and an `observed`, `inferred`, or `unavailable` status.
-6. **Review:** Use focused checks by default. Require independent review only
-   for security, irreversible data loss, tenant isolation, destructive
-   migration, credentials, or real production publication.
-7. **Authority:** Name the actions that need explicit approval, including external writes, shared runtimes, credentials, publication, and destructive work.
-8. **Exceptions:** Require an owner, reason, bounded scope, removal condition, and verification for each exception.
-9. **Completion:** Require the focused proof, repository gates, final evidence refresh, cohesive-diff check, and remaining-risk report.
-
-## Constrain delegation
-
-1. Inspect the available sandbox, permission, and tool limits before each delegation.
-2. Select the narrowest enforced capability mode that can complete the assigned work.
-3. Do not give secrets, credentials, external-write authority, publication authority, or destructive authority by default.
-4. Permit a bounded writer only when runtime controls enforce its required write scope and external authority.
-5. If those controls are unavailable, remove secrets and personal data from task inputs.
-6. In that case, delegate read-only work only.
-7. Record declared path scope as a contract.
-8. Record each shared root before delegates change it.
-9. Record the removal condition for each exception.
-
-## Close each delegation
-
-1. Require a terminal status of `complete`, `partial`, `blocked`, or `cancelled`.
-2. Require changed paths, checks, evidence, and uncertainty in the result.
-3. Stop cancelled, superseded, or satisfied assignments.
-4. Serialize delegates that share a file, contract, state owner, or integration point.
-5. Reject or recontract work that exceeds the task contract.
-6. Reject or recontract each `partial`, `blocked`, or `cancelled` result before integration.
-7. Narrow the task contract explicitly if only the verified completed portion remains required.
-8. Independently verify complete material results before integration.
-9. End the assignment after Omelet consumes the result.
-
-## Select review
-
-1. Use focused repository checks for routine work.
-2. Use one independent reviewer when a decision could cause a security breach,
-   irreversible data loss, tenant-isolation failure, destructive migration,
-   credential exposure, or real production publication.
-3. Add a second specialist only for a concrete unresolved finding.
-4. Do not classify documentation, local redeploys, ordinary Git pushes,
-   shared-file edits, or workflow wording as high-risk by category alone.
-5. Do not block routine work because an optional reviewer is unavailable.
-
-## Check affected boundaries
-
-1. For genuinely high-risk work, identify each affected code or system boundary before applying architecture checks.
-2. Use the specialist most relevant to the concrete risk.
-3. Record important risks as `observed`, `inferred`, or `unavailable`.
-4. Use implementation-quality for accepted ownership corrections when needed.
-5. Keep new components isolated until an observed integration point requires a connection.
-6. Do not add a shared utility, fallback route, or compatibility path without a named owner and removal condition.
-7. Do not require a dependency direction or adapter pattern when the task has no material affected boundary.
+2. **Discovery:** Name the instruction files, canonical plans, owners, contracts, state boundaries, and gates Omelet must inspect.
+3. **Semantic plan:** Require a working hypothesis for the task semantic composed from orchestration semantics, optional semantics marked `?`, and topology modifiers. Record the reconstruction policy so the label is re-derived from discovered work. Link the `orchestration-layers.md` catalogs.
+4. **Task contract:** Require the outcome, scope, protected behavior, owner, paths, proof, authority limits, and the semantic plan (`Task := Semantic → Semantic → Semantic?`). Defer to `SKILL.md` "Define the task contract".
+5. **Delegation:** Require bounded deliverables, one writer per file, disclosed shared roots, repository-relative paths, a return format, and checked runtime capability limits. Defer to `SKILL.md` "Compile semantics into roles" and "Delegate bounded work".
+6. **Evidence:** Require the source, command or observation, scope, time, environment, result, freshness rule, and an `observed`, `inferred`, or `unavailable` status. Defer to `SKILL.md` "Use evidence that remains valid".
+7. **Review:** Use focused checks by default; require independent review only for the high-risk cases. Defer to `SKILL.md` "Select review and implementation".
+8. **Authority:** Name the actions that need explicit approval. Defer to `SKILL.md` "Respect authority boundaries".
+9. **Exceptions:** Require an owner, reason, bounded scope, removal condition, and verification.
+10. **Completion:** Require the focused proof, repository gates, final evidence refresh, cohesive-diff check, and remaining-risk report. Defer to `SKILL.md` "Complete the task".
 
 ## Check the policy
 
@@ -83,13 +39,8 @@ Write these sections in the policy:
 6. Confirm that optional review cannot block routine work.
 7. Confirm that the declared scope and enforced runtime capability limits are distinct.
 8. Confirm that no rule grants authority beyond repository policy or the user request.
+9. Confirm that the policy reconstructs the task semantic from discovered work instead of prescribing a fixed label.
 
 ## Prove the setup level
 
-1. Identify the agent host that must consume the setup.
-2. Identify its policy, configuration, or registration surface.
-3. Label the result `policy-only` when no compatible host consumes repository configuration.
-4. Do not claim an active setup from policy text alone.
-5. Verify host loading and the Omelet identity for an active setup.
-6. Run one bounded read-only delegation round trip when the host supports delegation.
-7. Record unsupported host capabilities as unavailable coverage.
+Follow `SKILL.md` "Prove the setup level". Record the policy path, the consuming host, and the setup label (`policy-only` or verified active) in the delegation result.
