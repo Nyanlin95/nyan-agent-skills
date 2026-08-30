@@ -33,7 +33,7 @@ For a useful result:
 | [cqt-review](skills/cqt-review/) | Review code and migrations for quality, ownership, dependencies, state, and failure behavior. |
 | [adversarial-review](skills/adversarial-review/) | Test material claims in plans, changes, and reviews before a decision. |
 | [implementation-quality](skills/implementation-quality/) | Implement or refactor code with clear ownership, readable control flow, and explicit failures. |
-| [omelet-orchestrator](skills/omelet-orchestrator/) | Plan orchestration in composable semantic patterns, compile them into bounded agent roles, and reconstruct the task semantic from discovery. |
+| [omelet-orchestrator](skills/omelet-orchestrator/) | Operate or configure Omelet by interpreting product requests, planning in composable semantic patterns, and delegating only when it materially improves the outcome. |
 | [local-git-gates](skills/local-git-gates/) | Add or review repository-local Git checks that reuse existing verification commands. |
 | [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Review rendered interfaces with bounded evidence, systemic findings, targeted fixes, and a clear verdict. |
 | [ui-copy-review](skills/ui-copy-review/) | Review changed interface copy for clarity, recovery, consistency, and copy-related accessibility. |

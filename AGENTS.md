@@ -62,27 +62,32 @@ Add each skill to the root `README.md`. Describe its purpose in one sentence and
 
 Use `skills-run:` followed by one route. Omelet is the primary orchestrator. It owns scope, contracts, integration, evidence, decisions, and completion. It does not become the normal writer.
 
+Plan each route in semantic orchestration patterns and reconstruct the task semantic from what the work turns out to be. Follow the layer model and reconstruction policy in `skills/omelet-orchestrator/references/orchestration-layers.md`.
+
 Treat an orchestration-config change as `policy-only` until a fresh trusted-project session loads it, resolves the named roles, and completes one bounded read-only delegation round trip. Do not claim active setup or approve publication while this proof is unavailable.
 
-| Route | Required work | Authority |
+| Route | Orchestration semantics → compiled roles | Authority |
 | --- | --- | --- |
-| `skills-run:research <question>` | Use `skill_researcher` or `history_analyst` for a bounded read-only question. | No writes. |
-| `skills-run:create <outcome>` | Find the existing owner, research unresolved facts, then assign `skill_implementer`. | Repository writes only. |
-| `skills-run:maintain <outcome>` | Find the existing owner, research only unresolved facts, then assign `skill_implementer`. | Repository writes only. |
-| `skills-run:validate <scope>` | Assign `skill_syncer` to validate named repository skills and changed scripts. | No installed-copy writes. |
-| `skills-run:sync <scope>` | Validate, then assign `skill_syncer` to copy explicitly approved source skills and prove SHA-256 parity. | Requires explicit sync authority. |
-| `skills-run:publish <scope>` | Assign `git_pr_manager` to perform only the explicitly authorized Git or GitHub actions. | Requires explicit publication authority. |
+| `skills-run:research <question>` | `Research Investigation := Research-Synthesize-Verify` → `skill_researcher` or `history_analyst`. | No writes. |
+| `skills-run:create <outcome>` | `Research-Synthesize-Verify? (unresolved facts) → Focused Implementation` → `skill_implementer`. | Repository writes only. |
+| `skills-run:maintain <outcome>` | `Research-Synthesize-Verify? (unresolved facts) → Focused Implementation` → `skill_implementer`. | Repository writes only. |
+| `skills-run:validate <scope>` | `Blast-Radius Validation (changed skills and scripts)` → `skill_syncer`. | No installed-copy writes. |
+| `skills-run:sync <scope>` | `Blast-Radius Validation → Checkpoint (SHA-256 parity)` → `skill_syncer`. | Requires explicit sync authority. |
+| `skills-run:publish <scope>` | `Release Qualification` → `git_pr_manager`. | Requires explicit publication authority. |
+
+Treat the route as the task-semantic hypothesis. Compose it from orchestration semantics, mark optional semantics with `?`, and compile the full primitive plan into agent roles only at delegation time.
 
 Use `skills-run:full <task>` only when the user authorizes the complete feature-branch, ready-PR, review, and merge workflow. Ordinary `skills-run:` requests do not authorize synchronization, commits, pushes, pull requests, merges, or other GitHub writes. Never push repository changes directly to `master`.
 
 Before delegation, Omelet must read applicable instructions, inspect the relevant owner, and record this task contract:
 
 1. State the observable outcome and out-of-scope work.
-2. Name the canonical owner for each changed rule.
-3. List the allowed repository-relative paths and protected behavior.
-4. Define the smallest success proof and one relevant failure proof.
-5. State each required authority, shared runtime, external system, and destructive action.
-6. Record the evidence baseline as `HEAD`, dirty-tree identity, time, and environment.
+2. State the semantic plan as a hypothesis: `Task := Semantic → Semantic → Semantic?`.
+3. Name the canonical owner for each changed rule.
+4. List the allowed repository-relative paths and protected behavior.
+5. Define the smallest success proof and one relevant failure proof.
+6. State each required authority, shared runtime, external system, and destructive action.
+7. Record the evidence baseline as `HEAD`, dirty-tree identity, time, and environment.
 
 Set the dirty-tree identity to `clean` only when `git status --porcelain=v2 --untracked-files=all` has no output. Otherwise record that status snapshot and its digest. Refresh evidence after a material change to the commit, dirty tree, producer, environment, or relevant state. Mark each material claim `observed`, `inferred`, or `unavailable`.
 
@@ -100,9 +105,10 @@ checks: <command, result, and relevant failure coverage>
 evidence: <status, source, freshness identity, and result>
 uncertainty: <unverified boundary or none>
 next_action: <required decision or none>
+semantics: <orchestration semantics that fired, in order, or none>
 ```
 
-Do not integrate an incomplete, blocked, cancelled, or out-of-contract result. Recontract it or narrow the task explicitly. Independently verify each complete material result before integration.
+Do not integrate an incomplete, blocked, cancelled, or out-of-contract result. Recontract it or narrow the task explicitly. Independently verify each complete material result before integration. Record the orchestration semantics each delegate reports as fired, then re-derive the route's task semantic before continuing the plan.
 
 Treat changes to skill triggers, ownership, workflow, safety, synchronization, publication, shared policy, or validator behavior as material. Assign `skill_reviewer` for an independent read-only review after a material change. Reconcile material findings, rerun affected validation, then inspect the cohesive diff and run `git diff --check`.
 

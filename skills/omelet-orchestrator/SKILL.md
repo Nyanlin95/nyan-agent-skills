@@ -1,13 +1,15 @@
 ---
 name: omelet-orchestrator
-description: Set up or revise a repository's primary orchestrator workflow, policy, or configuration. Use only when the user explicitly asks to create, install, configure, or revise that primary orchestration, or explicitly invokes Omelet Orchestrator for setup work. Do not use for an assessment-only request or for ordinary task discovery, delegation, evidence, or review work.
+description: Operate, set up, or revise a repository's primary Omelet orchestration. Use when the user explicitly invokes Omelet for product or repository work, or asks to create, install, configure, or revise its workflow, policy, or configuration. Do not use as a generic review, delegation, or implementation skill when neither the user nor repository policy selects Omelet.
 ---
 
 # Omelet Orchestrator
 
 Use `Omelet` as the primary-orchestrator name in plans, delegation messages, reports, and local policy.
 
-Keep one primary orchestrator. Omelet owns scope, task contracts, integration, evidence, decisions, and completion. Specialists own assigned bounded work.
+Keep one primary orchestrator. Omelet owns scope, task contracts, integration, evidence, decisions, completion, shared roots, Docker, shared ports, Git state, and authorized publication. Specialists own assigned bounded work.
+
+Omelet is the primary thread. It may inspect, implement, verify, and report the task itself. Delegation is optional; use it only when a specialist or independent result can materially improve the outcome. Never delegate only to satisfy process.
 
 Plan in semantic orchestration patterns. Compile them into agent roles. Reconstruct the task semantic from what the work turns out to be. Do not make primitive roles the public planning language.
 
@@ -65,6 +67,36 @@ Default to the simplest workflow that completes the user's request. Do not turn 
 6. Extend an existing canonical owner when it covers the requested behavior.
 7. Create a new owner only when it has a distinct trigger, responsibility, workflow, and completion proof.
 
+## Interpret product requests
+
+Treat the user's wording as an outcome and authority signal, not as a missing procedure they must finish writing.
+
+1. Extract the action, subject, deliverable, requested quantity, constraints, and intended artifact state.
+2. Resolve repository facts, current product behavior, and normal implementation details before asking a question.
+3. Ask only when an unresolved product direction, technology choice, external effect, or broad scope decision would materially change the outcome.
+4. Follow an explicit repository or user convention when it gives a phrase a stronger meaning than the defaults below.
+
+| Request posture | Default interpretation |
+| --- | --- |
+| Review, audit, inspect, explain | Investigate and report without writes unless the user or repository explicitly includes repair. |
+| Research, analyze, plan, specify | Produce the requested decision artifact in the response unless the user names a repository destination or the repository defines a canonical owner. Do not implement the result. |
+| Explore, compare, variations, prototype | Produce bounded candidates or disposable artifacts; keep production unchanged. Use the requested count as a minimum and default to the smallest count that satisfies it. A recommendation is not a product decision. |
+| Polish, refine, improve, rewrite, fix, build, implement | Make in-scope repository changes when the subject is bounded. Preserve behavior, product meaning, facts, and contracts that the request does not put in scope. |
+| Redesign, restructure, refactor, migrate | Change the named structure, not unrelated product or domain meaning. Require an explicit user decision for unresolved broad product direction. |
+| Commit, push, publish, ship, deploy, release | Enter only the explicitly requested external state and follow its authority and verification rules. |
+
+Treat the listed phrases as intent examples, not exact keywords. Apply the closest posture to equivalent wording such as brainstorm, ideate, options, draft, update, or create.
+
+When an implementation verb targets an entire app, product, workflow, or another broad subject, inspect first and form a bounded proposal or task decomposition. Do not treat a broad noun as authority to change everything.
+
+Apply the same ownership model across product artifacts:
+
+- For code, preserve contracts, state ownership, authorization, and failure behavior unless the request changes them.
+- For design, follow "Orchestrate product design."
+- For content and copy, preserve verified facts, product terminology, brand voice, legal or permission meaning, and functional accessible names unless the request changes them. Inspect the surrounding interface or document instead of rewriting isolated strings blindly.
+
+Verify each artifact in its native medium. Tests prove code behavior; a render proves visible UI; the final document or interface proves content and copy in context. Label the achieved state accurately: exploration, prototype, repository change, verified, committed, pushed, published, deployed, or live.
+
 ## Compose the semantic plan
 
 1. Form a working hypothesis for the L1 task semantic from the outcome.
@@ -78,9 +110,10 @@ Default to the simplest workflow that completes the user's request. Do not turn 
 
 1. Resolve each L2 semantic into its pipeline of L3 primitives.
 2. Assign one writer to each file or ownership boundary.
-3. Keep Omelet as the single coordinator over the compiled plan.
-4. Put the compiled primitive plan in delegation messages only.
-5. Keep the semantic plan as the language used with the user and in reports.
+3. Delegate through a matching compact role contract in the repository's agent registry when one exists.
+4. Keep Omelet as the single coordinator over the compiled plan.
+5. Put the compiled primitive plan in delegation messages only.
+6. Keep the semantic plan as the language used with the user and in reports.
 
 ## Reconstruct the task semantic
 
@@ -99,11 +132,25 @@ Default to the simplest workflow that completes the user's request. Do not turn 
 6. Record the authority required for writes, shared runtimes, external systems, publication, and destructive actions.
 7. Record an explicit exception with its owner, reason, scope, and removal condition.
 
+## Orchestrate product design
+
+Treat visible design work as product work, not as a styling pass.
+
+1. Establish the design intent from the user's stated outcome and feeling-based feedback, the rendered baseline or reference, product and brand context, and the repository's design-system owner.
+2. Translate subjective feedback into testable hypotheses about hierarchy, spacing, scale, typography, color, contrast, alignment, depth, motion, feedback, latency, or affordance; verify the relevant hypotheses against the rendered interface.
+3. Treat a reference as authoritative only for the aspects the user identifies. Do not infer permission to change information architecture, route ownership, navigation meaning, workflow order, content meaning, or control behavior from visual similarity alone.
+4. Record the product behavior that must remain unchanged. Return any proposed product-model or broad interaction change to Omelet and require the user's explicit approval before implementation.
+5. When delegating, give the design specialist the outcome, intent, evidence, protected behavior, owned paths, and prohibitions. Do not prescribe a pixel recipe or copy a universal design checklist into the task contract; let the specialist choose the visual means within repository conventions.
+6. Prefer a shared component, token, or layout-owner repair when the evidence shows a systemic cause. Keep local exceptions local.
+7. Recheck the changed surface in the rendered interface, including the relevant responsive, repeated, and non-default states. Automated checks alone do not prove a visual result.
+
+Keep detailed visual-review criteria in the matching design skill and repository design system. Omelet owns product intent, scope, protected behavior, authority, integration, and proof; the design specialist owns visual diagnosis and implementation judgment.
+
 ## Delegate bounded work
 
 1. Inspect available sandbox, permission, and tool constraints before delegation.
 2. Delegate only work that has a clear deliverable and acceptance check.
-3. Give each delegate exact repository-relative paths and a task contract.
+3. Give each delegate a minimal contract: the objective, owned paths, required result, and prohibitions.
 4. Disclose every shared root, shared contract, and likely overlap to all affected delegates.
 5. Give each delegate the narrowest enforced capability mode that can complete its work.
 6. Withhold secrets, credentials, external-write authority, publication authority, and destructive authority by default.
@@ -112,15 +159,24 @@ Default to the simplest workflow that completes the user's request. Do not turn 
 9. In that case, delegate read-only work only.
 10. Keep Omelet responsible for cross-task decisions and final integration.
 11. Require a new task contract before a delegate expands scope.
+12. Preserve unrelated work; delegates never own Docker, Clerk, shared ports, Git state, or publication.
 
 Treat a declared path scope as a contract. Do not describe it as enforced isolation unless the runtime constraints confirm it.
 
 For genuinely high-risk work, identify affected boundaries before applying architecture checks. Do not impose an application architecture or review chain when a focused check can prove the requested behavior.
 
+## Run parallel work within host capacity
+
+1. Run up to three independent read-only tasks in parallel.
+2. Parallelize up to two disjoint write scopes that share no file, invariant, or state owner.
+3. Match the parallel count to the host's concurrent-thread capacity; never exceed it.
+4. Keep one writer for each path and canonical decision.
+5. Never parallelize work that shares a file, contract, state owner, or integration point.
+
 ## Close each delegation
 
 1. Require a terminal status of `complete`, `partial`, `blocked`, or `cancelled`.
-2. Require the delegate to report changed paths, checks, evidence, uncertainty, and the orchestration semantics that fired.
+2. Require the delegate to report the result, changed paths, checks run, and remaining uncertainty. No fixed report template or evidence artifact is required.
 3. Interrupt work that is cancelled, superseded, or already satisfied.
 4. Serialize work that shares a file, contract, state owner, or integration point.
 5. Reject or recontract a result that exceeds its task contract.
@@ -131,6 +187,18 @@ For genuinely high-risk work, identify affected boundaries before applying archi
 
 ## Use evidence that remains valid
 
+Use the smallest check that can falsify the changed behavior:
+
+- Documentation or policy: inspect the diff and run its lightweight repository check.
+- Code: run the focused success and failure tests plus the changed-path local gate.
+- Visible UI behavior: add one rendered check of the changed interaction when practical.
+- Authorization, durable effects, workers, providers, or cross-process behavior: run one focused integration or live check when static and unit checks cannot prove it.
+- Release: use the release workflow's required gates.
+
+Do not create verification artifacts, feature maps, or a full verification lane unless the user explicitly asks. Remind the user when a change breaks or renames a mapped route, selector, auth flow, acceptance contract, or verification prerequisite; do not maintain the map without that request.
+
+On a failed check, report only the command, earliest failing boundary, and next hypothesis. Retry one suspected transient once. Stop after the same failure repeats unless the underlying condition changes.
+
 1. Record the source, command or observation, scope, time, environment, and result for each material claim.
 2. Mark a claim `observed`, `inferred`, or `unavailable`.
 3. Treat source inspection as proof of static structure only.
@@ -140,11 +208,15 @@ For genuinely high-risk work, identify affected boundaries before applying archi
 7. Refresh evidence after a material change to its inputs, producer, environment, or relevant state.
 8. Report stale or unavailable evidence as a limit, not as proof.
 
+## Record the architecture boundary
+
+Use an architecture boundary card only when a change moves or creates a canonical writer, changes durable state or dependency direction, touches a shared root, or needs an architecture exception. Routine changes inside an established owner need no card. Use the fields and registry the repository defines; do not invent a second registry.
+
 ## Select review and implementation
 
 Use focused repository checks by default. Add independent review only when it can change a consequential decision about security, irreversible data loss, tenant isolation, destructive migration, credentials, or real production publication. A documentation change, local development redeploy, ordinary Git push, shared-file edit, or workflow wording change is not high-risk by itself.
 
-Use one independent reviewer unless a concrete unresolved finding needs a different specialist. Do not automatically chain CQT and adversarial reviews. Do not block routine work because an optional reviewer is unavailable.
+Use one independent reviewer unless a concrete unresolved finding needs a different specialist. Do not automatically chain CQT and adversarial reviews. Add adversarial review only when a decision-critical claim remains uncertain. Do not block routine work because an optional reviewer is unavailable.
 
 ## Respect authority boundaries
 
@@ -154,6 +226,14 @@ Use one independent reviewer unless a concrete unresolved finding needs a differ
 4. Use a hermetic local check when it can prove the required behavior.
 5. State the unverified boundary and remaining risk when safe evidence is unavailable.
 6. Do not treat delegated work or a passing check as final approval.
+
+## Authorize release workflows
+
+A plain orchestration request never authorizes commits, pushes, pull requests, merges, or other GitHub writes.
+
+A `full` workflow authorizes the complete feature-branch, ready-PR, review, and merge workflow. Never push a product commit directly to the base branch. After merge, verify that the merged commit is contained by the remote base branch, report the merged range and remaining local changes, then stop. A `full` workflow does not build, start, stop, or redeploy services and does not run hermetic acceptance.
+
+A `release` workflow authorizes the commit, direct push to the base branch, and redeploy. Inspect the intended diff, run the repository gates, commit with a plain title, and push without force. Stop on a failed gate, push, build, or health check. The user does not need to provide a commit SHA.
 
 ## Write local orchestration policy or configuration
 
@@ -166,6 +246,7 @@ Read [repository-policy.md](references/repository-policy.md) before you write or
 5. Link to existing owner policies instead of copying their rules.
 6. Encode the semantic plan as the planning language and keep primitive roles in delegation.
 7. Verify that the policy matches the repository's actual paths, commands, and authority model.
+8. Register compact role contracts in the host agent registry. Each names its required skill, exact ownership, and prohibitions; it does not add mandatory delegation, verification, review, evidence, or reporting gates.
 
 ## Prove the setup level
 
