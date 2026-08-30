@@ -146,6 +146,21 @@ Treat visible design work as product work, not as a styling pass.
 
 Keep detailed visual-review criteria in the matching design skill and repository design system. Omelet owns product intent, scope, protected behavior, authority, integration, and proof; the design specialist owns visual diagnosis and implementation judgment.
 
+## Use DialKit for bounded interface tuning
+
+Read [dialkit.md](references/dialkit.md) when the user explicitly requests DialKit or a rendered interface would materially benefit from live tuning of several coupled presentation or motion parameters.
+
+1. Treat DialKit as optional authoring instrumentation, not as the design system, application state owner, approval surface, or orchestration runtime.
+2. Check the repository manifests, lockfiles, and existing integration before proposing a DialKit path.
+3. Do not install, add, or upgrade DialKit unless the user explicitly authorizes that dependency change for the current task.
+4. Continue with the repository's existing design workflow when DialKit is unavailable; do not pause ordinary work merely to request its installation.
+5. Define the product behavior and canonical owner before exposing controls.
+6. Expose only bounded UI-owned parameters whose live comparison can answer the design question.
+7. Keep DialKit development-only by default. Treat production exposure as an explicit product and security decision with an owner, scope, and removal condition.
+8. Treat presets, persisted browser values, copied JSON, and timeline instructions as candidate authoring state, never as repository truth or user approval.
+9. Promote accepted values into the repository's canonical component, token, or animation owner and verify the real rendered behavior.
+10. Remove temporary bindings after promotion, or classify the remaining integration as an intentional authoring surface. For timelines, replace sampled authoring values with the production animation; hiding the editor alone is incomplete.
+
 ## Delegate bounded work
 
 1. Inspect available sandbox, permission, and tool constraints before delegation.
