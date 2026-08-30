@@ -1,6 +1,6 @@
 ---
 name: omelet-orchestrator
-description: Operate, set up, or revise a repository's primary Omelet orchestration. Use when the user explicitly invokes Omelet for product or repository work, or asks to create, install, configure, or revise its workflow, policy, or configuration. Do not use as a generic review, delegation, or implementation skill when neither the user nor repository policy selects Omelet.
+description: Operate, set up, or revise a repository's primary Omelet orchestration. Use when the user explicitly invokes Omelet for product or repository work, or asks to create, install, configure, or revise its workflow, policy, or configuration. When Omelet is selected, route detailed refinement of one component, layout, composition, animation, website section, or similarly bounded visible surface through its single-surface workflow. Do not use as a generic review, delegation, or implementation skill when neither the user nor repository policy selects Omelet.
 ---
 
 # Omelet Orchestrator
@@ -66,6 +66,22 @@ Default to the simplest workflow that completes the user's request. Do not turn 
 5. Record unknown or shared ownership as a risk before delegation.
 6. Extend an existing canonical owner when it covers the requested behavior.
 7. Create a new owner only when it has a distinct trigger, responsibility, workflow, and completion proof.
+
+## Ground every task dynamically
+
+Read [dynamic-grounding.md](references/dynamic-grounding.md) for every Omelet task before finalizing its semantic plan or task contract.
+
+1. Name the decisions and material claims the task must resolve.
+2. Inspect the current task-local sources of truth before importing external patterns or advice.
+3. Build a claim-specific source map across the relevant code, product, architecture, design, security, operations, content, data, or provider domains.
+4. Match each source to the authority it can actually provide. Do not use documentation to prove runtime behavior, a trend to prove product fit, or a case study to prove this system's constraints.
+5. Revalidate changeable facts in the active task against exact versions, current state, and primary sources. Record an as-of identity for consequential claims.
+6. Use external research when a decision depends on an unstable fact, unfamiliar technology, current practice, comparative expectation, platform contract, or material risk. Keep a mechanical task internal when current repository evidence fully resolves it.
+7. Require every material source to confirm, challenge, or change a decision. Do not collect citations or examples to simulate rigor.
+8. Reconcile conflicting sources by claim authority, version, environment, and applicability. Report a real contradiction instead of averaging it away.
+9. Carry the grounding, freshness limits, and unavailable coverage through delegation, implementation, verification, and the final report.
+
+Minimal grounding is not absent grounding. Scale the depth to uncertainty, reversibility, blast radius, and consequence without skipping the current owner and observable proof.
 
 ## Interpret product requests
 
@@ -145,6 +161,23 @@ Treat visible design work as product work, not as a styling pass.
 7. Recheck the changed surface in the rendered interface, including the relevant responsive, repeated, and non-default states. Automated checks alone do not prove a visual result.
 
 Keep detailed visual-review criteria in the matching design skill and repository design system. Omelet owns product intent, scope, protected behavior, authority, integration, and proof; the design specialist owns visual diagnosis and implementation judgment.
+
+## Refine one rendered surface
+
+Read [single-surface-refinement.md](references/single-surface-refinement.md) when the user points to one component, layout, composition, animation, website section, or similarly bounded visible surface and asks for detailed refinement.
+
+1. Treat the request as permission for depth inside the selected surface, not breadth across the product.
+2. Seal the surface contract around the selected target, its canonical component or design-system owner, and only the directly required callers, states, primitives, and tokens.
+3. Protect routes, information architecture, product meaning, workflow order, data contracts, and neighboring surfaces unless the user explicitly puts them in scope.
+4. Choose a refinement posture of `Preserve`, `Modernize`, or `Overhaul`. Default to `Preserve` for refine, polish, or improve requests unless observed evidence shows that the existing structure prevents the requested outcome.
+5. Apply the task-wide dynamic grounding first, then add the rendered baseline, current shipped UI patterns, current visual-direction signals, and relevant design or platform guidance required by this surface.
+6. Map only the anatomy, states, input methods, responsive conditions, and content extremes that can materially affect the selected surface.
+7. Translate subjective feedback into testable design hypotheses, then trace confirmed problems to their shared component, token, layout, interaction, or state owner.
+8. Implement the smallest coherent surface system that resolves the evidence. Include a shared parent or primitive only when it is the cause; exclude unrelated concurrent work.
+9. Compare the same content, viewport, and state before and after. Verify the relevant non-default, responsive, accessibility, input, motion, interruption, and failure conditions in the rendered product.
+10. Stop when the selected surface and its required owner are coherent. Present neighboring opportunities separately instead of silently expanding the task.
+
+Use DialKit only under the separate bounded-tuning rules below. Its absence does not reduce the depth of a single-surface refinement and never authorizes a proactive installation.
 
 ## Use DialKit for bounded interface tuning
 
