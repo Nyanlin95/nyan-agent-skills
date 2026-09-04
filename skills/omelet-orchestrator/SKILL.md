@@ -11,6 +11,18 @@ Keep one primary orchestrator. Omelet owns scope, task contracts, integration, e
 
 Omelet is the primary thread. It may inspect, implement, verify, and report the task itself. Delegation is optional; use it only when a specialist or independent result can materially improve the outcome. Never delegate only to satisfy process.
 
+## Guide model selection
+
+Prefer `gpt-6-astra` for the primary Omelet thread when it is available. It fits work that must coordinate several owners, reconcile evidence, or sustain a complex workflow.
+
+Treat these specialist choices as nudges:
+
+- Prefer Astra or the strongest available model for decision-critical synthesis, difficult architecture, or high-consequence integration.
+- Prefer Sol or Terra for substantial implementation, review, history synthesis, and Git lifecycle work.
+- Prefer Luna for bounded research, deterministic validation, and synchronization work.
+
+Choose the model at delegation time. Consider task complexity, context size, latency, cost, current availability, and the user's model choice. Let a specialist inherit the parent model when that is the best fit. When selecting a different model or reasoning effort on a host where full-history forks must inherit the parent settings, use a bounded or empty history fork with a compact task contract. Do not pin a model in a role contract, treat a suggestion as a gate, or reject valid work because it used another suitable model.
+
 Plan in semantic orchestration patterns. Compile them into agent roles. Reconstruct the task semantic from what the work turns out to be. Do not make primitive roles the public planning language.
 
 ## Think in orchestration layers
@@ -146,7 +158,10 @@ Verify each artifact in its native medium. Tests prove code behavior; a render p
 4. State the behavior that must remain unchanged.
 5. Define the smallest proof for the success path and one relevant failure path.
 6. Record the authority required for writes, shared runtimes, external systems, publication, and destructive actions.
-7. Record an explicit exception with its owner, reason, scope, and removal condition.
+7. State the observable scope and explicit out-of-scope work before a writer starts.
+8. Define task-specific completion for every affected surface, including its final-state proof and any relevant failure proof.
+9. Label each incomplete, partial, or unavailable surface honestly. Do not let a passing check stand in for its final-state proof.
+10. Record an explicit exception with its owner, reason, scope, and removal condition.
 
 ## Orchestrate product design
 
@@ -160,7 +175,7 @@ Treat visible design work as product work, not as a styling pass.
 6. Prefer a shared component, token, or layout-owner repair when the evidence shows a systemic cause. Keep local exceptions local.
 7. Recheck the changed surface in the rendered interface, including the relevant responsive, repeated, and non-default states. Automated checks alone do not prove a visual result.
 
-Keep detailed visual-review criteria in the matching design skill and repository design system. Omelet owns product intent, scope, protected behavior, authority, integration, and proof; the design specialist owns visual diagnosis and implementation judgment.
+Route detailed visual diagnosis, state selection, and rendered proof to `nyan-ui-visual-review` when it applies. Keep detailed visual-review criteria in that skill and the repository design system. Omelet owns product intent, scope, protected behavior, authority, integration, and proof. The design specialist owns visual diagnosis and implementation judgment.
 
 ## Refine one rendered surface
 
@@ -215,11 +230,11 @@ For genuinely high-risk work, identify affected boundaries before applying archi
 
 ## Run parallel work within host capacity
 
-1. Run up to three independent read-only tasks in parallel.
-2. Parallelize up to two disjoint write scopes that share no file, invariant, or state owner.
-3. Match the parallel count to the host's concurrent-thread capacity; never exceed it.
+1. Use parallel agents when independent work can save time or improve quality.
+2. Follow the host's available capacity instead of setting an Omelet agent limit.
+3. Parallelize only independent read-only work or disjoint write scopes that share no file, invariant, state owner, or integration point.
 4. Keep one writer for each path and canonical decision.
-5. Never parallelize work that shares a file, contract, state owner, or integration point.
+5. Serialize work when shared state or an integration boundary makes concurrent work unsafe.
 
 ## Close each delegation
 
@@ -315,4 +330,5 @@ Read [repository-policy.md](references/repository-policy.md) before you write or
 4. Complete independent review only when the high-risk rule above requires it.
 5. Refresh evidence affected by the final change.
 6. Inspect the cohesive diff for unintended paths and boundary violations.
-7. Report the outcome, owners, evidence, checks, exceptions, and unverified risk.
+7. Confirm the final observable state for every affected surface. Label any incomplete, partial, or unavailable proof honestly.
+8. Report the outcome, owners, evidence, checks, exceptions, and unverified risk.

@@ -83,6 +83,56 @@ class BuildPermissionsTests(unittest.TestCase):
                             [],
                         )
 
+    def test_allows_recursive_edits_only_below_each_declared_path(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            permissions, _ = run_opencode.build_permissions(
+                Path(temporary_directory), ["src/feature"], []
+            )
+
+        self.assertEqual(permissions["edit"]["src/feature/*"], "allow")
+        self.assertNotIn("src/*", permissions["edit"])
+        self.assertEqual(permissions["edit"]["*"], "deny")
+
+
+class LifecycleClassificationTests(unittest.TestCase):
+    def test_classifies_specific_provider_failures(self) -> None:
+        cases = {
+            "payment required": ("quota_limited", run_opencode.EXIT_QUOTA),
+            "HTTP 429 too many requests": (
+                "rate_limited",
+                run_opencode.EXIT_RATE_LIMIT,
+            ),
+            "invalid API key": (
+                "authentication_failed",
+                run_opencode.EXIT_AUTHENTICATION,
+            ),
+            "unexpected provider error": ("failed", run_opencode.EXIT_FAILED),
+        }
+
+        for evidence, expected in cases.items():
+            with self.subTest(evidence=evidence):
+                self.assertEqual(run_opencode.classify_failure(evidence), expected)
+
+    def test_requires_terminal_event_for_completion(self) -> None:
+        self.assertEqual(
+            run_opencode.classify_session_result(0, "end_turn", ""),
+            ("completed", 0),
+        )
+        self.assertEqual(
+            run_opencode.classify_session_result(0, None, ""),
+            ("incomplete", run_opencode.EXIT_INCOMPLETE),
+        )
+
+    def test_classifies_total_and_idle_timeouts(self) -> None:
+        self.assertEqual(
+            run_opencode.timeout_status(0, 9, 11, 10, 5),
+            ("total_timeout", run_opencode.EXIT_TOTAL_TIMEOUT),
+        )
+        self.assertEqual(
+            run_opencode.timeout_status(0, 0, 6, 10, 5),
+            ("idle_timeout", run_opencode.EXIT_IDLE_TIMEOUT),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

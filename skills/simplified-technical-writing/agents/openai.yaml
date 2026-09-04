@@ -1,4 +1,4 @@
 interface:
   display_name: "Simplified Technical Writing"
   short_description: "Clear technical prose in Simplified English"
-  default_prompt: "Use $simplified-technical-writing to rewrite this technical text in strict mode."
+  default_prompt: "Use $simplified-technical-writing. Select strict or STE-flavored mode from the content, then select standalone rewrite or artifact-edit output."

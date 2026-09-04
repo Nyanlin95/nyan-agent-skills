@@ -1,9 +1,5 @@
-# Omelet is this repository's primary orchestration identity.
-model = "gpt-5.6-sol"
-model_reasoning_effort = "medium"
-
-[agents]
-max_concurrent_threads_per_session = 4
+# Omelet model selection follows the host and the guidance in its skill.
+# Prefer Astra for the primary orchestrator when the current host supports it.
 
 [agents.history_analyst]
 description = "Find recurring failures and strong examples in installed coding-agent logs and memories. Read-only and privacy-bounded."

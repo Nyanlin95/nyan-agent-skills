@@ -1,6 +1,6 @@
 ---
 name: handoff-to-opencode
-description: Hand off limited, non-sensitive implementation work from a coding agent to the OpenCode CLI through an explicitly selected model and bounded file or folder paths. Use when the user asks to hand off work to OpenCode, use OpenCode or OpenCode Zen, use a currently free Zen model such as DeepSeek V4 Flash Free, or use a low-cost external model to implement a small change, add focused tests, fix a bounded defect, work on a normal Git branch, or prepare changes for an optional pull request. Keep the primary coding agent responsible for branches, scope, diff review, verification, commits, publishing, and the final result. Do not use for secrets, personal data, confidential code, production access, or broad autonomous changes.
+description: Hand off limited, non-sensitive implementation work from a coding agent to the OpenCode CLI through an explicitly selected live model and bounded file or folder paths. Use when the user asks to hand off work to OpenCode or OpenCode Zen, use a current free Zen model, or use a low-cost external model to implement a small change, add focused tests, fix a bounded defect, work on a normal Git branch, or prepare changes for an optional pull request. Keep the primary coding agent responsible for branches, scope, diff review, verification, commits, publishing, and the final result. Do not use for secrets, personal data, confidential code, production access, or broad autonomous changes.
 ---
 
 # Handoff to OpenCode
@@ -24,14 +24,13 @@ Use this flow in order. Keep the primary coding agent responsible for every step
 ## Before delegation
 
 1. Confirm that `opencode --version` succeeds.
-2. Run `opencode providers list`.
-3. Run `opencode models opencode`.
-4. Confirm that the selected model appears in the live model list.
-5. Confirm that the selected model ID ends in `-free`.
-6. Stop if the model is no longer available.
-7. Ask before selecting a paid model.
+2. Run `opencode models opencode`.
+3. Select one explicit model from the live list.
+4. Confirm that the selected model ID ends in `-free`.
+5. Stop if the model is no longer available.
+6. Ask before selecting a paid model.
 
-Do not assume that a model remains free because this skill names it.
+As observed on 2026-09-05, the live free list included `opencode/ling-3.0-flash-fin-free`, `opencode/mimo-v2.5-free`, `opencode/muse-spark-1.2-contributor-free`, `opencode/muse-spark-1.3-contributor-free`, `opencode/nemotron-3-ultra-free`, and `opencode/nemotron-3.5-lightning-free`. Treat this list as an example. The live command decides the current list.
 
 ## Protect data
 
@@ -109,7 +108,7 @@ Prefer the bundled wrapper:
 ```powershell
 python scripts/run_opencode.py `
   --cwd "C:\path\to\project" `
-  --model "opencode/deepseek-v4-flash-free" `
+  --model "opencode/nemotron-3.5-lightning-free" `
   --allow-path "src\feature" `
   --allow-path "tests\feature.test.ts" `
   --allow-command "npm run test:feature*" `

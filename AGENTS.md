@@ -62,6 +62,10 @@ Add each skill to the root `README.md`. Describe its purpose in one sentence and
 
 Use `skills-run:` followed by one route. Omelet is the primary orchestrator. It owns scope, contracts, integration, evidence, decisions, and completion. It does not become the normal writer.
 
+Prefer Astra for the primary Omelet thread when the host supports it. Follow the task-aware model guidance in `skills/omelet-orchestrator/SKILL.md` at delegation time. Treat each choice as a nudge, respect the user's selection and host availability, and do not pin specialist models or reasoning levels in role contracts.
+
+Use the host's available subagent capacity. Do not impose a repository or Omelet agent cap.
+
 Plan each route in semantic orchestration patterns and reconstruct the task semantic from what the work turns out to be. Follow the layer model and reconstruction policy in `skills/omelet-orchestrator/references/orchestration-layers.md`.
 
 Treat an orchestration-config change as `policy-only` until a fresh trusted-project session loads it, resolves the named roles, and completes one bounded read-only delegation round trip. Do not claim active setup or approve publication while this proof is unavailable.
@@ -93,7 +97,7 @@ Set the dirty-tree identity to `clean` only when `git status --porcelain=v2 --un
 
 Each specialist must read every skill assigned to its role or task and any directly related owner skill before acting. Treat the agent file as role identity and the skills as the owning procedures. Do not load unrelated skills only because they are available. `skill_researcher` executes its bounded research directly. It does not delegate again unless Omelet explicitly requires it.
 
-Give one writer each file and rule owner. Declare shared files, contracts, and roots before work starts. Run only independent read-only lanes in parallel. Serialize work that shares a file, contract, state owner, or integration point. Extend an existing owner before creating a new skill. Create a skill only when it has an independent trigger, owner, workflow, and completion check.
+Give one writer each file and rule owner. Declare shared files, contracts, and roots before work starts. Parallelize only independent read-only lanes or disjoint write scopes that share no file, contract, state owner, or integration point. Serialize work that shares any of those boundaries. Extend an existing owner before creating a new skill. Create a skill only when it has an independent trigger, owner, workflow, and completion check.
 
 Require every delegate to return this terminal result:
 

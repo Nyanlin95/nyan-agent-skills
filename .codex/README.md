@@ -1,6 +1,8 @@
 # Omelet orchestration
 
-Omelet is the repository's primary orchestrator. It defines the task contract, assigns bounded work, reconciles results, and owns final verification. It does not take the normal implementation assignment.
+Omelet is the repository's primary orchestrator. The repository prefers Astra for this role when the host supports it. A user or task can select another available model. Omelet defines the task contract, assigns bounded work, reconciles results, and owns final verification. It does not take the normal implementation assignment.
+
+Specialist roles do not pin a model or reasoning level. Select their models at delegation time with the guidance in [omelet-orchestrator](../skills/omelet-orchestrator/). Treat each model choice as a nudge based on the work, not as a gate. Omelet does not set a subagent cap. It uses the host's available capacity while preserving file and state ownership.
 
 This checked-in revision is `policy-only` until a fresh trusted-project session loads the changed configuration, resolves every named role, and completes one bounded read-only delegation round trip. Do not describe the revised setup as active or approve publication without that evidence.
 

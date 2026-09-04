@@ -1,11 +1,13 @@
 ---
 name: build-html-prototype
-description: Builds disposable HTML prototypes in one removable folder. Use for browser documents, checklists, reports, UI mockups, interaction tests, animation studies, Canvas demos, and Three.js prototypes. Scale from one static `index.html` to a multi-file browser experience. Audit the folder boundary and verify the rendered result. Do not add prototype code to a production application.
+description: Builds disposable HTML prototypes in one removable folder. Use for browser documents, checklists, reports, UI mockups, interaction tests, animation studies, HTML Canvas demos, and Three.js prototypes. Scale from one static `index.html` to a multi-file browser experience. Audit the folder boundary and verify the rendered result. Do not add prototype code to a production application or create a Codex Canvas.
 ---
 
 # Build HTML Prototype
 
 Build a browser artifact that makes an idea visible, testable, or clear. Treat it as disposable evidence, not production code.
+
+This skill creates files that run in a browser. It does not create a Codex Canvas. Use the `canvas` skill when the user asks for a live Codex Canvas.
 
 ## Keep one prototype owner
 

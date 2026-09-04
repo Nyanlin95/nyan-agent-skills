@@ -1,0 +1,4 @@
+interface:
+  display_name: "Wonder Design Workflow"
+  short_description: "Create and verify scoped Wonder canvas designs"
+  default_prompt: "Use $wonder-design-workflow to update this Wonder design and verify the requested states."

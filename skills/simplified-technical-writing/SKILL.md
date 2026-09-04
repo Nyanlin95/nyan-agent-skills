@@ -11,9 +11,11 @@ Write prose in ASD-STE100 Simplified Technical English. This applies to document
 
 1. Select strict mode for procedures, safety text, and error messages.
 2. Select STE-flavored mode for general technical prose.
-3. Preserve the requested meaning, code, identifiers, and command syntax.
-4. Rewrite the prose with the rules below.
-5. Run the self-lint before you return the text.
+3. Select standalone rewrite mode when the requested result is only rewritten prose.
+4. Select artifact-edit mode when prose belongs in a file, repository change, report, or other deliverable.
+5. Preserve the requested meaning, code, identifiers, command syntax, and required artifact fields.
+6. Rewrite the prose with the rules below.
+7. Run the self-lint before you return the result.
 
 ## Rules
 
@@ -40,12 +42,16 @@ PUNCTUATION
 STRUCTURE
 - One topic per paragraph, max six sentences. For steps, use a numbered vertical list, one action per item, imperative form. Put a condition before its command.
 
-Write only the requested text. No preamble, no summary, no closing remarks.
+In standalone rewrite mode, return only the requested text. Do not add a preamble, summary, or closing remarks.
+
+In artifact-edit mode, preserve required status, validation, evidence, and delivery fields. Rewrite their prose. Do not remove them only to make the response shorter.
 
 ## Modes
 
 - **strict** — procedures, runbooks, safety text, error messages: apply every rule and both length caps.
 - **STE-flavored** — general prose (READMEs, PR descriptions, docs): apply the sentence, paragraph, active-voice, and no-phrasal-verb discipline; relax the ~900-word dictionary lockdown so the text keeps enough range to read naturally.
+- **standalone rewrite** — return only rewritten prose.
+- **artifact edit** — retain the artifact structure and its required completion evidence.
 
 ## Self-lint (run before returning text)
 

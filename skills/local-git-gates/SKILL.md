@@ -11,7 +11,7 @@ Use a staged model:
 
 1. Establish a minimal baseline.
 2. Validate behavior with basic tests.
-3. Ask before enabling heavier modes (local CI build, worktree/object validation, broad installer changes).
+3. Ask only before enabling a heavier or broader mode that the task did not explicitly authorize.
 
 After each stage, add a soft recheck step: run the narrowest validation for that stage, confirm output matches this repository’s intent, and refine the next stage if needed before proceeding.
 
@@ -31,9 +31,9 @@ Use this shape:
    - pre-push ref-update sanity.
 3. Run baseline tests for those slices before any install/config change.
    - Recheck and refine: if any baseline test is noisy or misses routing edge cases, tune the checks before moving on.
-4. Ask for explicit approval to use the repository’s local CI-equivalent build/test command before adding heavy checks.
-5. Ask for explicit authorization before writing config.
-6. Expand checks, coverage, and routing after approvals.
+4. Use a named repository-local setup when the user explicitly asks to install it.
+5. Ask before an unknown replacement, global configuration, or heavier scope.
+6. Expand checks, coverage, and routing within the authorized scope.
 7. Report installation scope, routed checks, and checks intentionally left to CI.
 
 ## Inspect before changing
@@ -72,8 +72,8 @@ Do not replace CI. Keep CI as the authoritative remote proof.
 
 Only enable object-based pre-push validation when both are true:
 
-1. The repository has docker-backed acceptance/integration checks that require a real pushed object context.
-2. The repository has object storage or object DB persistence in the gate path.
+1. The selected gate must validate the revision that will be pushed, not the dirty working tree.
+2. The repository can isolate that pushed revision in a temporary worktree or equivalent object-based context.
 
 When enabled, confirm user approval before changing behavior.
 
@@ -139,7 +139,7 @@ Test routing with unusual, spaced, dash-leading, and metacharacter pathnames.
 
 ## Ask and expand progressively
 
-After each baseline slice passes, ask before next step:
+After each baseline slice passes, continue within the explicit setup scope. Ask before an unapproved expansion:
 
 1. Expand hook wiring (`--pre-commit`, `--stdin`) in a committed scope.
 2. Enable/adjust local CI build command usage.
@@ -147,15 +147,15 @@ After each baseline slice passes, ask before next step:
 4. Add broad routing for boundary paths.
 5. Expand installer scope (`core.hooksPath`, worktree assumptions).
 
-For each step, request explicit approval and list affected files and commands.
+For each unapproved expansion, request explicit approval and list affected files and commands.
 
 If a step is accepted, run a quick recheck with the minimal commands for that step, then refine scope or routing before requesting approval for the next step.
 
 ## Install without surprises
 
 1. Check current hook configuration before writing.
-2. Require explicit authorization for any shared local config update.
-3. Do not overwrite unknown `core.hooksPath` values without approval.
+2. Treat an explicit request to install the named repository-local setup as authorization for its required local config.
+3. Ask before replacing an unknown `core.hooksPath` value.
 4. Use repository-local config by default; never touch global Git config.
 5. Preserve existing worktree behavior intentionally and document it.
 
@@ -199,4 +199,4 @@ Report:
 - local CI build agreement status
 - checks left to CI.
 
-Do not add a local hook without explicit configuration authorization from the repository owner.
+Do not add a local hook until the user explicitly requests that named repository-local setup.

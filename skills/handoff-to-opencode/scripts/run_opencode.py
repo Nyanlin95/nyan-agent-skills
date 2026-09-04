@@ -17,7 +17,6 @@ from pathlib import Path
 from typing import TextIO
 
 
-DEFAULT_MODEL = "opencode/deepseek-v4-flash-free"
 BOUNDED_AGENT = "bounded-delegate"
 
 VERIFICATION_COMMAND_PREFIXES = (
@@ -79,7 +78,11 @@ def parse_args() -> argparse.Namespace:
         description="Run and monitor a bounded task through an OpenCode model."
     )
     parser.add_argument("--prompt", required=True, help="Task prompt for OpenCode.")
-    parser.add_argument("--model", default=DEFAULT_MODEL)
+    parser.add_argument(
+        "--model",
+        required=True,
+        help="Explicit live provider/model ID, selected after model discovery.",
+    )
     parser.add_argument("--cwd", type=Path, default=Path.cwd())
     parser.add_argument(
         "--allow-path",
@@ -316,6 +319,34 @@ def classify_failure(text: str) -> tuple[str, int]:
     return "failed", EXIT_FAILED
 
 
+def classify_session_result(
+    return_code: int,
+    terminal_reason: str | None,
+    evidence: str,
+) -> tuple[str, int]:
+    """Classify a finished OpenCode process from its terminal event and output."""
+    if return_code == 0 and terminal_reason in {"stop", "end_turn", "completed"}:
+        return "completed", 0
+    if return_code == 0:
+        return "incomplete", EXIT_INCOMPLETE
+    return classify_failure(evidence)
+
+
+def timeout_status(
+    started: float,
+    last_activity: float,
+    now: float,
+    timeout: float,
+    idle_timeout: float,
+) -> tuple[str, int] | None:
+    """Return the first exceeded timeout, with total timeout taking precedence."""
+    if now - started >= timeout:
+        return "total_timeout", EXIT_TOTAL_TIMEOUT
+    if now - last_activity >= idle_timeout:
+        return "idle_timeout", EXIT_IDLE_TIMEOUT
+    return None
+
+
 def render_event(raw_line: str, output_format: str) -> dict[str, object] | None:
     stripped = raw_line.strip()
     try:
@@ -391,14 +422,11 @@ def run_monitored(
     try:
         while closed_streams < 2 or process.poll() is None:
             now = time.monotonic()
-            if now - started >= timeout:
-                forced_status = "total_timeout"
-                forced_exit = EXIT_TOTAL_TIMEOUT
-                stop_process(process)
-                break
-            if now - last_activity >= idle_timeout:
-                forced_status = "idle_timeout"
-                forced_exit = EXIT_IDLE_TIMEOUT
+            exceeded_timeout = timeout_status(
+                started, last_activity, now, timeout, idle_timeout
+            )
+            if exceeded_timeout is not None:
+                forced_status, forced_exit = exceeded_timeout
                 stop_process(process)
                 break
 
@@ -461,18 +489,19 @@ def run_monitored(
         emit_status(forced_status, **common)
         return forced_exit
 
-    normal_reasons = {"stop", "end_turn", "completed"}
-    if return_code == 0 and terminal_reason in normal_reasons:
+    status, exit_code = classify_session_result(
+        return_code, terminal_reason, "".join(evidence)
+    )
+    if status == "completed":
         emit_status("completed", tokens=tokens, cost=cost, **common)
         return 0
 
-    if return_code == 0:
+    if status == "incomplete":
         emit_status("incomplete", tokens=tokens, cost=cost, **common)
         return EXIT_INCOMPLETE
 
-    failure_status, failure_exit = classify_failure("".join(evidence))
-    emit_status(failure_status, **common)
-    return failure_exit
+    emit_status(status, **common)
+    return exit_code
 
 
 def main() -> int:

@@ -1,5 +1,3 @@
-model = "gpt-5.6-terra"
-model_reasoning_effort = "high"
 sandbox_mode = "read-only"
 developer_instructions = """
 Apply the repository's research evidence standards directly to analyze the logs, histories, memories, and session indexes of installed coding-agent applications for recurring problems and reusable good examples. Do not invoke a workflow that requires another agent or a repository artifact.

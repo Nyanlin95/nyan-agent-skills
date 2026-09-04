@@ -5,7 +5,7 @@ skill has one clear job and lives under `skills/`.
 
 The library covers code review, adversarial review, implementation, Git gates,
 visual and UI-copy review, contained HTML prototypes, technical writing, and
-bounded OpenCode handoffs.
+bounded OpenCode handoffs. It also includes a scoped Wonder design workflow.
 
 The project uses the [MIT License](LICENSE).
 
@@ -33,13 +33,14 @@ For a useful result:
 | [cqt-review](skills/cqt-review/) | Review code and migrations for quality, ownership, dependencies, state, and failure behavior. |
 | [adversarial-review](skills/adversarial-review/) | Test material claims in plans, changes, and reviews before a decision. |
 | [implementation-quality](skills/implementation-quality/) | Implement or refactor code with clear ownership, readable control flow, and explicit failures. |
-| [omelet-orchestrator](skills/omelet-orchestrator/) | Operate Omelet with dynamic, domain-specific grounding, semantic planning, bounded delegation, and detailed single-surface refinement. |
+| [omelet-orchestrator](skills/omelet-orchestrator/) | Coordinate skill work with dynamic grounding, semantic plans, task-aware model guidance, and host-scaled delegation. |
 | [local-git-gates](skills/local-git-gates/) | Add or review repository-local Git checks that reuse existing verification commands. |
 | [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Review rendered interfaces with bounded evidence, systemic findings, targeted fixes, and a clear verdict. |
 | [ui-copy-review](skills/ui-copy-review/) | Review changed interface copy for clarity, recovery, consistency, and copy-related accessibility. |
 | [build-html-prototype](skills/build-html-prototype/) | Build document, interface, or visual HTML prototypes inside one disposable folder. |
 | [handoff-to-opencode](skills/handoff-to-opencode/) | Send limited, non-sensitive implementation work to OpenCode within explicit paths. |
 | [simplified-technical-writing](skills/simplified-technical-writing/) | Rewrite technical prose in strict or STE-flavored Simplified Technical English. |
+| [wonder-design-workflow](skills/wonder-design-workflow/) | Create, change, verify, and save scoped Wonder designs with clear proof boundaries. |
 
 ## Common requests
 
@@ -60,6 +61,14 @@ Use $adversarial-review to test this implementation plan before we approve it.
 ```text
 Use $implementation-quality to move this behavior to the correct owner.
 ```
+
+### Orchestrate skill work
+
+```text
+Use $omelet-orchestrator to coordinate this repository change.
+```
+
+Omelet prefers Astra when the host supports it. Model choices are guidance, not fixed rules. Omelet uses available host capacity without a fixed subagent limit.
 
 ### Add a local Git gate
 
@@ -106,6 +115,12 @@ Do not include credentials, confidential code, or paths outside the approved sco
 
 ```text
 Use $simplified-technical-writing to rewrite this runbook in strict mode.
+```
+
+### Work in Wonder
+
+```text
+Use $wonder-design-workflow to update this Wonder design and verify each requested state.
 ```
 
 ## Combine skills
