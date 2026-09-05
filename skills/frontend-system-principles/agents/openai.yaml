@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frontend System Principles"
+  short_description: "Build coherent, resilient frontend workflows"
+  default_prompt: "Use $frontend-system-principles to implement this frontend journey with clear state ownership, responsive navigation, and supported recovery."

@@ -33,6 +33,7 @@ For a useful result:
 | [cqt-review](skills/cqt-review/) | Review code and migrations for quality, ownership, dependencies, state, and failure behavior. |
 | [adversarial-review](skills/adversarial-review/) | Test material claims in plans, changes, and reviews before a decision. |
 | [implementation-quality](skills/implementation-quality/) | Implement or refactor code with clear ownership, readable control flow, and explicit failures. |
+| [frontend-system-principles](skills/frontend-system-principles/) | Build coherent frontend journeys with clear state ownership, consistent caching, navigation continuity, and supported recovery. |
 | [omelet-orchestrator](skills/omelet-orchestrator/) | Coordinate skill work with dynamic grounding, semantic plans, task-aware model guidance, and host-scaled delegation. |
 | [local-git-gates](skills/local-git-gates/) | Add or review repository-local Git checks that reuse existing verification commands. |
 | [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Review rendered interfaces with bounded evidence, systemic findings, targeted fixes, and a clear verdict. |
