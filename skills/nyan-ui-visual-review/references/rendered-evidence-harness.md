@@ -28,9 +28,10 @@ Adapt scene-graph design-agent practices to code without copying `.pen` mechanic
 | Canvas mutation | Focused source edit through the owning component or token |
 | Canvas warnings | Console, accessibility, overflow, type, lint, and test failures |
 
-Keep task guides, hierarchy checks, density selection, anti-generic checks,
-section-level verification, and direct repair. Replace design-file operations with
-repository ownership and browser evidence.
+Use browser evidence to test spatial assertions from the design brief. Keep
+artifact edits with the authoring workflow and trace browser symptoms to their
+repository owners. Use the native evidence mapping in the skill's media reference
+for non-DOM artifacts.
 
 ## Evidence loop
 
@@ -41,7 +42,7 @@ repository ownership and browser evidence.
 5. Read only the owners needed to explain those observations.
 6. Use geometry for measurable claims.
 7. Use a targeted screenshot for perceptual claims.
-8. Implement the authorized fix through the canonical owner.
+8. Pass the correction and verification target to the authoring workflow.
 9. Repeat the same geometry probe and screenshot target.
 10. Compare the same content, viewport, and state.
 11. Retain paths and conclusions instead of repeatedly loading image data.
@@ -166,6 +167,37 @@ only when the requested implementation scope permits that code change. Do not
 weaken semantics or production behavior to make inspection easier.
 
 ## Geometry interpretation
+
+Establish the measurement conditions before interpreting the probe:
+
+- Wait for the relevant content, fonts, images, and layout or animation completion
+  signal. Record the actual rendered font when tooling exposes it; computed
+  `font-family` lists candidates and does not prove which font supplied glyphs.
+- Record viewport, zoom, scroll, device scale, and transforms. Treat bounding
+  client rectangles as viewport-relative axis-aligned bounds after transforms;
+  do not subtract an untransformed CSS inset from a scaled rectangle.
+- Compare parent and child bounds from the same state and coordinate system.
+  Distinguish border box, content box, line boxes, and visible ink.
+- Inspect selected borders, child margins, row/column gaps, flex/grid distribution,
+  min/max dimensions, box sizing, and writing direction when they explain a
+  relationship. Extend the focused probe only as needed.
+- Inspect parent `flex-direction` and `align-items`, child `align-self`, automatic
+  sizing, and relevant min/max constraints when a content-sized child stretches.
+  Treat `inline-flex` as an internal layout choice, not proof of a hug-content
+  outer width: a vertical flex parent's cross-axis stretch can still widen it.
+  Correct the affected child's contract or variant rather than disabling stretch
+  for every sibling, which can break intentionally full-width fields.
+- Measure a row's physical gap as `next.left - previous.right`, or a column's as
+  `next.top - previous.bottom`, only for the corresponding unrotated arrangement.
+  Map logical directions and wrapped rows before interpreting that distance.
+- Declare expected relations and tolerance before comparison. Record missing
+  selectors as unavailable evidence, not zero-sized passing elements.
+- Treat scroll/client overflow flags as investigation signals: intended scrolling
+  and offscreen content are not automatically defects. Inspect clipping ancestors,
+  required content, and control reachability before reporting a failure.
+- Do not infer glyph ink, text baselines, occlusion, hit testing, or keyboard
+  usability from element rectangles alone. Use text/native inspection, targeted
+  renders, and actual interaction for those claims.
 
 Calculate relationships instead of judging isolated values:
 

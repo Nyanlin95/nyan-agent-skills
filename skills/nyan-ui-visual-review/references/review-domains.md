@@ -1,6 +1,7 @@
 # Review Domains
 
-Use these checks only when the domain is relevant to the inspected interface.
+Use these checks for the relevant interface domains. Keep shared spatial rules
+in the skill's spatial reference and non-UI checks in its media reference.
 
 ## Accessibility
 
@@ -30,19 +31,12 @@ Use these checks only when the domain is relevant to the inspected interface.
 - Check whether viewport allocation and persistent context match the user decision and entity relationships.
 - Trace a structural mismatch to information architecture, route state, component ownership, or layout implementation before recommending CSS changes.
 - Do not create or change domain-model files during a visual review.
-- Check grouping before recommending separators or more decoration.
-- Compare spacing inside a group with spacing between groups and sections.
-- Compare repeated component gaps, container padding, and alignment edges.
-- Check spacing with long, missing, loading, validation, and translated content.
-- Check intermediate widths, zoom, and text resizing for spacing drift after reflow.
-- Trace repeated spacing drift to a token, primitive, or component.
-- Distinguish a local optical correction from a shared spacing rule.
-- Check shared alignment edges and reading order.
+- Apply the spatial reference's group, spacing-owner, fit, and alignment checks to the interface's actual content and state.
 - Check that controls remain visually distinct from static content.
 - Select breakpoints from content failure, not common device widths.
 - Check intermediate widths, not only endpoint screenshots.
-- Record desktop and mobile evidence for every primary route; a desktop-only test or screenshot does not prove responsive behavior.
-- Require `matchMedia`-driven tests for mobile layouts and reduced-motion behavior when the interface reflows or animates.
+- Record responsive evidence for the in-scope routes; a desktop-only test or screenshot does not prove responsive behavior.
+- Use existing responsive and reduced-motion checks where relevant; do not treat a mocked `matchMedia` test as rendered reflow or motion proof.
 - Check safe areas, sticky regions, overflow, and clipped actions.
 - Check logical direction properties and RTL behavior.
 - Check localization growth and wrapping.
@@ -83,13 +77,10 @@ Use these checks only when the domain is relevant to the inspected interface.
 
 ## Visual polish
 
-- Check nested radii and surface geometry for consistent relationships.
-- Use optical alignment when geometric alignment looks wrong.
+- Apply the spatial reference's nested-boundary and optical-alignment checks.
 - Separate structural borders from decorative depth.
 - Check icon weight, size, alignment, and state behavior.
-- Check that interactive transitions can respond to interruption.
-- Inspect motion slowly when timing or sequencing looks wrong.
-- Avoid routine staggered motion and decorative movement without task value.
+- Apply the spatial-motion reference's ownership, sequencing, and intermediate-state checks.
 - Do not use `transition: all`.
 - Check initial render, entry, exit, hover, press, loading, and reduced-motion states.
 - Preserve the project motion language unless evidence shows a defect.

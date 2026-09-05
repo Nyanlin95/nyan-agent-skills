@@ -101,7 +101,7 @@ Treat the user's wording as an outcome and authority signal, not as a missing pr
 
 1. Extract the action, subject, deliverable, requested quantity, constraints, and intended artifact state.
 2. Resolve repository facts, current product behavior, and normal implementation details before asking a question.
-3. Ask only when an unresolved product direction, technology choice, external effect, or broad scope decision would materially change the outcome.
+3. Ask only when an unresolved choice has a material product, compatibility, cost, authority, or scope consequence; a missing technical preference alone is not a reason to interrupt.
 4. Follow an explicit repository or user convention when it gives a phrase a stronger meaning than the defaults below.
 
 | Request posture | Default interpretation |
@@ -117,6 +117,8 @@ Treat the listed phrases as intent examples, not exact keywords. Apply the close
 
 When an implementation verb targets an entire app, product, workflow, or another broad subject, inspect first and form a bounded proposal or task decomposition. Do not treat a broad noun as authority to change everything.
 
+For a new-project build request, use that decomposition to start a useful local slice once material uncertainty is resolved. Do not make a proposal or planning document the final deliverable when the user asked for a working project.
+
 Apply the same ownership model across product artifacts:
 
 - For code, preserve contracts, state ownership, authorization, and failure behavior unless the request changes them.
@@ -124,6 +126,33 @@ Apply the same ownership model across product artifacts:
 - For content and copy, preserve verified facts, product terminology, brand voice, legal or permission meaning, and functional accessible names unless the request changes them. Inspect the surrounding interface or document instead of rewriting isolated strings blindly.
 
 Verify each artifact in its native medium. Tests prove code behavior; a render proves visible UI; the final document or interface proves content and copy in context. Label the achieved state accurately: exploration, prototype, repository change, verified, committed, pushed, published, deployed, or live.
+
+## Make starting a project easy
+
+Turn a rough idea into the first useful outcome. Infer the intended user, problem, central task, and success condition from the conversation and existing material. Keep this brief in working context or the project's existing owner; do not require a questionnaire, PRD, architecture deck, or complete specification before starting.
+
+Resolve questions by consequence rather than by whether a detail is missing:
+
+| Uncertainty | Helpful response |
+| --- | --- |
+| Reversible implementation detail with no meaningful user consequence | Choose a suitable default from the project or task and proceed. Avoid asking about filenames, component names, initial Git branch names, ordinary tooling commands, or exact initial spacing. |
+| Choice that changes who the product serves, its main workflow, data visibility, durable behavior, cost, or a hard-to-reverse constraint | Check existing evidence first; ask a concise decision question if it remains unresolved. Explain the user-visible tradeoff and recommend a direction. |
+| Optional preference that can be improved after a first render | Make a reasonable provisional choice or ask asynchronously while continuing independent work. |
+| External write, publication, purchase, destructive action, or sensitive-data use | Follow existing authority. Do not treat a convenient default or silence as approval. |
+
+Ask the smallest useful question when its answer will change the next substantial work. Translate technical choices into consequences; ask whether people need shared access across devices before asking them to choose a database. Offer a small set of meaningful alternatives when helpful, without repeating answered questions. Keep required decisions pending and continue only work that does not depend on the answer. Do not hide a consequential assumption inside a default.
+
+Resolve routine technical defaults from the user's existing instruction, then repository conventions and observed configuration, then the tool's normal default. For Git, inspect the existing branch and remote default when relevant; preserve them instead of asking the user to name a default branch. For a new repository, use the configured initial branch or Git's default without an intake question. This does not authorize renaming an established branch, changing a remote default, or publishing. Ask only if a real unresolved consequence remains, not merely because `main` and `master` are both possible names.
+
+Favor an early, coherent working slice over a wide set of disconnected screens. Choose it from the user's goal, then complete the agreed first version rather than stopping after the first successful slice. For a new application, consider `implementation-quality` for runnable foundations, `frontend-system-principles` for interactive journeys, and `nyan-ui-visual-review` for visual foundations and critique. Select only useful guidance; no fixed skill chain, technology stack, or delegation is required.
+
+Make routine setup invisible where practical, while keeping consequential assumptions and actual limitations clear. Bring the user a running result or native artifact early enough to react to real work. Ask for feedback at meaningful product or design decisions rather than after every file or edit. Continue ordinary authorized implementation and verification without another permission round.
+
+Keep the starting point easy to evolve through clear owners, native project conventions, and honest integration boundaries. Avoid speculative platforms and silent demo shortcuts. Distinguish illustrative data, temporary storage, simulated providers, and unverified deployment from working capabilities. Track only material shortcuts beside their owner, with their consequence and the condition that requires replacement.
+
+Report what the user can now do, how to open or run it, the consequential defaults chosen, what was verified, and what still limits use. Describe a preview, a local working project, and a deployed service accurately. Treat observed use as feedback on both the project and this workflow; refine only the skill owner responsible for a repeated problem.
+
+Read [project-start-scenarios.md](references/project-start-scenarios.md) when evaluating project-start guidance or investigating repeated startup friction. Keep these cases out of ordinary user onboarding; do not run a benchmark suite for every new project.
 
 ## Compose the semantic plan
 
@@ -167,30 +196,35 @@ Verify each artifact in its native medium. Tests prove code behavior; a render p
 
 Treat visible design work as product work, not as a styling pass.
 
-1. Establish the design intent from the user's stated outcome and feeling-based feedback, the rendered baseline or reference, product and brand context, and the repository's design-system owner.
-2. Translate subjective feedback into testable hypotheses about hierarchy, spacing, scale, typography, color, contrast, alignment, depth, motion, feedback, latency, or affordance; verify the relevant hypotheses against the rendered interface.
-3. Treat a reference as authoritative only for the aspects the user identifies. Do not infer permission to change information architecture, route ownership, navigation meaning, workflow order, content meaning, or control behavior from visual similarity alone.
-4. Record the product behavior that must remain unchanged. Return any proposed product-model or broad interaction change to Omelet and require the user's explicit approval before implementation.
-5. When delegating, give the design specialist the outcome, intent, evidence, protected behavior, owned paths, and prohibitions. Do not prescribe a pixel recipe or copy a universal design checklist into the task contract; let the specialist choose the visual means within repository conventions.
-6. Prefer a shared component, token, or layout-owner repair when the evidence shows a systemic cause. Keep local exceptions local.
-7. Recheck the changed surface in the rendered interface, including the relevant responsive, repeated, and non-default states. Automated checks alone do not prove a visual result.
+Start from the intended experience, including feeling-based feedback, existing work, and product or brand context. Encourage the agent to explain likely causes in concrete design terms and test the important ones. Let the task determine whether it needs a quick local correction, exploration, deeper critique, or basic visual foundations.
 
-Route detailed visual diagnosis, state selection, and rendered proof to `nyan-ui-visual-review` when it applies. Keep detailed visual-review criteria in that skill and the repository design system. Omelet owns product intent, scope, protected behavior, authority, integration, and proof. The design specialist owns visual diagnosis and implementation judgment.
+Favor distilling useful existing choices into coherent roles before introducing a new visual language. For a new project, encourage a small provisional foundation tested through representative compositions. Preserve intentional variation and the medium's conventions; avoid turning coherence into uniformity or a local refinement into a project-wide migration.
+
+Offer relevant skills as tools for judgment when available:
+
+| Work that needs help | Useful guidance |
+| --- | --- |
+| Visual foundations, spatial relationships, composition, or rendered critique across media | Consider `nyan-ui-visual-review` for distilling choices, scaffolding foundations, and pairing perception with DOM or native geometry. |
+| Implementing interactive web journeys, shared UI foundations, state ownership, navigation, caching, loading, recovery, or measured performance | Consider `frontend-system-principles` for the affected implementation boundaries. |
+| A design change whose appearance and frontend behavior are coupled | Consider the relevant parts of both, keeping visual judgments and implementation contracts with their respective owners. |
+
+Treat these as task-dependent nudges, not a fixed sequence or a requirement to load both skills. Keep detailed criteria in their owning skills. Let one agent design, implement, and verify when that fits; delegate only when a bounded independent contribution helps. Continue with available project conventions when an optional skill is absent, and disclose any material gap.
+
+When delegating, share the outcome, intended feeling, evidence, protected behavior, and owned scope. Leave the specialist room to choose visual means, methods, and suitable tools. Omelet owns intent, scope, authority, integration, and completion; the authoring agent owns implementation, with visual critique informing its decisions.
+
+Preserve product meaning and behavior outside the requested scope. A visual reference does not authorize changing navigation, information architecture, workflow order, or data meaning. Seek a user decision only for a material expansion not already authorized. Prefer fixing a shared owner when it explains the defect, and keep justified local exceptions local.
+
+Verify visible claims in the native rendered artifact, using measurements for geometry and interaction checks for behavior as relevant. Treat unrendered foundations as provisional and a verified sample as evidence only for its tested scope. Do not infer visual success from automated checks alone.
 
 ## Refine one rendered surface
 
 Read [single-surface-refinement.md](references/single-surface-refinement.md) when the user points to one component, layout, composition, animation, website section, or similarly bounded visible surface and asks for detailed refinement.
 
-1. Treat the request as permission for depth inside the selected surface, not breadth across the product.
-2. Seal the surface contract around the selected target, its canonical component or design-system owner, and only the directly required callers, states, primitives, and tokens.
-3. Protect routes, information architecture, product meaning, workflow order, data contracts, and neighboring surfaces unless the user explicitly puts them in scope.
-4. Choose a refinement posture of `Preserve`, `Modernize`, or `Overhaul`. Default to `Preserve` for refine, polish, or improve requests unless observed evidence shows that the existing structure prevents the requested outcome.
-5. Apply the task-wide dynamic grounding first, then add the rendered baseline, current shipped UI patterns, current visual-direction signals, and relevant design or platform guidance required by this surface.
-6. Map only the anatomy, states, input methods, responsive conditions, and content extremes that can materially affect the selected surface.
-7. Translate subjective feedback into testable design hypotheses, then trace confirmed problems to their shared component, token, layout, interaction, or state owner.
-8. Implement the smallest coherent surface system that resolves the evidence. Include a shared parent or primitive only when it is the cause; exclude unrelated concurrent work.
-9. Compare the same content, viewport, and state before and after. Verify the relevant non-default, responsive, accessibility, input, motion, interruption, and failure conditions in the rendered product.
-10. Stop when the selected surface and its required owner are coherent. Present neighboring opportunities separately instead of silently expanding the task.
+Favor depth within the selected surface and its causal owners. Start by preserving useful structure and behavior; consider broader presentation changes when the request and evidence support them. Treat preservation, modernization, and overhaul as possible approaches rather than required labels.
+
+Use the current artifact and project conventions to ground the work. Add external examples or platform guidance when they can resolve an uncertain decision or support a requested currentness claim. Choose the smallest useful set of content, viewport, input, and motion states; a fixed research package or exhaustive state matrix is unnecessary.
+
+Compare like-for-like renders after a coherent change and exercise the relevant failure or interruption path. Include shared parents and primitives when they cause the issue, while accounting for affected consumers. Stop at the authorized scope and report adjacent opportunities separately.
 
 Use DialKit only under the separate bounded-tuning rules below. Its absence does not reduce the depth of a single-surface refinement and never authorizes a proactive installation.
 

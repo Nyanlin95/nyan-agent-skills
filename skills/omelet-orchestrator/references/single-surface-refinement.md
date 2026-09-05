@@ -1,6 +1,6 @@
 # Single-Surface Refinement
 
-Use this workflow to give one visible surface unusually deep attention without turning the request into a product-wide redesign.
+Adapt this guidance to give one visible surface useful depth without turning the request into a product-wide redesign. Use the task's uncertainty and coupling to choose the method; skip ceremony that does not change a decision.
 
 Form this working semantic hypothesis and remove optional stages that the user's requested artifact state does not require:
 
@@ -27,13 +27,13 @@ Record four boundaries before implementation:
 
 Treat a repeated collection and its item as one surface system when their rhythm, selection, scrolling, metadata, or action behavior cannot be judged independently. Include a shared owner outside the visible boundary only when evidence shows that it causes the selected problem.
 
-Choose the change posture explicitly:
+Consider these approaches when they clarify the intended change:
 
 - `Preserve`: retain the structure and behavior; refine hierarchy, geometry, styling, feedback, and motion.
 - `Modernize`: change presentation patterns while retaining product meaning and task flow.
 - `Overhaul`: replace the surface structure or interaction model under explicit authority.
 
-Default to `Preserve` when the user says refine, polish, improve, or focus on this component.
+Favor preservation when the user asks for refinement unless their intent or observed constraints support a broader change. Do not require a posture label in every task.
 
 ## Triangulate evidence
 
@@ -47,15 +47,15 @@ Use sources according to what they can establish:
 6. Use official platform, accessibility, browser, framework, or library guidance to establish interaction and runtime constraints.
 7. Use the product's brand and design system to decide which transferable patterns and visual signals belong in this product.
 
-For a meaningful visual refinement, combine evidence from current shipped interfaces with an independent current visual or platform source. For a question involving interaction, motion, accessibility, or platform convention, also use relevant authoritative guidance. Add examples only when they resolve a real design choice. Record what each source confirmed, challenged, or changed. Reject decorative research that has no decision consequence.
+Use current local evidence when it resolves the decision. Add shipped examples, visual references, or authoritative platform guidance when they can resolve uncertainty or support a currentness claim. Do not impose a source count or require trend research for an ordinary spacing correction. Record what consequential sources confirmed, challenged, or changed.
 
 Prefer primary technical sources. Check freshness when a platform, framework, library, or browser behavior may have changed. Separate observed evidence from inference and mark unavailable coverage.
 
 ## Scan current patterns and visual direction
 
-Run a fresh scan when the user asks for a modern, current, fresh, elevated, best-in-class, or trend-aware result, or when the existing surface appears visually dated. Do not rely on a memorized trend list. Collect or revalidate every source used to support a currentness claim during the active task, and report the scan's as-of date. An undated source can provide an example but cannot establish recency by itself.
+Consider a fresh scan when a requested current direction or an unresolved design choice would benefit from external evidence. Interpret words such as elevated or fresh in context; they can describe a local hierarchy or spacing problem that the current artifact already explains. Do not rely on a memorized trend list. Collect or revalidate every source used to support an actual currentness claim during the active task, and report the scan's as-of date. An undated source can provide an example but cannot establish recency by itself.
 
-Separate the scan into two questions:
+Choose the relevant question or questions for the scan:
 
 | Lane | Question | Prefer |
 | --- | --- | --- |
@@ -97,16 +97,11 @@ Do not turn this list into a mandatory audit. Build the smallest state matrix th
 
 ## Run the refinement loop
 
-1. Capture the current surface with stable content, viewport, and state.
-2. Describe the intended feeling and observable outcome without prescribing values prematurely.
-3. Research the uncertain decisions through the evidence hierarchy.
-4. Write bounded hypotheses such as “the metadata feels detached because its alignment follows the card edge instead of the title column.”
-5. Trace each confirmed problem to one canonical owner.
-6. Fix the owner and remove competing local rules when the migration is complete.
-7. Re-render the same baseline and compare geometry, hierarchy, behavior, and timing.
-8. Exercise the relevant extremes, alternate inputs, responsive states, interruption, and one protected or failure path.
-9. Run the repository-owned focused gate and inspect the rendered surface for console or runtime failures.
-10. Close with the before-and-after decision, evidence used, proof achieved, and unavailable coverage.
+Adapt the loop around a concrete hypothesis, such as “the metadata feels detached because its alignment follows the card edge instead of the title column.” Establish a comparable baseline, trace the cause, make the authorized correction through its owner, and compare the result. Research unresolved decisions when necessary rather than treating research as a mandatory phase.
+
+Use the relevant domain checks from the skills suggested in `SKILL.md` under “Orchestrate product design.” Keep visual critique and frontend implementation guidance complementary; neither needs to run as a separate agent or fixed stage.
+
+Exercise the content, interaction, or failure cases that can falsify the correction and run applicable repository gates. Remove replaced rules within the verified migration scope. Report the decision, achieved proof, and unavailable coverage without requiring a standard presentation for every small change.
 
 When several coupled visual or motion parameters would materially benefit from live comparison, route through [dialkit.md](dialkit.md) only if DialKit already exists or the user explicitly authorizes adding it. Promote accepted values into the canonical owner and verify the production rendering.
 

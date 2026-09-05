@@ -3,9 +3,9 @@
 Nyan Agent Skills is a library of independent skills for coding agents. Each
 skill has one clear job and lives under `skills/`.
 
-The library covers code review, adversarial review, implementation, Git gates,
-visual and UI-copy review, contained HTML prototypes, technical writing, and
-bounded OpenCode handoffs. It also includes a scoped Wonder design workflow.
+The library covers project starts, implementation, frontend behavior, visual
+foundations, code and design review, Git gates, prototypes, technical writing,
+bounded OpenCode handoffs, and a scoped Wonder design workflow.
 
 The project uses the [MIT License](LICENSE).
 
@@ -32,11 +32,11 @@ For a useful result:
 | :--- | :--- |
 | [cqt-review](skills/cqt-review/) | Review code and migrations for quality, ownership, dependencies, state, and failure behavior. |
 | [adversarial-review](skills/adversarial-review/) | Test material claims in plans, changes, and reviews before a decision. |
-| [implementation-quality](skills/implementation-quality/) | Implement or refactor code with clear ownership, readable control flow, and explicit failures. |
+| [implementation-quality](skills/implementation-quality/) | Start runnable projects and implement or refactor code with clear ownership, complete journeys, and explicit failures. |
 | [frontend-system-principles](skills/frontend-system-principles/) | Build coherent frontend journeys with clear state ownership, consistent caching, navigation continuity, and supported recovery. |
-| [omelet-orchestrator](skills/omelet-orchestrator/) | Coordinate skill work with dynamic grounding, semantic plans, task-aware model guidance, and host-scaled delegation. |
+| [omelet-orchestrator](skills/omelet-orchestrator/) | Turn requests into working outcomes with consequential questions, routine defaults, grounded scope, and flexible design and implementation guidance. |
 | [local-git-gates](skills/local-git-gates/) | Add or review repository-local Git checks that reuse existing verification commands. |
-| [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Review rendered interfaces with bounded evidence, systemic findings, targeted fixes, and a clear verdict. |
+| [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Distill or scaffold coherent visual foundations and critique icons through pages, presentations, books, graphics, and motion using spatial principles and rendered geometry. |
 | [ui-copy-review](skills/ui-copy-review/) | Review changed interface copy for clarity, recovery, consistency, and copy-related accessibility. |
 | [build-html-prototype](skills/build-html-prototype/) | Build document, interface, or visual HTML prototypes inside one disposable folder. |
 | [handoff-to-opencode](skills/handoff-to-opencode/) | Send limited, non-sensitive implementation work to OpenCode within explicit paths. |
@@ -44,6 +44,23 @@ For a useful result:
 | [wonder-design-workflow](skills/wonder-design-workflow/) | Create, change, verify, and save scoped Wonder designs with clear proof boundaries. |
 
 ## Common requests
+
+### Start a project
+
+```text
+Use $omelet-orchestrator to build a personal reading tracker. Local-only is fine.
+Make routine choices for me and ask when a decision materially changes the product.
+Deliver a working first version with a clear visual system and verify saving,
+reopening, and recovering from a failed save.
+```
+
+Start with the outcome; a complete specification is unnecessary. Omelet can use
+implementation, frontend, and visual guidance as needed without a fixed sequence.
+For shared or externally connected products, settle consequential access, data,
+and service choices before implementing the dependent behavior.
+
+Routine setup follows existing project and tool defaults, including the initial
+Git branch name. The agent asks about user consequences, not every technical preference.
 
 ### Review code or architecture
 

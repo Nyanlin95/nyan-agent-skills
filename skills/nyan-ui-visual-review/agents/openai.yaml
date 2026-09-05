@@ -1,4 +1,4 @@
 interface:
   display_name: "Nyan UI Visual Review"
-  short_description: "Evidence-based visual QA for existing interfaces"
-  default_prompt: "Use $nyan-ui-visual-review to review this existing interface and prioritize evidence-backed improvements."
+  short_description: "Visual foundations and critique across scales and media"
+  default_prompt: "Use $nyan-ui-visual-review alongside the authoring workflow to establish coherent visual foundations or refine this design using existing choices, spatial principles, rendered evidence, and appropriate measurements."

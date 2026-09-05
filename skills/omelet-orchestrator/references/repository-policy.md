@@ -30,10 +30,10 @@ Write each section in the policy and link its rule content to the owning `SKILL.
 
 1. **Primary orchestrator:** Name `Omelet` as the role that owns scope, integration, decisions, evidence, completion, shared roots, shared runtimes, and authorized publication.
 2. **Discovery:** Name the instruction files, canonical plans, owners, contracts, state boundaries, and gates Omelet must inspect.
-3. **Request interpretation:** Infer the work posture and intended artifact state from the user's action, subject, deliverable, quantity, and constraints. Use the defaults in `SKILL.md` "Interpret product requests" without turning them into a required run template.
+3. **Request interpretation:** Infer the work posture and intended artifact state from the user's action, subject, deliverable, quantity, and constraints. Use `SKILL.md` "Interpret product requests" and "Make starting a project easy" for consequential questions, routine defaults, and completing a first version; do not turn them into an intake questionnaire or required run template.
 4. **Semantic plan:** Require a working hypothesis for the task semantic composed from orchestration semantics, optional semantics marked `?`, and topology modifiers. Record the reconstruction policy so the label is re-derived from discovered work. Link the `orchestration-layers.md` catalogs.
 5. **Task contract:** Require the outcome, scope, protected behavior, owner, paths, proof, authority limits, and the semantic plan (`Task := Semantic → Semantic → Semantic?`). Defer to `SKILL.md` "Define the task contract".
-6. **Product design:** When visible design is in scope, name the design intent, the aspects a reference actually governs, protected product behavior, the local design-system owner, and the rendered proof. Require explicit user approval for broad product changes. Link to `SKILL.md` "Orchestrate product design" and the repository's design skill instead of copying a visual checklist or prescribing a pixel solution.
+6. **Product design:** Keep intent, protected behavior, local owners, and native rendered evidence clear. Link to `SKILL.md` "Orchestrate product design" for task-dependent skill suggestions; preserve their optionality instead of turning them into mandatory roles, a fixed sequence, or a copied visual checklist. Treat only material scope expansion beyond existing authority as requiring a user decision.
 7. **Delegation:** Require a minimal contract per delegate, disclosed shared roots, repository-relative paths, and checked runtime capability limits. Defer to `SKILL.md` "Compile semantics into roles" and "Delegate bounded work".
 8. **Evidence:** Require the source, command or observation, scope, time, environment, result, freshness rule, and an `observed`, `inferred`, or `unavailable` status. Defer to `SKILL.md` "Use evidence that remains valid".
 9. **Review:** Use focused checks by default; require independent review only for the high-risk cases. Defer to `SKILL.md` "Select review and implementation".
@@ -56,7 +56,7 @@ Write each section in the policy and link its rule content to the owning `SKILL.
 11. Confirm that a plain request authorizes no Git or GitHub writes.
 12. Confirm that visual references do not silently authorize product-model changes.
 13. Confirm that design specialists receive intent and constraints without a universal visual prescription.
-14. Confirm that design delegation remains optional and broad product changes require explicit user approval.
+14. Confirm that design skill selection and delegation remain task-dependent, and material scope expansion requires authority not already supplied by the user.
 15. Confirm that exploration does not mutate production or present a recommendation as a decision.
 16. Confirm that implementation verbs do not expand a broad subject into unbounded product authority.
 17. Confirm that the reported artifact state distinguishes exploration, local changes, publication, deployment, and live proof.

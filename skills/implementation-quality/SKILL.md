@@ -1,6 +1,6 @@
 ---
 name: implementation-quality
-description: Implement or refactor repository code and skill-library files with simple design, clear ownership, readable control flow, and explicit failure behavior. Use when a coding agent must write code, move behavior to a new owner, choose an abstraction or component boundary, or replace old code through a parity-tested migration or temporary fork. Do not use for read-only reviews, audit findings, planning-only work, or trivial mechanical edits; use cqt-review for evidence-based review and recommendations.
+description: Start runnable projects or implement and refactor repository code with simple design, clear ownership, and explicit failure behavior. Use for a blank repository, first working product journey, code changes, ownership or component boundaries, and parity-tested migrations or temporary forks, including skill-library files. Do not use for read-only reviews, planning-only work, or trivial mechanical edits; use cqt-review for evidence-based review and recommendations.
 ---
 
 # Implementation Quality
@@ -13,7 +13,7 @@ A good abstraction lets a caller express what it wants without taking ownership 
 
 ## Implementation flow
 
-Use this flow in order. Use later sections only when they apply to the current step.
+Use this flow for changes to an existing implementation. For a blank or incomplete project, use the starting-project guidance below; do not search indefinitely for owners that do not yet exist. Use later sections only where relevant.
 
 1. Define the observable behavior, owner, safety boundary, and proof.
 2. Trace the current owner, direct callers, state, effects, and failure path.
@@ -22,6 +22,16 @@ Use this flow in order. Use later sections only when they apply to the current s
 5. Run the focused proof after each unit.
 6. Run authorized runtime verification when the behavior crosses a runtime boundary.
 7. Report the accepted behavior, checks, and remaining risk.
+
+## Start a runnable project
+
+Establish the smallest complete foundation for the requested first version. Carry the user, central task, core entities, ownership rules, persistence expectations, and observable success into implementation. Resolve consequential missing product decisions with the user; choose routine reversible details from existing conventions or suitable defaults. Keep onboarding and decision timing with the coordinating workflow.
+
+Read [starting-projects.md](references/starting-projects.md) for runnable setup, a complete first journey, project-specific service boundaries, and bounded shortcuts. Adapt it to the actual medium and stack rather than applying a universal starter architecture.
+
+Prefer one working path with real declared behavior over disconnected placeholder screens. Verify setup from the documented commands, the main journey, one relevant failure or recovery path, and actual persistence when claimed. Exercise visible work in the running artifact. Complete the agreed first version beyond the initial slice when more remains in scope.
+
+Before calling the project ready, confirm that its required configuration and commands are discoverable, its authored data is isolated from live user data during testing, and its verified scope matches the claimed capabilities. Report how to run or open it, what works, the checks performed, and any simulated, deferred, or externally unverified boundary. Do not equate a scaffold, mock integration, or passing build with a working product.
 
 ## Refactor scope
 
@@ -51,9 +61,9 @@ Fix the owner, lifecycle, state transition, or routing rule that causes a defect
 
 ## Active verification safety
 
-Run local, hermetic verification by default. Before a check can mutate data, call a provider, send a message, charge a payment method, or interrupt a process, require explicit authorization for the exact non-production target.
+Run local, isolated verification by default. Within an authorized build or fix, create and mutate task-owned synthetic fixtures, isolated test stores, and processes you started as needed for verification without another permission request. Verify exact ownership and target paths; keep live application data, credentials, user profiles, and unrelated processes outside that scope.
 
-Treat authorization to implement a change as separate from authorization to exercise a shared or external runtime. When safe runtime verification is unavailable, state the unverified boundary and its remaining risk.
+Use existing explicit authority before exercising a shared runtime, external mutation, message, payment, or destructive operation; request missing authority for the concrete target only when necessary. Do not reuse production credentials or data merely to complete a test. When a boundary cannot be verified safely within authority, continue independent local proof and report that boundary as unverified.
 
 ## Before editing
 
