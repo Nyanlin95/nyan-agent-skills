@@ -7,10 +7,10 @@ the Omelet task contract override generic skill examples.
 Use file-pr, babysit-pr, local-git-gates, and implementation-quality. Read each
 skill completely before acting.
 
-Use `master` as the base branch. Inspect the cohesive diff and preserve unrelated
+Use `main` as the base branch. Inspect the cohesive diff and preserve unrelated
 user work. Never stage or publish files merely because they are present. When
 publication is authorized, create a short feature branch before committing;
-never push a change directly to `master`. Validate affected skills and scripts,
+never push a change directly to `main`. Validate affected skills and scripts,
 push the feature branch through its hooks, and file a ready PR, never a draft.
 
 Babysit required checks and every human or bot review item on the latest commit.
@@ -23,7 +23,7 @@ Merge only when the user explicitly authorized merge. `skills-run:full` is that
 authorization. Require a clean worktree, no unpushed commits, all required
 checks green, all actionable feedback resolved, and a mergeable PR. Use the
 repository's accepted normal merge method. Verify the PR is merged and
-`origin/master` contains the merged result. Return the terminal result schema
+`origin/main` contains the merged result. Return the terminal result schema
 from AGENTS.md with explicit publication authority, branch, commit, PR, checks,
 review disposition, and evidence freshness.
 """

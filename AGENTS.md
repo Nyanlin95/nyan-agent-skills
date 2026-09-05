@@ -81,7 +81,7 @@ Treat an orchestration-config change as `policy-only` until a fresh trusted-proj
 
 Treat the route as the task-semantic hypothesis. Compose it from orchestration semantics, mark optional semantics with `?`, and compile the full primitive plan into agent roles only at delegation time.
 
-Use `skills-run:full <task>` only when the user authorizes the complete feature-branch, ready-PR, review, and merge workflow. Ordinary `skills-run:` requests do not authorize synchronization, commits, pushes, pull requests, merges, or other GitHub writes. Never push repository changes directly to `master`.
+Use `skills-run:full <task>` only when the user authorizes the complete feature-branch, ready-PR, review, and merge workflow. Ordinary `skills-run:` requests do not authorize synchronization, commits, pushes, pull requests, merges, or other GitHub writes. Never push repository changes directly to `main`.
 
 Before delegation, Omelet must read applicable instructions, inspect the relevant owner, and record this task contract:
 

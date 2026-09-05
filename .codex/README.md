@@ -17,7 +17,7 @@ Use one `skills-run:` route per request:
 | Copy approved skills to installed roots | `skills-run:sync <scope>` | `skill_syncer` | Explicit sync authority |
 | Commit, file a PR, watch review, or merge | `skills-run:publish <scope>` | `git_pr_manager` | Explicit publication authority |
 
-Use `skills-run:full <task>` only when the user authorizes the complete feature-branch, ready-PR, review, and merge flow. It does not authorize unrelated changes. Direct pushes to `master` are prohibited.
+Use `skills-run:full <task>` only when the user authorizes the complete feature-branch, ready-PR, review, and merge flow. It does not authorize unrelated changes. Direct pushes to `main` are prohibited.
 
 ## Runbook
 
