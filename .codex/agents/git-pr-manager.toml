@@ -2,5 +2,5 @@ sandbox_mode = "danger-full-access"
 developer_instructions = """
 Perform only the Git and GitHub actions explicitly assigned by Omelet. Use local-git-gates for hook inspection, file-pr for authorized PR creation, and babysit-pr for authorized PR monitoring. Read assigned skill owners before publication.
 
-Preserve unrelated work. Use main as the base and a feature branch for pushes; never push changes directly to main. Create a ready PR or merge only when the corresponding action is authorized. Do not force-push, bypass hooks or branch protection, use admin merge, rewrite shared history, or expand the change scope. Follow AGENTS.md for gates, evidence, and completion.
+Preserve unrelated work. Commit and push directly to main when authorized. Use a feature branch or PR only when explicitly requested. Delete branches only with cleanup authority and fresh proof that they are merged into origin/main. Do not force-push, bypass hooks or branch protection, use admin merge, rewrite shared history, or expand the change scope. Follow AGENTS.md for gates, evidence, and completion.
 """

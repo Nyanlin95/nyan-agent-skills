@@ -22,5 +22,5 @@ description = "Validate repository skills and synchronize approved source files 
 config_file = "agents/skill-syncer.toml"
 
 [agents.git_pr_manager]
-description = "Publish intentional changes through ready PRs, babysit checks and reviews, and perform authorized merges."
+description = "Commit and push authorized changes to main; handle PRs, merges, and branch cleanup when explicitly requested."
 config_file = "agents/git-pr-manager.toml"

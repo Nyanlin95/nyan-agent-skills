@@ -328,7 +328,7 @@ Use one independent reviewer unless a concrete unresolved finding needs a differ
 
 A plain orchestration request never authorizes commits, pushes, pull requests, merges, or other GitHub writes.
 
-A `full` workflow authorizes the complete feature-branch, ready-PR, review, and merge workflow. Never push a product commit directly to the base branch. After merge, verify that the merged commit is contained by the remote base branch, report the merged range and remaining local changes, then stop. A `full` workflow does not build, start, stop, or redeploy services and does not run hermetic acceptance.
+A `full` workflow authorizes validation, commit, and publication through the repository's delivery convention. Follow an explicit user or repository rule to push directly to `main`; do not impose a feature branch or PR. Use a PR workflow when explicitly requested or required by the repository. Verify that the published commit is contained by the intended remote branch and report remaining local changes. Delete branches only when cleanup is authorized and fresh ancestry checks prove they are merged into the remote base branch. A `full` workflow does not build, start, stop, or redeploy services and does not run hermetic acceptance.
 
 A `release` workflow authorizes the commit, direct push to the base branch, and redeploy. Inspect the intended diff, run the repository gates, commit with a plain title, and push without force. Stop on a failed gate, push, build, or health check. The user does not need to provide a commit SHA.
 
