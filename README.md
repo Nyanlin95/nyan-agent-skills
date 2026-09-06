@@ -39,7 +39,7 @@ For a useful result:
 | [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Distill or scaffold coherent visual foundations and critique icons through pages, presentations, books, graphics, and motion using spatial principles and rendered geometry. |
 | [ui-copy-review](skills/ui-copy-review/) | Review changed interface copy for clarity, recovery, consistency, and copy-related accessibility. |
 | [build-html-prototype](skills/build-html-prototype/) | Build document, interface, or visual HTML prototypes inside one disposable folder. |
-| [handoff-to-opencode](skills/handoff-to-opencode/) | Send limited, non-sensitive implementation work to OpenCode within explicit paths. |
+| [handoff-to-opencode](skills/handoff-to-opencode/) | Route limited, non-sensitive implementation work to a current free OpenCode model based on task needs within explicit paths. |
 | [simplified-technical-writing](skills/simplified-technical-writing/) | Rewrite technical prose in strict or STE-flavored Simplified Technical English. |
 | [wonder-design-workflow](skills/wonder-design-workflow/) | Create, change, verify, and save scoped Wonder designs with clear proof boundaries. |
 
@@ -86,7 +86,7 @@ Use $implementation-quality to move this behavior to the correct owner.
 Use $omelet-orchestrator to coordinate this repository change.
 ```
 
-Omelet prefers Astra when the host supports it. Model choices are guidance, not fixed rules. Omelet uses available host capacity without a fixed subagent limit.
+Omelet can complete focused work directly or delegate a bounded task when useful. It prefers Astra when the host supports it and selects specialist models for the task. Use focused checks and add independent review for consequential decisions. See [repository orchestration](.codex/README.md) for roles, routes, and activation proof.
 
 ### Add a local Git gate
 
@@ -124,10 +124,10 @@ Canvas and Three.js studies. It keeps the complete output in one removable folde
 ### Hand off bounded work
 
 ```text
-Use $handoff-to-opencode to implement this task only in src/auth/.
+Use $handoff-to-opencode to select a current free model and implement this task only in src/feature/.
 ```
 
-Do not include credentials, confidential code, or paths outside the approved scope.
+Select from the live free-model list using task needs, tool reliability, context limits, and available performance evidence. Keep selection provisional when comparative evidence is unavailable. Do not include credentials, confidential code, or paths outside the approved scope. Omelet retains acceptance and Git delivery decisions.
 
 ### Rewrite technical prose
 
@@ -143,12 +143,7 @@ Use $wonder-design-workflow to update this Wonder design and verify each request
 
 ## Combine skills
 
-Use more than one skill when a task needs separate review and implementation
-owners. For a high-risk change, use this order:
-
-1. Use `cqt-review` to identify ownership and quality risks.
-2. Use `adversarial-review` to test the important conclusions.
-3. Use `implementation-quality` to implement the accepted corrections.
+Combine skills only when their distinct jobs help the task. Use `implementation-quality` for implementation and `cqt-review` when independent review can change a consequential decision. Add `adversarial-review` only for an unresolved decision-critical claim; do not make these skills a mandatory chain.
 
 Do not let a review skill silently become the implementation owner.
 

@@ -1,8 +1,6 @@
 sandbox_mode = "workspace-write"
 developer_instructions = """
-Use local-git-gates to validate repository-owned skills and synchronize explicitly approved files to installed skill roots. Read the skill completely before acting. Treat validation and synchronization as separate routes.
+Validate assigned repository-owned skill paths and copy them to existing installed roots only with explicit synchronization authority. Read the assigned owner skills; use local-git-gates when inspecting hooks or gate setup.
 
-Treat this repository as the source of truth. Inspect the full diff and identify changed skill owners. Run quick_validate.py with a UTF-8-capable Python that has PyYAML. Test changed scripts. Synchronize only when the user task explicitly includes sync, and copy only the approved repository-owned skill directories to existing installed roots. Never copy __pycache__, local research, credentials, or unrelated files.
-
-After copying, compare SHA-256 hashes for every synchronized source file and report missing or extra files. Do not modify third-party skills, orchestration policy, Git history, or remote state. Do not report sync success unless validation and parity both pass. Return the terminal result schema from AGENTS.md with explicit sync authority, source and destination paths, and evidence freshness.
+Keep repository skills canonical. Exclude caches, research, credentials, and unrelated files. Prove source/destination SHA-256 parity and report missing or extra files. Do not edit third-party skills, orchestration policy, Git state, or remote state. Follow AGENTS.md for validation and completion.
 """

@@ -1,29 +1,6 @@
 sandbox_mode = "workspace-write"
 developer_instructions = """
-Own Git state and the GitHub pull-request lifecycle for the explicitly assigned
-skill-library change. Read every named skill before acting. Repository rules and
-the Omelet task contract override generic skill examples.
+Perform only the Git and GitHub actions explicitly assigned by Omelet. Use local-git-gates for hook inspection, file-pr for authorized PR creation, and babysit-pr for authorized PR monitoring. Read assigned skill owners before publication.
 
-Use file-pr, babysit-pr, local-git-gates, and implementation-quality. Read each
-skill completely before acting.
-
-Use `main` as the base branch. Inspect the cohesive diff and preserve unrelated
-user work. Never stage or publish files merely because they are present. When
-publication is authorized, create a short feature branch before committing;
-never push a change directly to `main`. Validate affected skills and scripts,
-push the feature branch through its hooks, and file a ready PR, never a draft.
-
-Babysit required checks and every human or bot review item on the latest commit.
-Verify findings against source. Fix only bounded PR feedback within the assigned
-ownership contract; return material scope or skill-ownership decisions to the
-primary orchestrator. Do not force-push, use admin merge, bypass hooks or branch
-protection, expose secrets, or rewrite shared history.
-
-Merge only when the user explicitly authorized merge. `skills-run:full` is that
-authorization. Require a clean worktree, no unpushed commits, all required
-checks green, all actionable feedback resolved, and a mergeable PR. Use the
-repository's accepted normal merge method. Verify the PR is merged and
-`origin/main` contains the merged result. Return the terminal result schema
-from AGENTS.md with explicit publication authority, branch, commit, PR, checks,
-review disposition, and evidence freshness.
+Preserve unrelated work. Use main as the base and a feature branch for pushes; never push changes directly to main. Create a ready PR or merge only when the corresponding action is authorized. Do not force-push, bypass hooks or branch protection, use admin merge, rewrite shared history, or expand the change scope. Follow AGENTS.md for gates, evidence, and completion.
 """

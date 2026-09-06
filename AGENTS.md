@@ -60,60 +60,35 @@ Add each skill to the root `README.md`. Describe its purpose in one sentence and
 
 ## Skill-library orchestration
 
-Use `skills-run:` followed by one route. Omelet is the primary orchestrator. It owns scope, contracts, integration, evidence, decisions, and completion. It does not become the normal writer.
+Use [omelet-orchestrator](skills/omelet-orchestrator/SKILL.md) as the canonical workflow owner. Omelet is the primary thread and owns scope, integration, evidence, decisions, shared state, and authorized publication. It may complete focused work directly. Delegate only when a bounded specialist or independent result can improve the outcome.
 
-Prefer Astra for the primary Omelet thread when the host supports it. Follow the task-aware model guidance in `skills/omelet-orchestrator/SKILL.md` at delegation time. Treat each choice as a nudge, respect the user's selection and host availability, and do not pin specialist models or reasoning levels in role contracts.
+Follow the skill's task-aware model guidance at delegation time. Prefer Astra for Omelet when available; respect the user's selection and host capabilities. Keep role contracts free of fixed models and reasoning levels. Use host capacity without a repository agent cap.
 
-Use the host's available subagent capacity. Do not impose a repository or Omelet agent cap.
+Ground decisions in current repository evidence and applicable primary sources. Infer the request posture and intended artifact state before acting. Follow the skill's sections on request interpretation, starting a project, and product design; preserve optional design skills and ask only for unresolved consequential decisions.
 
-Plan each route in semantic orchestration patterns and reconstruct the task semantic from what the work turns out to be. Follow the layer model and reconstruction policy in `skills/omelet-orchestrator/references/orchestration-layers.md`.
+Plan in semantic orchestration patterns and reconstruct the task semantic from the work actually performed. Use [orchestration-layers.md](skills/omelet-orchestrator/references/orchestration-layers.md) for the catalogs and reconstruction policy. Keep contracts proportionate: outcome, owner, allowed paths, protected behavior, acceptance proof, authority, and shared boundaries. Record material evidence with its source, time, environment, revision, relevant dirty state, and observed, inferred, or unavailable status. Refresh it when those inputs change.
 
-Treat an orchestration-config change as `policy-only` until a fresh trusted-project session loads it, resolves the named roles, and completes one bounded read-only delegation round trip. Do not claim active setup or approve publication while this proof is unavailable.
+Use `skills-run:` routes as task hypotheses, not mandatory agent pipelines:
 
-| Route | Orchestration semantics → compiled roles | Authority |
+| Route | Semantics | Scope |
 | --- | --- | --- |
-| `skills-run:research <question>` | `Research Investigation := Research-Synthesize-Verify` → `skill_researcher` or `history_analyst`. | No writes. |
-| `skills-run:create <outcome>` | `Research-Synthesize-Verify? (unresolved facts) → Focused Implementation` → `skill_implementer`. | Repository writes only. |
-| `skills-run:maintain <outcome>` | `Research-Synthesize-Verify? (unresolved facts) → Focused Implementation` → `skill_implementer`. | Repository writes only. |
-| `skills-run:validate <scope>` | `Blast-Radius Validation (changed skills and scripts)` → `skill_syncer`. | No installed-copy writes. |
-| `skills-run:sync <scope>` | `Blast-Radius Validation → Checkpoint (SHA-256 parity)` → `skill_syncer`. | Requires explicit sync authority. |
-| `skills-run:publish <scope>` | `Release Qualification` → `git_pr_manager`. | Requires explicit publication authority. |
+| `skills-run:research <question>` | Research-Synthesize-Verify | Read-only; return findings unless a repository artifact is requested. |
+| `skills-run:create <outcome>` | Research-Synthesize-Verify? → Focused Implementation | Search owners first; repository writes only. |
+| `skills-run:maintain <outcome>` | Research-Synthesize-Verify? → Focused Implementation | Extend the existing owner; repository writes only. |
+| `skills-run:validate <scope>` | Blast-Radius Validation | Check changed owners and affected scripts; no installed-copy writes. |
+| `skills-run:sync <scope>` | Blast-Radius Validation → Checkpoint | Copy explicitly authorized skills to installed roots and prove SHA-256 parity. |
+| `skills-run:publish <scope>` | Release Qualification | Perform only explicitly authorized Git or GitHub actions. |
 
-Treat the route as the task-semantic hypothesis. Compose it from orchestration semantics, mark optional semantics with `?`, and compile the full primitive plan into agent roles only at delegation time.
+Compile a semantic plan into the registered roles only when delegation helps. Use one writer per file and canonical rule. Parallelize independent reads or disjoint writes; serialize shared files, contracts, state, and integration boundaries. Read the required task and owner skills before acting. Follow the skill's runtime capability checks; a declared path contract is not enforced isolation.
 
-Use `skills-run:full <task>` only when the user authorizes the complete feature-branch, ready-PR, review, and merge workflow. Ordinary `skills-run:` requests do not authorize synchronization, commits, pushes, pull requests, merges, or other GitHub writes. Never push repository changes directly to `main`.
+Use [handoff-to-opencode](skills/handoff-to-opencode/SKILL.md) when OpenCode delegation is requested or selected for bounded, non-sensitive work. Keep free-model eligibility, task routing, the wrapper, and recovery in that skill. Do not duplicate its model policy in role files. Retain scope, review, verification, and publication decisions in Omelet.
 
-Before delegation, Omelet must read applicable instructions, inspect the relevant owner, and record this task contract:
+Close delegates with a terminal status (`complete`, `partial`, `blocked`, or `cancelled`), result, changed paths, checks, and uncertainty. Do not require a fixed report template. Verify complete material results before integration; reject or recontract partial or out-of-scope results. End assignments after consuming their results.
 
-1. State the observable outcome and out-of-scope work.
-2. State the semantic plan as a hypothesis: `Task := Semantic → Semantic → Semantic?`.
-3. Name the canonical owner for each changed rule.
-4. List the allowed repository-relative paths and protected behavior.
-5. Define the smallest success proof and one relevant failure proof.
-6. State each required authority, shared runtime, external system, and destructive action.
-7. Record the evidence baseline as `HEAD`, dirty-tree identity, time, and environment.
+Use focused repository checks by default. Follow the skill's "Select review and implementation" section for consequential independent review. Use one reviewer; add adversarial review only for an unresolved decision-critical claim. Do not require review chains for routine documentation or Git pushes. Keep the skill validator, catalog checks, and cohesive `git diff --check` required above.
 
-Set the dirty-tree identity to `clean` only when `git status --porcelain=v2 --untracked-files=all` has no output. Otherwise record that status snapshot and its digest. Refresh evidence after a material change to the commit, dirty tree, producer, environment, or relevant state. Mark each material claim `observed`, `inferred`, or `unavailable`.
+Treat plain orchestration as no publication authority. Preserve repository publishing rules: use `main` as the base and push changes on a feature branch, never directly to `main`. Create a ready PR only when authorized; merge only when explicitly authorized. `skills-run:full <task>` authorizes the feature-branch, ready-PR, review, and merge workflow, not deployments or unrelated work. Never bypass hooks or rewrite shared history.
 
-Each specialist must read every skill assigned to its role or task and any directly related owner skill before acting. Treat the agent file as role identity and the skills as the owning procedures. Do not load unrelated skills only because they are available. `skill_researcher` executes its bounded research directly. It does not delegate again unless Omelet explicitly requires it.
+For orchestration policy or role changes, follow the skill's "Prove the setup level" section. Keep the revision `policy-only` until a fresh trusted-project session loads the policy, resolves the registered roles, and completes one bounded read-only delegation round trip. Require this proof before publishing setup changes; do not claim desktop activation from CLI-only proof.
 
-Give one writer each file and rule owner. Declare shared files, contracts, and roots before work starts. Parallelize only independent read-only lanes or disjoint write scopes that share no file, contract, state owner, or integration point. Serialize work that shares any of those boundaries. Extend an existing owner before creating a new skill. Create a skill only when it has an independent trigger, owner, workflow, and completion check.
-
-Require every delegate to return this terminal result:
-
-```text
-status: complete | partial | blocked | cancelled
-contract: <task identifier and assigned scope>
-changed_paths: <paths or none>
-checks: <command, result, and relevant failure coverage>
-evidence: <status, source, freshness identity, and result>
-uncertainty: <unverified boundary or none>
-next_action: <required decision or none>
-semantics: <orchestration semantics that fired, in order, or none>
-```
-
-Do not integrate an incomplete, blocked, cancelled, or out-of-contract result. Recontract it or narrow the task explicitly. Independently verify each complete material result before integration. Record the orchestration semantics each delegate reports as fired, then re-derive the route's task semantic before continuing the plan.
-
-Treat changes to skill triggers, ownership, workflow, safety, synchronization, publication, shared policy, or validator behavior as material. Assign `skill_reviewer` for an independent read-only review after a material change. Reconcile material findings, rerun affected validation, then inspect the cohesive diff and run `git diff --check`.
-
-The history analyst is read-only. It must discover installed applications before inspection, use app-owned indexes before raw sessions, bound its sample, exclude credential and personal-data stores, sanitize examples, and separate repeated patterns from isolated incidents. It must report unavailable coverage.
+Keep history analysis read-only and privacy-bounded. Discover installed applications and use app-owned indexes before raw sessions. Exclude credential and personal-data stores, sanitize examples, distinguish recurring patterns from isolated incidents, and report unavailable coverage.

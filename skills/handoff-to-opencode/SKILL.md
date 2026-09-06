@@ -24,13 +24,29 @@ Use this flow in order. Keep the primary coding agent responsible for every step
 ## Before delegation
 
 1. Confirm that `opencode --version` succeeds.
-2. Run `opencode models opencode`.
-3. Select one explicit model from the live list.
-4. Confirm that the selected model ID ends in `-free`.
-5. Stop if the model is no longer available.
-6. Ask before selecting a paid model.
+2. Run `opencode models opencode --refresh --verbose` to discover current Zen models and metadata.
+3. Keep only available IDs that end in `-free`.
+4. Confirm zero applicable prices and an acceptable data policy from current metadata and the [official Zen documentation](https://opencode.ai/docs/zen/).
+5. Exclude candidates without evidence of required tool support or sufficient context for the bounded input and expected output.
+6. Select a candidate with the routing policy below.
+7. Store its full model ID in `$selectedModel` for the wrapper.
 
-As observed on 2026-09-05, the live free list included `opencode/ling-3.0-flash-fin-free`, `opencode/mimo-v2.5-free`, `opencode/muse-spark-1.2-contributor-free`, `opencode/muse-spark-1.3-contributor-free`, `opencode/nemotron-3-ultra-free`, and `opencode/nemotron-3.5-lightning-free`. Treat this list as an example. The live command decides the current list.
+Use [CLI documentation](https://opencode.ai/docs/cli/) if discovery flags differ in the installed version. Treat unknown prices or data policies as ineligible. Complete the task directly if discovery fails or no eligible free model remains. Never use a paid fallback without explicit approval.
+
+## Route the free model
+
+Select the model for the current task. Do not keep a fixed default or infer capability from model names or list order.
+
+| Task | Selection priority among eligible models |
+| --- | --- |
+| Mechanical edits or simple transformations | Prefer lower observed latency when capability is sufficient. |
+| Bounded implementation or focused tests | Prefer demonstrated coding and tool-use reliability for comparable work. |
+| Debugging or bounded refactoring | Prefer evidence of reasoning quality for dependencies, failure paths, and behavior preservation. |
+| Context-heavy work within the allowed scope | Require enough context first, then apply the relevant task priority above. |
+
+Use comparable verified results or current documented capabilities as evidence. Record the source and observation date. Treat provider descriptions as capability claims, not comparative proof. If comparative evidence is unavailable, choose an eligible candidate provisionally and state that limitation. Do not require the user to name a model.
+
+Honor an explicit user model choice when it is eligible. If that choice is unavailable or ineligible, complete the task directly. Apply the routing policy to alternatives only when the user permits substitution. Record the selected model, task fit, eligibility evidence, and concise rationale before dispatch.
 
 ## Protect data
 
@@ -103,12 +119,12 @@ Keep branch creation, commits, pushes, and pull requests under the primary codin
 
 ## Run OpenCode
 
-Prefer the bundled wrapper:
+Pass `$selectedModel` from the routing decision to the bundled wrapper:
 
 ```powershell
 python scripts/run_opencode.py `
   --cwd "C:\path\to\project" `
-  --model "opencode/nemotron-3.5-lightning-free" `
+  --model $selectedModel `
   --allow-path "src\feature" `
   --allow-path "tests\feature.test.ts" `
   --allow-command "npm run test:feature*" `
@@ -166,6 +182,10 @@ Do not classify silence as quota exhaustion. Require failure evidence from OpenC
 
 ## Recover from non-completion
 
+Allow at most one retry across all failure types for the delegated task. Inspect the partial output and working-tree diff before that retry. Preserve the allowed paths, commands, and data boundary. Stop delegation after another non-completion, even if the failure type changes.
+
+Before a model change, refresh discovery and reapply eligibility and task routing. Use another free candidate only within existing authority and an acceptable data policy. Record the failed model, failure evidence, replacement, and reason. Complete the task directly when no eligible replacement remains. Do not broaden permissions or silently select a paid model.
+
 For `idle_timeout` or `total_timeout`:
 
 1. Inspect the last event and partial output.
@@ -173,17 +193,15 @@ For `idle_timeout` or `total_timeout`:
 3. Inspect the working-tree diff before any retry.
 4. Reduce the scope or input before the retry.
 5. Start a new session.
-6. Stop delegation if the retry reaches the same state.
+6. Stop delegation if the retry does not complete.
 7. Continue the task directly or report the blocked delegation.
 
 For `quota_limited` or `rate_limited`:
 
 1. Do not use a tight retry loop.
 2. Record the provider message and selected model.
-3. Refresh the live free-model list.
-4. Ask before changing models when cost or data policy can change.
-5. Use another approved free model, a local model, or complete the task directly.
-6. Do not select a paid model without approval.
+3. Apply the shared model-change rules for the remaining retry.
+4. Complete the task directly if no retry remains.
 
 For `authentication_failed`:
 
@@ -248,7 +266,8 @@ Before a commit, stage only accepted files. Before a push, confirm the target br
 
 Report:
 
-- the selected model;
+- the selected model, task-routing rationale, eligibility evidence, and evidence date;
+- any provisional choice, fallback model, and reason for the change;
 - the OpenCode session ID when available;
 - the lifecycle status and terminal reason;
 - the branch and delivery mode;
