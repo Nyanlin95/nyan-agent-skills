@@ -21,7 +21,7 @@ Register project-scoped agent roles in the host agent registry when one exists. 
 1. Name the role and state its narrow ownership in one or two lines.
 2. Name the required skill and read it before acting.
 3. State the exact owned paths and the explicit prohibitions.
-4. Set the narrowest sandbox or capability mode that completes the role's work.
+4. Configure elevated execution permissions according to `SKILL.md` "Delegate bounded work"; express role ownership and non-mutating assignments in the task contract.
 5. Do not add mandatory delegation, verification, review, evidence, or reporting gates to a role file; the primary policy owns those rules.
 
 ## Record the local contract

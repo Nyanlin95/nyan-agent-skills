@@ -249,14 +249,14 @@ Read [dialkit.md](references/dialkit.md) when the user explicitly requests DialK
 2. Delegate only work that has a clear deliverable and acceptance check.
 3. Give each delegate a minimal contract: the objective, owned paths, required result, and prohibitions.
 4. Disclose every shared root, shared contract, and likely overlap to all affected delegates.
-5. Give each delegate the narrowest enforced capability mode that can complete its work.
-6. Withhold secrets, credentials, external-write authority, publication authority, and destructive authority by default.
-7. Permit a bounded writer only when runtime controls enforce its required write scope and external authority.
-8. If those controls are unavailable, remove secrets and personal data from task inputs.
-9. In that case, delegate read-only work only.
+5. Give every delegate elevated execution permissions by default: use the fullest capability mode the host permits, including `danger-full-access` where supported. Follow higher-priority host restrictions when elevation is unavailable.
+6. Grant implementation workers authority to edit and verify their assigned paths. Do not downgrade them to read-only because the runtime cannot enforce path-level isolation.
+7. Keep research and review assignments non-mutating through their task contracts, without imposing a read-only sandbox.
+8. Share only task-relevant inputs and keep secrets and unrelated personal data out of delegation messages.
+9. Carry forward the user's existing authority for assigned actions; elevated permissions alone do not authorize unrelated changes, publication, or destructive actions.
 10. Keep Omelet responsible for cross-task decisions and final integration.
-11. Require a new task contract before a delegate expands scope.
-12. Preserve unrelated work; delegates never own Docker, Clerk, shared ports, Git state, or publication.
+11. Update the task contract before a delegate expands its assignment.
+12. Preserve unrelated work and coordinate shared runtimes, Git state, and publication through Omelet before assigning those actions.
 
 Treat a declared path scope as a contract. Do not describe it as enforced isolation unless the runtime constraints confirm it.
 
@@ -331,6 +331,14 @@ A plain orchestration request never authorizes commits, pushes, pull requests, m
 A `full` workflow authorizes the complete feature-branch, ready-PR, review, and merge workflow. Never push a product commit directly to the base branch. After merge, verify that the merged commit is contained by the remote base branch, report the merged range and remaining local changes, then stop. A `full` workflow does not build, start, stop, or redeploy services and does not run hermetic acceptance.
 
 A `release` workflow authorizes the commit, direct push to the base branch, and redeploy. Inspect the intended diff, run the repository gates, commit with a plain title, and push without force. Stop on a failed gate, push, build, or health check. The user does not need to provide a commit SHA.
+
+## Monitor authorized pull requests economically
+
+1. Finish scope review, repository gates, commit, push, and ready-PR creation before handing off monitoring. Preserve excluded dirty work; never bypass a clean-snapshot gate.
+2. Prefer a lower-cost available model such as Luna for a bounded read-only watch. Give it the repository, PR, exact head SHA, check/review scope, and escalation conditions. Keep fixes, GitHub replies, merge, and cleanup with Omelet.
+3. Require one initial snapshot, then back off polling and report only changes. Escalate failed checks, actionable feedback, changed heads, or unavailable access promptly; do not let quiet polling conceal a stalled monitor. Avoid duplicate polling by the primary.
+4. Return current-head checks, review threads, review decision, and limitations. Distinguish no submitted review from approval. A successful watch proves this bounded task, not general repair ability or measured cost savings.
+5. Before an authorized merge, let Omelet refresh head identity and mergeability. After merge, prove remote-base containment, synchronize the local base, and delete only branches proven merged when cleanup is authorized. Restore preserved local work and report remaining changes.
 
 ## Write local orchestration policy or configuration
 

@@ -79,7 +79,7 @@ Use `skills-run:` routes as task hypotheses, not mandatory agent pipelines:
 | `skills-run:sync <scope>` | Blast-Radius Validation → Checkpoint | Copy explicitly authorized skills to installed roots and prove SHA-256 parity. |
 | `skills-run:publish <scope>` | Release Qualification | Perform only explicitly authorized Git or GitHub actions. |
 
-Compile a semantic plan into the registered roles only when delegation helps. Use one writer per file and canonical rule. Parallelize independent reads or disjoint writes; serialize shared files, contracts, state, and integration boundaries. Read the required task and owner skills before acting. Follow the skill's runtime capability checks; a declared path contract is not enforced isolation.
+Compile a semantic plan into the registered roles only when delegation helps. Use one writer per file and canonical rule. Parallelize independent reads or disjoint writes; serialize shared files, contracts, state, and integration boundaries. Read the required task and owner skills before acting. Follow the skill's "Delegate bounded work" section for elevated execution permissions; a declared path contract is not enforced isolation.
 
 Use [handoff-to-opencode](skills/handoff-to-opencode/SKILL.md) when OpenCode delegation is requested or selected for bounded, non-sensitive work. Keep free-model eligibility, task routing, the wrapper, and recovery in that skill. Do not duplicate its model policy in role files. Retain scope, review, verification, and publication decisions in Omelet.
 

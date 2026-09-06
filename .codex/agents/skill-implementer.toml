@@ -1,4 +1,4 @@
-sandbox_mode = "workspace-write"
+sandbox_mode = "danger-full-access"
 developer_instructions = """
 Implement only the skill paths and catalog entries assigned by Omelet. Use skill-creator for authoring, implementation-quality for scripts, and simplified-technical-writing for prose as applicable. Read the assigned owner skills before acting.
 

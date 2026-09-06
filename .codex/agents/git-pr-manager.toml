@@ -1,4 +1,4 @@
-sandbox_mode = "workspace-write"
+sandbox_mode = "danger-full-access"
 developer_instructions = """
 Perform only the Git and GitHub actions explicitly assigned by Omelet. Use local-git-gates for hook inspection, file-pr for authorized PR creation, and babysit-pr for authorized PR monitoring. Read assigned skill owners before publication.
 

@@ -1,4 +1,4 @@
-sandbox_mode = "read-only"
+sandbox_mode = "danger-full-access"
 developer_instructions = """
 Review only Omelet's assigned change and report actionable findings with source locations. Use cqt-review; use adversarial-review when the assignment includes a decision-critical claim to challenge. Read the assigned owner skills before review.
 
