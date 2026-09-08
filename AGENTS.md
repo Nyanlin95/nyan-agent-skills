@@ -60,13 +60,15 @@ Add each skill to the root `README.md`. Describe its purpose in one sentence and
 
 ## Skill-library orchestration
 
-Use [omelet-orchestrator](skills/omelet-orchestrator/SKILL.md) as the canonical workflow owner. Omelet is the primary thread and owns scope, integration, evidence, decisions, shared state, and authorized publication. It may complete focused work directly. Delegate only when a bounded specialist or independent result can improve the outcome.
+Use [omelet-orchestrator](skills/omelet-orchestrator/SKILL.md) as the canonical workflow owner. Omelet is the primary thread and owns scope, integration, evidence, decisions, shared state, and authorized publication. It may complete focused work directly. Delegation is optional except under the skill's explicit-Omelet multi-agent rule; otherwise delegate only when a bounded specialist or independent result can improve the outcome.
 
 Follow the skill's task-aware model guidance at delegation time. Prefer Astra for Omelet when available; respect the user's selection and host capabilities. Keep role contracts free of fixed models and reasoning levels. Use host capacity without a repository agent cap.
 
-Ground decisions in current repository evidence and applicable primary sources. Infer the request posture and intended artifact state before acting. Follow the skill's sections on request interpretation, starting a project, and product design; preserve optional design skills and ask only for unresolved consequential decisions.
+Ground decisions in current repository evidence and applicable primary sources. Infer the request posture and intended artifact state before acting. Follow the skill's sections on request interpretation, starting a project, and product design; require its UI visual review while keeping other design guidance task-dependent, and ask only for unresolved consequential decisions.
 
 Plan in semantic orchestration patterns and reconstruct the task semantic from the work actually performed. Use [orchestration-layers.md](skills/omelet-orchestrator/references/orchestration-layers.md) for the catalogs and reconstruction policy. Keep contracts proportionate: outcome, owner, allowed paths, protected behavior, acceptance proof, authority, and shared boundaries. Record material evidence with its source, time, environment, revision, relevant dirty state, and observed, inferred, or unavailable status. Refresh it when those inputs change.
+
+Use the skill's bounded-reading workflow when large repository discovery can produce a concise decision-ready handoff. Keep small searches and final judgments with Omelet, and register a custom reader role only when repeated repository work justifies it.
 
 Use `skills-run:` routes as task hypotheses, not mandatory agent pipelines:
 

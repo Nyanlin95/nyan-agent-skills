@@ -1,4 +1,4 @@
 interface:
   display_name: "Omelet Orchestrator"
   short_description: "Operate the primary Omelet orchestration"
-  default_prompt: "Use $omelet-orchestrator to turn this request into a useful working outcome. Resolve routine details autonomously and ask only about unresolved consequential decisions. For a new project, consider $implementation-quality for runnable foundations, $nyan-ui-visual-review for design, and $frontend-system-principles for interactive behavior, without a fixed sequence or required delegation. Preserve scope and report achieved proof and material limits honestly."
+  default_prompt: "Use $omelet-orchestrator to turn this request into a useful working outcome. Resolve routine details autonomously and ask only about unresolved consequential decisions. For UI changes, apply $nyan-ui-visual-review and inspect the final render before completion. Consider $implementation-quality for runnable foundations and $frontend-system-principles for interactive behavior. Follow the explicit-Omelet multi-agent rule; otherwise delegate by task. Preserve scope and report achieved proof and material limits honestly."
