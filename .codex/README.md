@@ -2,7 +2,7 @@
 
 Use the repository's [AGENTS.md](../AGENTS.md#skill-library-orchestration) for local authority and routes, and [omelet-orchestrator](../skills/omelet-orchestrator/SKILL.md) for the workflow. Keep operating rules in those owners.
 
-Omelet can complete focused tasks directly or select a bounded specialist when that improves the result. Select models for the task and current host; do not pin models in role contracts. Use focused checks and proportionate evidence. Request independent review for consequential decisions instead of making every edit pass through a review chain.
+Omelet can complete focused tasks directly or select a bounded specialist when that improves the result. Use the model and effort assignments in Omelet's "Guide model selection" and keep the registered role defaults aligned. Use focused checks and proportionate evidence. Request independent review for consequential decisions instead of making every edit pass through a review chain.
 
 The host registry is [config.toml](config.toml). Its role files use `danger-full-access` and describe ownership, relevant skills, and prohibitions. Read-only work below describes the assignment, not a sandbox restriction. Follow the skill's "Delegate bounded work" section for execution permissions. The roles do not create additional workflow gates:
 

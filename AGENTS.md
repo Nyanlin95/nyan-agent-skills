@@ -62,7 +62,7 @@ Add each skill to the root `README.md`. Describe its purpose in one sentence and
 
 Use [omelet-orchestrator](skills/omelet-orchestrator/SKILL.md) as the canonical workflow owner. Omelet is the primary thread and owns scope, integration, evidence, decisions, shared state, and authorized publication. It may complete focused work directly. Delegation is optional except under the skill's explicit-Omelet multi-agent rule; otherwise delegate only when a bounded specialist or independent result can improve the outcome.
 
-Follow the skill's task-aware model guidance at delegation time. Prefer Astra for Omelet when available; respect the user's selection and host capabilities. Keep role contracts free of fixed models and reasoning levels. Use host capacity without a repository agent cap.
+Follow the skill's "Guide model selection": Luna max for Omelet, Astra low/medium only for reviewers and advisors, Sol low/medium for implementation workers, and Luna xhigh for other delegated roles. Keep registered model and effort defaults aligned with that owner. Use host capacity without a repository agent cap.
 
 Ground decisions in current repository evidence and applicable primary sources. Infer the request posture and intended artifact state before acting. Follow the skill's sections on request interpretation, starting a project, and product design; require its UI visual review while keeping other design guidance task-dependent, and ask only for unresolved consequential decisions.
 
@@ -94,3 +94,12 @@ Treat plain orchestration as no publication authority. For authorized commits an
 For orchestration policy or role changes, follow the skill's "Prove the setup level" section. Keep the revision `policy-only` until a fresh trusted-project session loads the policy, resolves the registered roles, and completes one bounded read-only delegation round trip. Require this proof before publishing setup changes; do not claim desktop activation from CLI-only proof.
 
 Keep history analysis read-only and privacy-bounded. Discover installed applications and use app-owned indexes before raw sessions. Exclude credential and personal-data stores, sanitize examples, distinguish recurring patterns from isolated incidents, and report unavailable coverage.
+
+For evidence-led look-backs:
+
+- Record the time window, sources checked, eligible and sampled session counts, application and project mix, interaction types, and unavailable coverage.
+- Link each proposed change to a sanitized source-session reference and short evidence summary. Mark skill activation as known or unknown, separate observed behavior from inferred cause, and keep raw transcript text out of durable instructions.
+- Keep positive evidence distinct from negative signals. Classify negatives as harmful guidance, non-compliance, irrelevant guidance, or orchestration/tooling failure, then route each change to its canonical owner. Treat failed or nonzero tool metadata as an event, not proof that the task failed; attribute it to a skill only when returned evidence shows causation, and mark the cause unknown when outputs or context are unavailable.
+- For routine guidance changes, require the same finding in at least two distinct sessions. Require at least two distinct projects before promoting a cross-project rule. A single verified, decision-critical safety or correctness defect can justify a narrow exception; record its direct evidence and reason.
+- Exclude retrospective and analysis runs from their own evidence pool. Do not let generated proposals count as validation.
+- Keep history analysis read-only. Show each proposed edit with sanitized evidence and a cohesive diff, and apply it only when the user has authorized the change.

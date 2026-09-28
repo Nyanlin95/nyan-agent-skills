@@ -31,6 +31,7 @@ For a useful result:
 | Skill | Purpose |
 | :--- | :--- |
 | [cqt-review](skills/cqt-review/) | Review code and migrations for quality, ownership, dependencies, state, and failure behavior. |
+| [architecture-candidate-finder](skills/architecture-candidate-finder/) | Find and explain evidence-backed candidates for improving design patterns, module boundaries, and architecture decisions. |
 | [adversarial-review](skills/adversarial-review/) | Test material claims in plans, changes, and reviews before a decision. |
 | [implementation-quality](skills/implementation-quality/) | Start runnable projects and implement or refactor code with clear ownership, complete journeys, and explicit failures. |
 | [frontend-system-principles](skills/frontend-system-principles/) | Build coherent frontend journeys with clear state ownership, consistent caching, navigation continuity, and supported recovery. |
@@ -38,6 +39,7 @@ For a useful result:
 | [local-git-gates](skills/local-git-gates/) | Add or review repository-local Git checks that reuse existing verification commands. |
 | [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Distill or scaffold coherent visual foundations and critique icons through pages, presentations, books, graphics, and motion using spatial principles and rendered geometry. |
 | [ui-copy-review](skills/ui-copy-review/) | Review changed interface copy for clarity, recovery, consistency, and copy-related accessibility. |
+| [clean-copy](skills/clean-copy/) | Remove interface text users do not need while keeping facts they need to act, decide, and recover. |
 | [build-html-prototype](skills/build-html-prototype/) | Build document, interface, or visual HTML prototypes inside one disposable folder. |
 | [handoff-to-opencode](skills/handoff-to-opencode/) | Route limited, non-sensitive implementation work to a current free OpenCode model based on task needs within explicit paths. |
 | [simplified-technical-writing](skills/simplified-technical-writing/) | Rewrite technical prose in strict or STE-flavored Simplified Technical English. |
@@ -66,6 +68,12 @@ Git branch name. The agent asks about user consequences, not every technical pre
 
 ```text
 Use $cqt-review to review this migration for ownership and failure behavior.
+```
+
+### Choose an architecture candidate
+
+```text
+Use $architecture-candidate-finder to find the strongest structural improvement candidates here. Explain the evidence, pattern terms, and trade-offs in plain language.
 ```
 
 ### Challenge a decision

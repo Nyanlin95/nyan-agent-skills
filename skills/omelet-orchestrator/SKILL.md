@@ -34,15 +34,25 @@ primary-only result as satisfying this rule.
 
 ## Guide model selection
 
-Prefer `gpt-6-astra` for the primary Omelet thread when it is available. It fits work that must coordinate several owners, reconcile evidence, or sustain a complex workflow.
+Use this model and reasoning policy for Omelet unless the user explicitly changes it:
 
-Treat these specialist choices as nudges:
+| Responsibility | Model | Reasoning effort |
+| --- | --- | --- |
+| Main Omelet orchestrator | `gpt-6-luna` | `max` |
+| Reviewer or advisor | `gpt-6-astra` | `low` or `medium` |
+| Main implementation or repair worker | `gpt-6-sol` | `low` or `medium` |
+| Other delegated roles, including research, bulk reading, testing, synchronization and monitoring | `gpt-6-luna` | `xhigh` |
 
-- Prefer Astra or the strongest available model for decision-critical synthesis, difficult architecture, or high-consequence integration.
-- Prefer Sol or Terra for substantial implementation, review, history synthesis, and Git lifecycle work.
-- Prefer Luna for bounded research, deterministic validation, and synchronization work.
+1. Keep Luna max as the primary owner of scope, decisions, integration, shared state and authorized publication.
+2. Call Astra only as a non-mutating reviewer or advisor. Use low for bounded reviews and medium for cross-boundary reasoning. Return findings or advice to Omelet; do not assign Astra implementation, orchestration or publication.
+3. Use Sol low for bounded implementation and repairs. Use Sol medium when the implementation spans interacting owners or requires deeper debugging. Interpret the user's term "light" as the supported effort value `low`.
+4. Use Luna xhigh for other delegated work. Split mixed assignments by responsibility; a reviewer remains a reviewer even when its role name is generic.
+5. Set model and effort explicitly at delegation time. Use an empty or bounded history fork when a full-history fork would force inheritance that conflicts with this policy.
+6. Configure supported project and role settings to match this table. Keep the policy here as the canonical owner; update conflicting repository summaries and registered defaults together.
+7. If a requested combination is unavailable, report that role as unavailable and obtain a user-selected alternative before substituting another model or effort. Do not silently use Terra, promote Astra to primary, or inherit an incompatible model.
+8. Distinguish saved configuration from the active host session. Do not claim that editing a skill or config changes an already-running primary model. Verify selection in a fresh trusted session before claiming active setup.
 
-Choose the model at delegation time. Consider task complexity, context size, latency, cost, current availability, and the user's model choice. Let a specialist inherit the parent model when that is the best fit. When selecting a different model or reasoning effort on a host where full-history forks must inherit the parent settings, use a bounded or empty history fork with a compact task contract. Do not pin a model in a role contract, treat a suggestion as a gate, or reject valid work because it used another suitable model.
+Keep delegation task-driven. This model policy does not require a reviewer or extra worker for every task, change authority limits, or expand the task scope.
 
 Plan in semantic orchestration patterns. Compile them into agent roles. Reconstruct the task semantic from what the work turns out to be. Do not make primitive roles the public planning language.
 
@@ -272,9 +282,9 @@ Read [dialkit.md](references/dialkit.md) when the user explicitly requests DialK
 5. Define the product behavior and canonical owner before exposing controls.
 6. Expose only bounded UI-owned parameters whose live comparison can answer the design question.
 7. Keep DialKit development-only by default. Treat production exposure as an explicit product and security decision with an owner, scope, and removal condition.
-8. Treat presets, persisted browser values, copied JSON, and timeline instructions as candidate authoring state, never as repository truth or user approval.
+8. Treat saved versions, persisted browser values, copied output, and timeline instructions as candidate authoring state, never as repository truth or user approval.
 9. Promote accepted values into the repository's canonical component, token, or animation owner and verify the real rendered behavior.
-10. Remove temporary bindings after promotion, or classify the remaining integration as an intentional authoring surface. For timelines, replace sampled authoring values with the production animation; hiding the editor alone is incomplete.
+10. Remove temporary bindings after promotion, or classify the remaining integration as an intentional authoring surface. For timelines, replace sampled authoring values with the production animation; hiding the editor UI alone is incomplete.
 
 ## Delegate bounded repository reading
 
@@ -402,7 +412,7 @@ A `release` workflow authorizes the commit, direct push to the base branch, and 
 ## Monitor authorized pull requests economically
 
 1. Finish scope review, repository gates, commit, push, and ready-PR creation before handing off monitoring. Preserve excluded dirty work; never bypass a clean-snapshot gate.
-2. Prefer a lower-cost available model such as Luna for a bounded read-only watch. Give it the repository, PR, exact head SHA, check/review scope, and escalation conditions. Keep fixes, GitHub replies, merge, and cleanup with Omelet.
+2. Use Luna xhigh for a bounded read-only watch under "Guide model selection". Give it the repository, PR, exact head SHA, check/review scope, and escalation conditions. Keep fixes, GitHub replies, merge, and cleanup with Omelet.
 3. Require one initial snapshot, then back off polling and report only changes. Escalate failed checks, actionable feedback, changed heads, or unavailable access promptly; do not let quiet polling conceal a stalled monitor. Avoid duplicate polling by the primary.
 4. Return current-head checks, review threads, review decision, and limitations. Distinguish no submitted review from approval. A successful watch proves this bounded task, not general repair ability or measured cost savings.
 5. Before an authorized merge, let Omelet refresh head identity and mergeability. After merge, prove remote-base containment, synchronize the local base, and delete only branches proven merged when cleanup is authorized. Restore preserved local work and report remaining changes.

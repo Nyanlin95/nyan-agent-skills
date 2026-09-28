@@ -1,0 +1,4 @@
+interface:
+  display_name: "Architecture Candidate Finder"
+  short_description: "Explain and rank evidence-backed design opportunities"
+  default_prompt: "Use $architecture-candidate-finder to find the strongest architecture candidates in this area and explain the evidence, benefits, and trade-offs in plain language."

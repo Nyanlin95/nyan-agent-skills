@@ -1,6 +1,6 @@
 ---
 name: cqt-review
-description: Review a repository for correctness, code quality, code taste, ownership, abstraction, dependency direction, state modeling, failure behavior, and migration lifecycle. Use when auditing an existing codebase, reviewing a feature or pull request beyond correctness, identifying architectural friction, or assessing a parallel implementation. Keep this work read-only. Report bounded, evidence-based findings and recommendations. Do not expand a bounded review into a repository-wide rewrite.
+description: Review a repository for correctness, code quality, code taste, ownership, abstraction, dependency direction, state modeling, failure behavior, and migration lifecycle. Use when auditing existing code or behavior, reviewing a feature or pull request beyond correctness, or assessing a parallel implementation. For exploratory discovery and ranking of structural redesign candidates, use architecture-candidate-finder. Keep this work read-only. Report bounded, evidence-based findings and recommendations. Do not expand a bounded review into a repository-wide rewrite.
 ---
 
 # CQT Review

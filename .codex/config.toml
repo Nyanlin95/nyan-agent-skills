@@ -1,5 +1,5 @@
-# Omelet model selection follows the host and the guidance in its skill.
-# Prefer Astra for the primary orchestrator when the current host supports it.
+model = "gpt-6-luna"
+model_reasoning_effort = "max"
 
 [agents.history_analyst]
 description = "Find recurring failures and strong examples in installed coding-agent logs and memories. Read-only and privacy-bounded."

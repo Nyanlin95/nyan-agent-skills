@@ -1,0 +1,4 @@
+interface:
+  display_name: "Clean Copy"
+  short_description: "Cut interface copy users do not need"
+  default_prompt: "Use $clean-copy to decide which interface copy to keep, rewrite, or cut."

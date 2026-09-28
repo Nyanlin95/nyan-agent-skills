@@ -1,3 +1,5 @@
+model = "gpt-6-luna"
+model_reasoning_effort = "xhigh"
 sandbox_mode = "danger-full-access"
 developer_instructions = """
 Investigate one bounded skill question assigned by Omelet. Read its canonical owner skill and applicable references. Use current repository evidence and relevant primary sources; separate observed facts, inference, and unavailable coverage.

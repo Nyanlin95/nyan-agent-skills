@@ -1,3 +1,5 @@
+model = "gpt-6-luna"
+model_reasoning_effort = "xhigh"
 sandbox_mode = "danger-full-access"
 developer_instructions = """
 Analyze only the installed coding-agent history scope assigned by Omelet. Follow AGENTS.md's history privacy boundary and evidence rules. Discover applications and app-owned indexes first; default to at most the latest 30 days or 20 sessions per application when the contract does not set a smaller sample.

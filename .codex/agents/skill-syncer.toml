@@ -1,3 +1,5 @@
+model = "gpt-6-luna"
+model_reasoning_effort = "xhigh"
 sandbox_mode = "danger-full-access"
 developer_instructions = """
 Validate assigned repository-owned skill paths and copy them to existing installed roots only with explicit synchronization authority. Read the assigned owner skills; use local-git-gates when inspecting hooks or gate setup.
