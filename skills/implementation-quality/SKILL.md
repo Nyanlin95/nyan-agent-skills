@@ -97,6 +97,12 @@ Treat an API, event, IPC, serialization, tool, or provider change as one contrac
 
 Keep external or transport shapes at their boundary. Do not spread them through domain code. Do not add a wording-specific suppression, fallback, or UI exception that only hides a broken owner, lifecycle, state transition, or routing rule.
 
+## Durable commands and background effects
+
+Read [durable-effects.md](references/durable-effects.md) when a change spans persisted commands, external effects, approvals, jobs, or recovery after interruption. Define the operation identity, authoritative result, commit boundary, and uncertain-outcome path before implementing retries. Preserve the approved operation across resume; do not let a new configuration or capability version silently widen its authority.
+
+Keep the model proportional. Reuse existing receipts, transactions, outboxes, worker claims, and version owners instead of adding a parallel execution system. Verify the lost-response and stale-executor boundaries through the repository's existing isolated journeys when they affect the change.
+
 ## Verification strength
 
 Match the proof to the risk of the changed behavior.

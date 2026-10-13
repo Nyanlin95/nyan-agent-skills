@@ -36,6 +36,8 @@ For a pull request or feature, inspect the current status and diff, trace the ch
 
 Read [references/review-guide.md](references/review-guide.md) for detailed checks, critical-flow tracing, migration lifecycle, and review outputs. Read [references/language-behavior.md](references/language-behavior.md) when a finding depends on language or runtime semantics. Read [references/framework-behavior.md](references/framework-behavior.md) when framework lifecycle, reactivity, rendering, dependency injection, or server-client boundaries matter.
 
+Select the guide's durable-operation, approval/version, draft/replay, and performance checks only when the reviewed flow crosses those boundaries. Trace the complete result and recovery path instead of treating a receipt, lease, version string, socket, or passing metric flag as sufficient evidence by itself.
+
 ## Review model
 
 Evaluate three dimensions:

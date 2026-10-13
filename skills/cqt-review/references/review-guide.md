@@ -46,6 +46,14 @@ Check dependency direction toward stable policy, external SDK leakage, cycles, h
 
 Check for contradictory boolean or nullable state, hidden transitions, unclear source of truth, optimistic updates without recovery, partial completion, swallowed errors, unsafe retries, transactions that miss their boundary, and unreliable cleanup.
 
+For durable commands or jobs, locate the operation identity, receipt/result, transaction/outbox boundary, claim/lease, and final-write fence. Check whether a lost response can duplicate an effect, a reused identity can change payload or actor, or a stale executor can complete after replacement. Distinguish dispatch hints from durable work. Inspect connection lifetimes across provider calls and approval waits without demanding an outbox or worker architecture where the operation does not need one.
+
+For delayed approvals and versioned capabilities, trace the exact submitted operation through resume to effect admission. Check argument/target/version binding, current revocation, preserved waiting-run authority, and recovery of already-started effects. Distinguish new authority from permission to reconcile an existing result. Verify required version/digest/catalog/migration consumers without treating a matching version string as behavioral proof.
+
+For drafts and event projections, inspect local edit generation, server revision, command identity, and replay cursor as separate concepts. Check whether an acknowledgement clears newer text, a current invalid form blocks recovery of an older submission, or a prior session can overwrite the replacement. Trace reconnect from durable history rather than inferring completeness from a socket or polling loop.
+
+For performance claims, inspect the real journey driver, workload, metric boundaries, required measurements, and comparison baseline. Missing fields are not zero; request counts and collector tests alone do not prove user latency. Do not recommend relaxing a budget without evidence that its workload or contract legitimately changed.
+
 ### Domain language and code shape
 
 Use domain language as evidence when terms affect behavior, ownership, state, or a boundary. When the model is unresolved, state the competing terms, the scenario that needs a decision, and the affected owner. Do not create a glossary or ADR during this review.

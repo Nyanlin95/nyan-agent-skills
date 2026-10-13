@@ -1,4 +1,4 @@
 interface:
   display_name: "Nyan UI Visual Review"
-  short_description: "Visual foundations and critique across scales and media"
-  default_prompt: "Use $nyan-ui-visual-review alongside the authoring workflow to establish coherent visual foundations or refine this design using existing choices, spatial principles, rendered evidence, and appropriate measurements."
+  short_description: "Visual foundations, binding grids, and measured critique"
+  default_prompt: "Use $nyan-ui-visual-review alongside the authoring workflow to establish or adopt a grid contract, refine this design, and audit its rendered geometry and visual quality with verified exceptions."

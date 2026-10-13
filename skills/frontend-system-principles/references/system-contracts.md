@@ -1,6 +1,6 @@
 # Frontend system contracts
 
-Adapted from the supplied Agent Bot docs/frontend-system-principles.md, adopted 2026-09-05. Apply the relevant domains to the target repository. Keep product-specific visual contracts, architecture, migration order, and verification results in their local owners. Treat this reference as intended behavior, not implementation proof.
+Adapt the relevant contracts to the target repository. The initial guidance came from Agent Bot's frontend principles; draft acknowledgement and replay refinements also draw on Agent Stead and Agent Bot source inspected on 2026-10-13. Keep product-specific visual contracts, architecture, migration order, and verification results in their local owners. Treat this reference as intended behavior, not implementation proof.
 
 ## Give each kind of state one owner
 
@@ -156,6 +156,26 @@ Keep irreversible, financial, permission-sensitive, and external effects pending
 until the authoritative owner confirms them. An aborted browser request does not
 prove that the server cancelled a write.
 
+## Reconcile drafts and uncertain submissions
+
+Keep editable draft identity separate from submitted operation identity. Capture the submitted value and revision before dispatch; acknowledge or clear only that revision. Retain typing, erasure, attachments, or validation changes made while the request was pending. Do not let a delayed success replace the user's newer draft.
+
+Scope draft and pending-operation state by account/tenant and target. Retain durable browser recovery only when the product explicitly supports it, with bounded retention and account-switch cleanup. Do not introduce persistent private state solely as a polish optimization.
+
+For an uncertain write, preserve the exact operation needed to query or replay the same submission through its existing server contract. Reconcile it independently of the current editable form: newer invalid input must not prevent learning whether the previous submission succeeded. After confirmed completion, treat a deliberate identical submission as a new intent. Do not silently retry an external effect whose owner cannot reconcile it safely.
+
+Distinguish local edit generation, server revision, and command receipt. Use the server revision for conflict detection and the edit generation to reject stale UI acknowledgements. Require an explicit conflict choice before overwriting another device's changed draft where the product contract demands it. Do not infer that an empty remote draft is unchanged; it may be the revision consumed by a successful send.
+
+Verify lost acknowledgement followed by newer typing and erasure, reload with pending recovery when supported, cross-device conflict, and account/target change when those paths are affected. Assert the retained draft and durable effect count after recovery.
+
+## Reconcile realtime delivery with durable history
+
+Give one consumer ownership of snapshot, cursor, pushed events, replay, and terminal state. Treat display deltas and wake signals as provisional delivery; advance the durable cursor only according to the authoritative ordered source. Deduplicate repeats and catch up gaps rather than trusting delivery order.
+
+Fence consumer callbacks by run/entity/session generation. Abort and dispose obsolete subscriptions and ignore their late results. Start a replacement replay without allowing the old session to overwrite it. Preserve committed results when cancellation or a transport failure interrupts display.
+
+Use existing reconnect catch-up or bounded polling when realtime is unavailable. State whether the implementation provides durable cursor replay or only read invalidation; neither a socket connection nor periodic refresh proves ordered recovery. Verify duplicate/out-of-order delivery, a missed wake, disconnect/reconnect, and session replacement where the changed owner handles them.
+
 ## Build the visual system from foundations through workflows
 
 Use atomic design as a dependency and review method, not a requirement to create
@@ -244,3 +264,11 @@ memoization or another state store.
 
 Honor reduced motion. Use motion to explain changes and preserve continuity.
 Do not animate layout merely to hide latency or block the next action.
+
+## Measure the actual journey
+
+Define a frequent user action, its readiness/completion signal, and the metric boundary before optimizing it. Measure the same action with controlled content, build, cache state, and external substitute or provider lane. Keep wire bytes, decoded bytes, request counts, main-thread work, database activity, and elapsed time distinct; do not sum overlapping spans or call a local sample a production percentile.
+
+Drive the real browser or API journey rather than invoking collector internals or manufacturing busy work. Require the named scenario and its necessary measurement fields to be present before evaluating a budget. Missing data is unavailable evidence, not zero cost. Keep diagnostics bounded and free of prompts, credentials, or raw private content.
+
+Remove unnecessary work at its owner before adding prefetch, caches, or memoization. Preserve authorization, effect ordering, durability, and useful feedback. Update a baseline or budget only for an explained workload or contract change with matched before/after evidence; do not loosen it merely because a regression fails.

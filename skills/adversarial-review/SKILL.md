@@ -58,6 +58,8 @@ Use a reviewer hypothesis only to direct investigation. Do not describe it as a 
 
 Choose attacks that can change the decision. Follow a critical input to its observable result rather than inspecting isolated files.
 
+Read [Effect and recovery attacks](references/effect-recovery-attacks.md) when the selected claim depends on approvals, versioned capabilities, durable effects, worker ownership, draft acknowledgements, replay, or measured performance. Use its boundary counterexamples selectively; do not turn them into a mandatory whole-system audit.
+
 ### Authority and state
 
 - Find a second writer, cached copy, fallback, or UI-side policy that contradicts the claimed source of truth.

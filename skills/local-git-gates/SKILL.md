@@ -1,202 +1,108 @@
 ---
 name: local-git-gates
-description: Design, install, or review repository-local Git hooks and local verification gates. Use when a coding agent must add or improve pre-commit or pre-push checks, route changed paths to existing tests, make local validation runnable outside Git, or verify hook setup in a target repository. Keep hooks small, derive commands from the target repository, reuse existing policy-owned checks, and never copy another repository's commands.
+description: Design, install, review, or improve repository-local Git hooks and verification gates, including their agreement with CI and self-hosted execution. Use for pre-commit/pre-push checks, changed-path or dependency-aware routing, exact-commit qualification, reproducible gate commands, and hook or runner verification. Derive commands and policy from the target repository; keep one gate owner and distinguish working-tree feedback from publication proof.
 ---
 
 # Local Git Gates
 
-Create repository-local Git checks that give fast feedback before commit or push. Adapt behavior to the target repository’s scripts, ownership, and test commands.
+Keep hooks small and one project-owned runner responsible for planning, routing, execution, and results. Reuse the target repository's verification commands from local hooks and CI. Adapt the model to existing capabilities; do not copy another project's commands, branches, credentials, runner labels, or testing policy.
 
-Use a staged model:
+## Establish scope and ownership
 
-1. Establish a minimal baseline.
-2. Validate behavior with basic tests.
-3. Ask only before enabling a heavier or broader mode that the task did not explicitly authorize.
+1. Read repository instructions, testing/release guides, hook setup, runner source, workflow files, and relevant tests.
+2. Inspect the current revision, dirty paths, hook configuration origin/scope, and existing command owners.
+3. Identify the requested outcome and distinguish design/review, repository edits, local installation, and remote configuration authority.
+4. Map each enforcement point to its revision context, selected checks, prerequisites, and success criteria.
+5. Preserve unrelated work and existing hook-manager conventions.
 
-After each stage, add a soft recheck step: run the narrowest validation for that stage, confirm output matches this repository’s intent, and refine the next stage if needed before proceeding.
+Complete authorized local changes without repeated approval for ordinary routing or verification decisions. Treat an explicit installation request as authority for its required repository-local configuration. Ask before replacing an unknown hooks path, changing global configuration, creating a separate worktree, configuring remote rules or runner services, or expanding beyond the requested scope. Do not infer commit, push, merge, deployment, or credential authority from gate work.
 
-Use this shape:
+## Separate feedback from qualification
 
-1. Keep hook entrypoints tiny and deterministic.
-2. Keep one project-owned runner that owns path/range routing.
-3. Reproduce outcomes through the same runner CLI.
-4. Enable advanced object-based pre-push only when repository capabilities require it.
+| Mode | Establish | Do not claim |
+| --- | --- | --- |
+| Pre-commit / explicit paths | Fast feedback for staged scope or selected working-tree files | Validation of a committed tree when commands actually read unstaged content |
+| Publication range / pre-push | Complete affected checks for the exact candidate commit and actual publication base | Qualification of another tip or a dirty checkout |
+| CI | Completed checks for the workflow's exact checkout and event scope | Local results as a substitute for the required remote result |
+| Supplemental lane | Coverage of its explicitly selected feature or fixture scope | Qualification of an arbitrary diff or a live provider |
 
-## Gate design flow
+Choose a publication execution model the repository can support. Prefer a clean existing checkout with exact-HEAD and cleanliness guards when sufficient. Use object-isolated execution only when required and authorized; do not create a worktree implicitly. Reject an unsupported pushed object rather than validate HEAD and label it as that object. Read [Publication qualification](references/publication-qualification.md) for revision, range, and multi-ref rules.
 
-1. Read repository rules, testing guides, and existing hook setup.
-2. Identify the smallest runnable test slice:
-   - ref parsing sanity
-   - path parsing sanity
-   - pre-push ref-update sanity.
-3. Run baseline tests for those slices before any install/config change.
-   - Recheck and refine: if any baseline test is noisy or misses routing edge cases, tune the checks before moving on.
-4. Use a named repository-local setup when the user explicitly asks to install it.
-5. Ask before an unknown replacement, global configuration, or heavier scope.
-6. Expand checks, coverage, and routing within the authorized scope.
-7. Report installation scope, routed checks, and checks intentionally left to CI.
+## Keep one canonical plan
 
-## Inspect before changing
+1. Assign ref parsing, revision validation, path ownership, dependency closure, command selection, and result semantics to the existing runner.
+2. Keep hook entrypoints as delegates that preserve stdin, arguments, and exit status.
+3. Expose direct reproduction for the supported staged, explicit-path, range, pre-push, and full modes through the same runner.
+4. Provide a read-only plan mode when routing complexity warrants it.
+5. Include selected paths, base/head, affected owners, checks, and broadening reasons in the plan.
+6. Make CI consume the canonical plan instead of maintaining a second path classifier in workflow conditions.
 
-1. Read repository instructions and testing guide.
-2. Inspect tracked hook files and any hook-manager conventions.
-3. List existing format/lint/typecheck/test/build commands owned by existing teams/scripts.
-4. Identify which commands are safe for pre-commit and which are safe for pre-push.
-5. Record current Git hook configuration and scope before changing it.
+Treat interface flags as repository choices, not a required spelling. Keep check implementations with their existing owners; do not create a parallel verification framework.
 
-Do not copy another repository’s paths, command names, test tiers, timeouts, or branches. Derive from the target repository.
+## Route by ownership and dependency
 
-## Verify runner prerequisites
+1. Map known paths to complete existing feature checks and their consumers.
+2. Include both old and new ownership for renames and retain old ownership for deletions and type changes.
+3. Compute the union and transitive affected closure for multiple owners.
+4. Retain required static checks and shared foundation checks according to repository policy.
+5. Broaden to full qualification for shared configuration, gate policy, security, runtime, storage, migrations, contracts, coupled owners, or uncertain impact where narrower coverage is unproven.
+6. Allow hygiene-only handling only for known documentation paths outside executable gate or release policy.
+7. Validate selected command wiring and required test inventory before expensive service setup.
 
-1. Run runner-level helper tests first if available.
-2. Verify each selected check resolves required executables in the target environment.
-3. Reproduce with runner directly:
-   - `--paths` (path-scoped)
-   - `--range` (range-scoped)
-   - synthetic `--stdin` payloads (pre-push mode).
-4. Confirm local object validation only when object-advanced mode is enabled.
-5. Mark missing tooling as unavailable coverage and report exact recovery command.
-6. After this validation pass, recheck coverage assumptions against the repository’s actual ownership and refine routing if needed before next-step escalation.
+Keep complete required journeys where the repository uses feature slices; do not silently narrow them by test-name filters. Fail on required missing, empty, disabled, exclusive, unwired, or skipped coverage according to the repository's test policy. Do not import another project's ban on a test type or its provider/performance requirements. State what each lane actually proves.
 
-Do not install dependencies globally, alter global Git configuration, or bypass failed checks.
+Handle paths as opaque data with NUL-delimited Git output and argument arrays. Avoid line-split filename parsing, shell interpolation, and `eval`. Test spaced, dash-leading, metacharacter, renamed, deleted, and unclassified paths.
 
-## Select enforcement point
+## Agree with CI and self-hosted execution
 
-Use pre-commit for fast checks on staged changes.
+1. Inspect workflow triggers, checkout depth, event SHA/base, wrapper, job names, runner labels, permissions, timeouts, concurrency, and evidence uploads.
+2. Require the CI wrapper to match the expected immutable revision to checkout HEAD before selecting checks.
+3. Propagate planning and execution failures through a stable required status.
+4. Skip expensive setup only after the canonical plan proves it unnecessary and all remaining required checks execute successfully.
+5. Separate release qualification from supplemental feature workflows and deterministic substitutes from live lanes.
+6. Preserve existing required-status names and trigger behavior unless changing them is in scope.
+7. Verify remote protection separately before describing publication as protected.
 
-Use pre-push for checks requiring push scope or expensive checks.
+Read [CI and self-hosted execution](references/ci-self-hosted.md) for persistent-runner state, cache ownership, credential boundaries, evidence, and availability. Treat a queued, offline, cancelled, or missing run as incomplete remote proof; do not change runner infrastructure or purchase capacity merely to make a status green.
 
-Do not replace CI. Keep CI as the authoritative remote proof.
+## Execute and retain truthful results
 
-## Decide object-advanced mode
+1. Resolve prerequisites in the target environment before starting selected checks.
+2. Bound commands and jobs with timeouts appropriate to their existing policy.
+3. Serialize checks that share a checkout, database, build output, port, or mutable artifact root.
+4. Isolate independent lanes only through supported test fixtures and unique resources.
+5. Record the candidate revision, plan, selected-check status, exit code, and useful failure logs.
+6. Require every selected check to complete successfully before reporting qualification.
+7. Report the failed check, earliest failing boundary, and exact reproduction command.
+8. Revalidate the qualified revision context after execution.
 
-Only enable object-based pre-push validation when both are true:
+Use a checkout lock and fresh run-specific evidence directories when concurrent gates or persistent runners can mix results. Keep planning read-only. Do not count stale artifacts, pending checks, timeout, cancellation, or a previous successful run as this attempt's proof. Keep evidence proportional; do not add a reporting service for a small hook.
 
-1. The selected gate must validate the revision that will be pushed, not the dirty working tree.
-2. The repository can isolate that pushed revision in a temporary worktree or equivalent object-based context.
-
-When enabled, confirm user approval before changing behavior.
-
-If these conditions are not met, keep baseline range/path validation only.
-
-## Keep ownership clear
-
-Keep hook files as delegates. Keep the runner as the policy owner for:
-
-- parsing ref updates and filtering scope
-- deriving push ranges
-- path-to-check routing
-- object-advanced resolution policy (if enabled)
-- worktree vs non-worktree execution
-- dependency behavior
-- output and exit semantics
-- rerun instructions
-
-Keep each check as an existing repository command. Do not duplicate command internals.
-
-Runner reproduction must stay CLI-first:
-
-- `--pre-commit`
-- `--paths`
-- `--range`
-- `--stdin`
-
-## Process pre-push safely
-
-1. Parse each ref-update tuple.
-2. Skip deleted local objects.
-3. Derive ranges per local object.
-4. Use merge-base with configured target branch when possible.
-5. Fall back to empty-tree when base cannot resolve.
-6. Collect per-object path sets and dedupe.
-7. Exit early when no checks are required.
-
-Run whitespace checks for pushed ranges with repository policy.
-
-## Run checks against pushed context
-
-1. Validate local object (if applicable) before selecting checks.
-2. For object-advanced mode, run tree-based checks in an isolated worktree for that object.
-3. Otherwise, run selected checks from the repository runner context.
-4. Keep dirty working-tree and uncommitted state out of validation output.
-5. For multiple refs, keep per-object grouping and check sets explicit.
-
-## Route checks by changed path
-
-Use the narrowest existing check for each path group.
-
-Use broader checks when shared config, dependency, or architecture boundaries are touched.
-
-Use full local gate only when scope is broad, ambiguous, or high risk.
-
-Handle paths as opaque:
-
-- use NUL-delimited path output
-- avoid line-split parsing
-- avoid shell interpolation and `eval`.
-
-Test routing with unusual, spaced, dash-leading, and metacharacter pathnames.
-
-## Ask and expand progressively
-
-After each baseline slice passes, continue within the explicit setup scope. Ask before an unapproved expansion:
-
-1. Expand hook wiring (`--pre-commit`, `--stdin`) in a committed scope.
-2. Enable/adjust local CI build command usage.
-3. Enable object-advanced mode.
-4. Add broad routing for boundary paths.
-5. Expand installer scope (`core.hooksPath`, worktree assumptions).
-
-For each unapproved expansion, request explicit approval and list affected files and commands.
-
-If a step is accepted, run a quick recheck with the minimal commands for that step, then refine scope or routing before requesting approval for the next step.
+Never bypass checks with `--no-verify`, `continue-on-error`, success fallbacks, or suppressed failures. Do not weaken coverage or increase budgets merely to obtain a passing result.
 
 ## Install without surprises
 
-1. Check current hook configuration before writing.
-2. Treat an explicit request to install the named repository-local setup as authorization for its required local config.
-3. Ask before replacing an unknown `core.hooksPath` value.
-4. Use repository-local config by default; never touch global Git config.
-5. Preserve existing worktree behavior intentionally and document it.
+1. Inspect the effective hooks path and its configuration origin before writing.
+2. Verify the installer is operating on the intended repository root.
+3. Verify all delegated hook and runner files exist.
+4. Apply authorized repository-local configuration while preserving unknown existing setups.
+5. Report the installed path, configuration scope, enforcement points, and rerun commands.
 
-Installer output should report:
+Do not install dependencies globally or modify developer credentials. Preserve worktree-specific configuration intentionally when it already exists; do not invent a new checkout model as part of installation.
 
-- hook path installed
-- scope impact
-- reproducible commands
-- config model used.
+## Verify the changed boundary
 
-## Verify the gate
+1. Run focused existing gate/installer/wrapper tests through actual CLI or hook entrypoints where available.
+2. Exercise a successful selection and a relevant failure/recovery path.
+3. Check malformed/empty ref input, deletion, new branch, missing base, divergent history, and multiple refs when pre-push parsing changes.
+4. Check dirty tracked/staged/untracked state, mismatched tips, inherited Git context, and post-check mutation when qualification changes.
+5. Check plan/CI agreement, missing required coverage, status propagation, timeouts, and current-attempt evidence when those owners change.
+6. Exercise cold/warm cache, invalid ownership/link rejection, and recovery when persistent cache behavior changes.
+7. Run the selected target-repository gate through the final changed entrypoint.
+8. Run `git diff --check` on the cohesive change.
 
-Cover:
-
-- parse helpers
-- pre-push ref tuple cases
-- empty inputs
-- changed-path collection
-- hostile pathnames
-- status propagation
-- encoding and line endings of generated tracked gate inputs.
-
-Run real entrypoint smoke against non-HEAD objects if object-advanced mode is enabled.
-
-Verify output includes failed named check and exact rerun command.
-
-Run focused regression tests for changed hook/runner files.
+Use isolated test repositories and disposable service/data locations. Follow the target's testing conventions; do not require tests that import private helper internals or install hooks into the user's active checkout merely to test an installer. Verify generated tracked inputs' encoding and line endings where relevant.
 
 ## Completion
 
-After the last gate or runner edit, run the selected target-repository commands through the changed entrypoint. Derive those commands from the target repository's scripts, documentation, and existing gate setup; never reuse a command only because another repository uses it.
-
-Run `git diff --check` before reporting completion.
-
-Report:
-
-- enforcement point(s)
-- hook path and config scope
-- checks routed and owners
-- baseline and approval decisions
-- local CI build agreement status
-- checks left to CI.
-
-Do not add a local hook until the user explicitly requests that named repository-local setup.
+Report changed owners, enforcement/configuration scope, routed checks, execution model, commands/results, and remaining CI or runtime proof. Distinguish implemented policy, installed hooks, local execution, remote exact-SHA success, and verified remote protection. State unavailable coverage explicitly. Keep publication and installed-copy synchronization separate from editing this skill.

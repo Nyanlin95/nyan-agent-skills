@@ -40,7 +40,7 @@ Select only relevant domains:
 | --- | --- | --- |
 | Typography | Reading and display roles, family, weight, size, leading, measure, wrapping | Body text, heading, label, and long content |
 | Color | Text, surface, emphasis, action, and status roles with required theme mappings | Hierarchy, contrast, and state distinction |
-| Space and layout | Group gaps, content insets, section rhythm, alignment axes, width and reflow constraints | Local component and parent composition |
+| Space and layout | Binding grid contract, group gaps, content insets, section rhythm, alignment axes, width and reflow constraints | Measured local component and parent composition |
 | Shape and depth | Control and surface shapes, strokes, nested boundary relationships, elevation purpose | Neighboring and nested surfaces |
 | Icons and imagery | Family, apparent weight, occupied area, crop and framing roles | Actual use size and varied assets |
 | Motion | Purpose, anchor, duration/easing roles, coordinated properties, reduced-motion outcome | One meaningful transition and its failure path |

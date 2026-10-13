@@ -61,11 +61,11 @@ Trace repeated sizing defects to the shared component or template. Recommend enf
 
 ## Assign spacing roles and owners
 
-Reuse the artifact's existing spacing scale and semantic roles. Distinguish text-pair, related-item, group, and section gaps. Begin with a smaller within-group gap than between-group gap for comparable relationships; account for dividers, backgrounds, and alignment that already establish grouping.
+Reuse the artifact's existing spacing scale and semantic roles within the declared grid contract. Distinguish text-pair, related-item, group, and section gaps. Begin with a smaller within-group gap than between-group gap for comparable relationships; account for dividers, backgrounds, and alignment that already establish grouping.
 
 Inspect the nearest common parent, distribution rule, margins, nested padding, line boxes, and asset whitespace before recommending a spacing change. In an additive layout, a 16 px parent gap plus an 8 px child margin and 12 px nested inset can create 36 px between visible content. Check the actual layout model before summing: margin collapse and distributed free space change the result.
 
-Assign sibling separation to the parent where practical and internal inset to the container. Remove redundant inset at its owner instead of nudging several descendants. Do not increase all gaps to solve one crowded boundary. Keep spacing rhythm separate from stroke widths, icon geometry, typography, and flexible dimensions; permit valid fractional values.
+Assign sibling separation to the parent where practical and internal inset to the container. Remove redundant inset at its owner instead of nudging several descendants. Do not increase all gaps to solve one crowded boundary. Keep spacing rhythm separate from stroke widths, icon geometry, typography, and flexible dimensions; permit fractional values where the declared rule allows them and record intentional departures as verified exceptions.
 
 ## Calculate fit with explicit assumptions
 
@@ -99,7 +99,7 @@ Specify a start edge, end edge, center, or baseline rather than saying only “a
 
 Inspect loaded fonts, available measure, line height, weight, fallback, wrapping, and glyph shapes. Do not equate font size with line-box height or visible ink. Compare text baselines using suitable text evidence; a rectangle's bottom is not a baseline.
 
-Verify geometric alignment before judging apparent balance. Inspect asset whitespace, SVG view boxes, stroke extent, and asymmetric forms when equally sized boxes look unequal. Permit a small optical adjustment with a named asset or style owner and a perceptual reason. Do not use optical adjustment to hide a broken parent constraint.
+Verify geometric alignment before judging apparent balance. Inspect asset whitespace, SVG view boxes, stroke extent, and asymmetric forms when equally sized boxes look unequal. Record a small optical adjustment as an exception with its value, named asset or style owner, perceptual reason, and rendered proof. Do not use optical adjustment to hide a broken parent constraint.
 
 For concentric rounded boundaries with uniform inset, consider `inner radius = max(0, outer radius - inset)`. Apply it only to boundaries intended to follow the same curve. Preserve independent control shapes. Inspect shadows, border thickness, clipping, and focus treatment separately.
 

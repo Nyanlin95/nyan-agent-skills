@@ -30,14 +30,14 @@ For a useful result:
 
 | Skill | Purpose |
 | :--- | :--- |
-| [cqt-review](skills/cqt-review/) | Review code and migrations for quality, ownership, dependencies, state, and failure behavior. |
+| [cqt-review](skills/cqt-review/) | Review code and migrations for ownership, dependencies, durable effects, state recovery, and evidence-backed correctness. |
 | [architecture-candidate-finder](skills/architecture-candidate-finder/) | Find and explain evidence-backed candidates for improving design patterns, module boundaries, and architecture decisions. |
-| [adversarial-review](skills/adversarial-review/) | Test material claims in plans, changes, and reviews before a decision. |
-| [implementation-quality](skills/implementation-quality/) | Start runnable projects and implement or refactor code with clear ownership, complete journeys, and explicit failures. |
-| [frontend-system-principles](skills/frontend-system-principles/) | Build coherent frontend journeys with clear state ownership, consistent caching, navigation continuity, and supported recovery. |
+| [adversarial-review](skills/adversarial-review/) | Challenge material claims with bounded counterexamples, including exact authority, effect recovery, and evidence integrity. |
+| [implementation-quality](skills/implementation-quality/) | Start runnable projects and implement clear owners, complete journeys, durable commands, and explicit failure recovery. |
+| [frontend-system-principles](skills/frontend-system-principles/) | Build frontend journeys with scoped state, draft and replay recovery, consistent caching, and measured performance. |
 | [omelet-orchestrator](skills/omelet-orchestrator/) | Turn requests into working outcomes with consequential questions, routine defaults, grounded scope, and flexible design and implementation guidance. |
-| [local-git-gates](skills/local-git-gates/) | Add or review repository-local Git checks that reuse existing verification commands. |
-| [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Distill or scaffold coherent visual foundations and critique icons through pages, presentations, books, graphics, and motion using spatial principles and rendered geometry. |
+| [local-git-gates](skills/local-git-gates/) | Design or verify thin Git hooks and one canonical gate with dependency-aware routing, exact-commit qualification, and CI/self-hosted agreement. |
+| [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Distill or scaffold visual foundations and critique compositions across media using binding grid contracts, measured audits, rendered evidence, and verified optical exceptions. |
 | [ui-copy-review](skills/ui-copy-review/) | Review changed interface copy for clarity, recovery, consistency, and copy-related accessibility. |
 | [clean-copy](skills/clean-copy/) | Remove interface text users do not need while keeping facts they need to act, decide, and recover. |
 | [build-html-prototype](skills/build-html-prototype/) | Build document, interface, or visual HTML prototypes inside one disposable folder. |

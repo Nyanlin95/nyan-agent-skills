@@ -1,4 +1,4 @@
 interface:
   display_name: "Local Git Gates"
-  short_description: "Manage target-repository local Git gates"
-  default_prompt: "Use $local-git-gates to design, install, review, route, and verify local Git hooks and checks for the target repository."
+  short_description: "Local hooks, exact-commit gates, and CI agreement"
+  default_prompt: "Use $local-git-gates to design, revise, or verify this repository's hooks and canonical gate, including exact-commit qualification and CI or self-hosted execution where applicable."

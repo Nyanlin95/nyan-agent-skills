@@ -28,6 +28,8 @@ Keep the existing framework, brand, component library, and product conventions u
 
 Keep authoritative writes on the server and temporary presentation state near its interaction. Preserve useful content, drafts, focus, and scroll according to the product contract. Reset private state at authentication boundaries. Keep speculative reads free of product side effects.
 
+Reconcile uncertain submissions independently of newer edits. Clear only the acknowledged draft revision and keep operation identity stable through its supported recovery path. Use one generation-fenced consumer for ordered event recovery; do not equate realtime delivery with durable history. Apply the draft, replay, and journey-measurement contracts in the reference only when those boundaries are affected.
+
 Use existing interaction primitives and verification tools. Add dependencies, persistent caching, virtualization, workers, or memoization only for a concrete requirement or measured constraint. Check installed versions and current official documentation before relying on framework-specific caching, prefetch, rendering, library behavior, or numerical performance thresholds.
 
 ## Prove the changed contract
