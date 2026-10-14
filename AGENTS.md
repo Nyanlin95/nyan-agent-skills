@@ -60,15 +60,7 @@ Add each skill to the root `README.md`. Describe its purpose in one sentence and
 
 ## Skill-library orchestration
 
-Use [omelet-orchestrator](skills/omelet-orchestrator/SKILL.md) as the canonical workflow owner. Omelet is the primary thread and owns scope, integration, evidence, decisions, shared state, and authorized publication. It may complete focused work directly. Delegation is optional except under the skill's explicit-Omelet multi-agent rule; otherwise delegate only when a bounded specialist or independent result can improve the outcome.
-
-Follow the skill's "Guide model selection": Luna max for Omelet, Astra low/medium only for reviewers and advisors, Sol low/medium for implementation workers, and Luna xhigh for other delegated roles. Keep registered model and effort defaults aligned with that owner. Use host capacity without a repository agent cap.
-
-Ground decisions in current repository evidence and applicable primary sources. Infer the request posture and intended artifact state before acting. Follow the skill's sections on request interpretation, starting a project, and product design; require its UI visual review while keeping other design guidance task-dependent, and ask only for unresolved consequential decisions.
-
-Plan in semantic orchestration patterns and reconstruct the task semantic from the work actually performed. Use [orchestration-layers.md](skills/omelet-orchestrator/references/orchestration-layers.md) for the catalogs and reconstruction policy. Keep contracts proportionate: outcome, owner, allowed paths, protected behavior, acceptance proof, authority, and shared boundaries. Record material evidence with its source, time, environment, revision, relevant dirty state, and observed, inferred, or unavailable status. Refresh it when those inputs change.
-
-Use the skill's bounded-reading workflow when large repository discovery can produce a concise decision-ready handoff. Keep small searches and final judgments with Omelet, and register a custom reader role only when repeated repository work justifies it.
+Use [omelet-orchestrator](skills/omelet-orchestrator/SKILL.md) as the canonical workflow owner. Follow that skill for model selection, grounding, request interpretation, semantic planning, task contracts, delegation, evidence, review selection, and setup proof. Do not restate its rules here; this section records only repository-specific policy.
 
 Use `skills-run:` routes as task hypotheses, not mandatory agent pipelines:
 
@@ -81,17 +73,13 @@ Use `skills-run:` routes as task hypotheses, not mandatory agent pipelines:
 | `skills-run:sync <scope>` | Blast-Radius Validation → Checkpoint | Copy explicitly authorized skills to installed roots and prove SHA-256 parity. |
 | `skills-run:publish <scope>` | Release Qualification | Perform only explicitly authorized Git or GitHub actions. |
 
-Compile a semantic plan into the registered roles only when delegation helps. Use one writer per file and canonical rule. Parallelize independent reads or disjoint writes; serialize shared files, contracts, state, and integration boundaries. Read the required task and owner skills before acting. Follow the skill's "Delegate bounded work" section for elevated execution permissions; a declared path contract is not enforced isolation.
-
 Use [handoff-to-opencode](skills/handoff-to-opencode/SKILL.md) when OpenCode delegation is requested or selected for bounded, non-sensitive work. Keep free-model eligibility, task routing, the wrapper, and recovery in that skill. Do not duplicate its model policy in role files. Retain scope, review, verification, and publication decisions in Omelet.
 
-Close delegates with a terminal status (`complete`, `partial`, `blocked`, or `cancelled`), result, changed paths, checks, and uncertainty. Do not require a fixed report template. Verify complete material results before integration; reject or recontract partial or out-of-scope results. End assignments after consuming their results.
-
-Use focused repository checks by default. Follow the skill's "Select review and implementation" section for consequential independent review. Use one reviewer; add adversarial review only for an unresolved decision-critical claim. Do not require review chains for routine documentation or Git pushes. Keep the skill validator, catalog checks, and cohesive `git diff --check` required above.
+Keep the skill validator, catalog checks, and cohesive `git diff --check` required above.
 
 Treat plain orchestration as no publication authority. For authorized commits and pushes, use `main` and push directly to `origin/main`. Do not create a feature branch or PR unless the user explicitly requests one. `skills-run:full <task>` authorizes validation, commit, and direct push to `main`, not deployments or unrelated work. Delete branches only when cleanup is authorized and fresh ancestry checks prove they are merged into `origin/main`. Never bypass hooks or rewrite shared history.
 
-For orchestration policy or role changes, follow the skill's "Prove the setup level" section. Keep the revision `policy-only` until a fresh trusted-project session loads the policy, resolves the registered roles, and completes one bounded read-only delegation round trip. Require this proof before publishing setup changes; do not claim desktop activation from CLI-only proof.
+Keep orchestration policy or role changes `policy-only` until the skill's "Prove the setup level" proof passes in a fresh trusted-project session; do not claim desktop activation from CLI-only proof.
 
 Keep history analysis read-only and privacy-bounded. Discover installed applications and use app-owned indexes before raw sessions. Exclude credential and personal-data stores, sanitize examples, distinguish recurring patterns from isolated incidents, and report unavailable coverage.
 

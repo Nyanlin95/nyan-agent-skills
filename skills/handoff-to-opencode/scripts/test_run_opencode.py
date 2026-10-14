@@ -133,6 +133,19 @@ class LifecycleClassificationTests(unittest.TestCase):
             ("idle_timeout", run_opencode.EXIT_IDLE_TIMEOUT),
         )
 
+    def test_every_status_has_a_recovery_action(self) -> None:
+        stderr = io.StringIO()
+        with contextlib.redirect_stderr(stderr):
+            run_opencode.emit_status("rate_limited", model="m")
+        self.assertIn('"recovery":"change_model_or_complete_directly"', stderr.getvalue())
+        statuses = {
+            "completed", "incomplete", "failed", "idle_timeout", "total_timeout",
+            "quota_limited", "rate_limited", "authentication_failed",
+            "configuration_error", "model_not_approved", "model_unavailable",
+            "interrupted",
+        }
+        self.assertEqual(set(run_opencode.RECOVERY_ACTIONS), statuses)
+
 
 if __name__ == "__main__":
     unittest.main()

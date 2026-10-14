@@ -35,6 +35,7 @@ For a useful result:
 | [adversarial-review](skills/adversarial-review/) | Challenge material claims with bounded counterexamples, including exact authority, effect recovery, and evidence integrity. |
 | [implementation-quality](skills/implementation-quality/) | Start runnable projects and implement clear owners, complete journeys, durable commands, and explicit failure recovery. |
 | [frontend-system-principles](skills/frontend-system-principles/) | Build frontend journeys with scoped state, draft and replay recovery, consistent caching, and measured performance. |
+| [saas-perf-hillclimb](skills/saas-perf-hillclimb/) | Improve SaaS performance one layer at a time with a measured, statistically gated hill-climb loop and a holdout check. |
 | [omelet-orchestrator](skills/omelet-orchestrator/) | Turn requests into working outcomes with consequential questions, routine defaults, grounded scope, and flexible design and implementation guidance. |
 | [local-git-gates](skills/local-git-gates/) | Design or verify thin Git hooks and one canonical gate with dependency-aware routing, exact-commit qualification, and CI/self-hosted agreement. |
 | [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Distill or scaffold visual foundations and critique compositions across media using binding grid contracts, measured audits, rendered evidence, and verified optical exceptions. |
@@ -94,7 +95,7 @@ Use $implementation-quality to move this behavior to the correct owner.
 Use $omelet-orchestrator to coordinate this repository change.
 ```
 
-Omelet can complete focused work directly or delegate a bounded task when useful. It prefers Astra when the host supports it and selects specialist models for the task. Use focused checks and add independent review for consequential decisions. See [repository orchestration](.codex/README.md) for roles, routes, and activation proof.
+Omelet can complete focused work directly or delegate a bounded task when useful. It uses GPT-6.1-Sol by default, Astra only for deep reviews of abstract problems, and Luna xhigh for documentation and support work. Use focused checks and add independent review for consequential decisions. See [repository orchestration](.codex/README.md) for roles, routes, and activation proof.
 
 ### Add a local Git gate
 

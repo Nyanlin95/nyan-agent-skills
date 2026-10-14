@@ -20,3 +20,6 @@ research/*
 *.pfx
 credentials*.json
 secrets*.json
+
+# Local pre-edit backups.
+_backup/

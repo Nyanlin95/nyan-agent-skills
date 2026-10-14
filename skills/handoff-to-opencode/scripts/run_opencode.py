@@ -72,6 +72,23 @@ EXIT_INCOMPLETE = 25
 EXIT_FAILED = 26
 EXIT_INTERRUPTED = 130
 
+# Recovery action for each lifecycle status, as defined in the skill's
+# session-status reference. The primary agent allows at most one retry.
+RECOVERY_ACTIONS = {
+    "completed": "review",
+    "incomplete": "retry_once_smaller",
+    "failed": "retry_once_with_correction",
+    "idle_timeout": "retry_once_smaller",
+    "total_timeout": "retry_once_smaller",
+    "quota_limited": "change_model_or_complete_directly",
+    "rate_limited": "change_model_or_complete_directly",
+    "authentication_failed": "stop_and_report",
+    "configuration_error": "correct_input",
+    "model_not_approved": "correct_input",
+    "model_unavailable": "correct_input",
+    "interrupted": "stop_and_report",
+}
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -125,7 +142,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def emit_status(status: str, **fields: object) -> None:
-    payload = {"status": status, **fields}
+    payload = {"status": status, "recovery": RECOVERY_ACTIONS[status], **fields}
     print(
         f"OPENCODE_STATUS={json.dumps(payload, separators=(',', ':'))}",
         file=sys.stderr,

@@ -1,6 +1,6 @@
 ---
 name: adversarial-review
-description: Falsify important claims in an implementation plan, architecture decision, code change, pull request, repository assessment, or another review before people act on it. Use for a red-team or devil's-advocate review, to stress-test a CQT review from an independent perspective, or when a design appears ready but its failure paths, evidence, assumptions, or stated non-findings need hostile scrutiny. Report only evidence-backed counterexamples, untested claims, and decision-relevant risks.
+description: Falsify important claims in an implementation plan, architecture decision, code change, pull request, repository assessment, or another review before people act on it. Use for a red-team or devil's-advocate review, to stress-test a CQT review from an independent perspective, or when a design appears ready but its failure paths, evidence, assumptions, or stated non-findings need hostile scrutiny. Report only evidence-backed counterexamples, untested claims, and decision-relevant risks. Do not use for a multi-model panel review of a code change; use pstack's interrogate skill.
 ---
 
 # Adversarial Review
@@ -30,8 +30,9 @@ Use this flow in order. Use the attack lists only to complete the selected attac
 3. Build the smallest system or change map needed to challenge the proposition.
 4. Run hostile attacks that fit the artifact type and critical path.
 5. Seek disconfirming evidence before accepting a claim.
-6. Classify each result as `refuted`, `observed risk`, `withstood`, or `untested`.
-7. Report only counterexamples, material evidence gaps, and risks that can change the decision.
+6. Reproduce each counterexample with code where possible, such as a focused test, script, or command in a hermetic environment. Record the command and its result as evidence.
+7. Classify each result as `refuted`, `observed risk`, `withstood`, or `untested`.
+8. Report only counterexamples, material evidence gaps, and risks that can change the decision.
 
 Do not invent facts to make the review adversarial. Mark a claim `untested` when the repository, runtime, credentials, or evidence needed to challenge it is unavailable.
 

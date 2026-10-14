@@ -1,5 +1,5 @@
-model = "gpt-6-luna"
-model_reasoning_effort = "max"
+model = "gpt-6.1-sol"
+model_reasoning_effort = "medium"
 
 [agents.history_analyst]
 description = "Find recurring failures and strong examples in installed coding-agent logs and memories. Read-only and privacy-bounded."

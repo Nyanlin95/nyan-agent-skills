@@ -1,6 +1,6 @@
 ---
 name: handoff-to-opencode
-description: Hand off limited, non-sensitive implementation work from a coding agent to the OpenCode CLI through an explicitly selected live model and bounded file or folder paths. Use when the user asks to hand off work to OpenCode or OpenCode Zen, use a current free Zen model, or use a low-cost external model to implement a small change, add focused tests, fix a bounded defect, work on a normal Git branch, or prepare changes for an optional pull request. Keep the primary coding agent responsible for branches, scope, diff review, verification, commits, publishing, and the final result. Do not use for secrets, personal data, confidential code, production access, or broad autonomous changes.
+description: Hand off small, non-sensitive implementation work to the OpenCode CLI on a current free Zen model with bounded edit paths. Use when the user asks to hand off work to OpenCode or OpenCode Zen, use a free Zen or low-cost external model, or delegate a small change, focused tests, or a bounded fix on a normal branch. Keep review, verification, commits, and publishing with the primary agent. Do not use for secrets, personal data, confidential code, production access, or broad autonomous changes.
 ---
 
 # Handoff to OpenCode
@@ -35,18 +35,7 @@ Use [CLI documentation](https://opencode.ai/docs/cli/) if discovery flags differ
 
 ## Route the free model
 
-Select the model for the current task. Do not keep a fixed default or infer capability from model names or list order.
-
-| Task | Selection priority among eligible models |
-| --- | --- |
-| Mechanical edits or simple transformations | Prefer lower observed latency when capability is sufficient. |
-| Bounded implementation or focused tests | Prefer demonstrated coding and tool-use reliability for comparable work. |
-| Debugging or bounded refactoring | Prefer evidence of reasoning quality for dependencies, failure paths, and behavior preservation. |
-| Context-heavy work within the allowed scope | Require enough context first, then apply the relevant task priority above. |
-
-Use comparable verified results or current documented capabilities as evidence. Record the source and observation date. Treat provider descriptions as capability claims, not comparative proof. If comparative evidence is unavailable, choose an eligible candidate provisionally and state that limitation. Do not require the user to name a model.
-
-Honor an explicit user model choice when it is eligible. If that choice is unavailable or ineligible, complete the task directly. Apply the routing policy to alternatives only when the user permits substitution. Record the selected model, task fit, eligibility evidence, and concise rationale before dispatch.
+Select an eligible free model per task from current evidence; never keep a fixed default or infer capability from names. Read [model-routing.md](references/model-routing.md).
 
 ## Protect data
 
@@ -159,80 +148,19 @@ Set `--cwd` to the real repository root. Keep `--allow-path` values relative to 
 
 Do not continue an old OpenCode session unless the user requests it. Old sessions can contain unrelated context.
 
-## Interpret session status
+## Interpret session status and recover
 
-Use `OPENCODE_STATUS` as the lifecycle record.
+Use the `OPENCODE_STATUS` record as the lifecycle record. Require a terminal event for `completed`; exit code zero alone is not completion. Follow its `recovery` field, and allow at most one retry across all failure types. Read [session-status.md](references/session-status.md) for each status and its recovery steps.
 
-- **completed:** The process exited successfully and emitted a terminal `step_finish` event with `stop` or `end_turn`.
-- **incomplete:** The process exited successfully without a normal terminal event. Review partial output before a smaller retry.
-- **quota_limited:** The failed run reported exhausted credits, quota, billing limits, or payment requirements.
-- **rate_limited:** The failed run reported HTTP 429, too many requests, or a provider rate limit.
-- **authentication_failed:** The failed run reported an invalid key, unauthorized access, or HTTP 401.
-- **configuration_error:** The wrapper rejected the working directory, allowed path, command pattern, timeout, or local OpenCode setup before delegation started.
-- **model_not_approved:** The selected model is not free and the user did not approve paid-model use.
-- **model_unavailable:** The selected model is absent from the current provider model list.
-- **idle_timeout:** OpenCode produced no output for the configured idle period. Treat this as suspected stuck behavior.
-- **total_timeout:** The session exceeded its total time budget.
-- **failed:** The process failed without a more specific classification.
-- **interrupted:** The primary coding agent or the user interrupted the wrapper.
-
-Do not classify a session as completed only because the process exited with code zero. Require the terminal event.
-
-Do not classify silence as quota exhaustion. Require failure evidence from OpenCode or the provider.
-
-## Recover from non-completion
-
-Allow at most one retry across all failure types for the delegated task. Inspect the partial output and working-tree diff before that retry. Preserve the allowed paths, commands, and data boundary. Stop delegation after another non-completion, even if the failure type changes.
-
-Before a model change, refresh discovery and reapply eligibility and task routing. Use another free candidate only within existing authority and an acceptable data policy. Record the failed model, failure evidence, replacement, and reason. Complete the task directly when no eligible replacement remains. Do not broaden permissions or silently select a paid model.
-
-For `idle_timeout` or `total_timeout`:
-
-1. Inspect the last event and partial output.
-2. Do not use partial claims without verification.
-3. Inspect the working-tree diff before any retry.
-4. Reduce the scope or input before the retry.
-5. Start a new session.
-6. Stop delegation if the retry does not complete.
-7. Continue the task directly or report the blocked delegation.
-
-For `quota_limited` or `rate_limited`:
-
-1. Do not use a tight retry loop.
-2. Record the provider message and selected model.
-3. Apply the shared model-change rules for the remaining retry.
-4. Complete the task directly if no retry remains.
-
-For `authentication_failed`:
-
-1. Stop delegation.
-2. Report that OpenCode Zen authentication needs attention.
-3. Do not request or expose the API key in the task transcript.
-4. Continue the task directly when possible.
-
-For `configuration_error`, `model_not_approved`, or `model_unavailable`:
-
-1. Report the wrapper reason without exposing sensitive paths or configuration.
-2. Correct the bounded input or select another approved live free model.
-3. Start a new session only after the correction.
-4. Continue the task directly when no safe delegated session is available.
-
-For `incomplete` or `failed`:
-
-1. Preserve the error and partial output.
-2. Check whether the task or input caused the failure.
-3. Retry once only with a specific correction.
-4. Continue the task directly if the correction does not resolve the failure.
-
-For permission rejection:
-
-1. Inspect the requested path and the wrapper's effective `--cwd`.
-2. Compare the requested path with the assigned repository-relative paths.
-3. Treat an invented or substituted workspace root as a path-resolution failure, not as proof that repository reads are forbidden.
-4. Do not broaden `external_directory` permission to work around a path mismatch.
-5. Retry once with the real repository root and explicit repository-relative path instructions.
-6. Stop delegation if the corrected run requests an external path again.
-7. Report the rejected permission type, requested path category, effective working directory, and correction without exposing sensitive absolute paths.
+| Exit code | Status | `recovery` |
+| --- | --- | --- |
+| 0 | completed | review |
+| 2 | configuration_error, model_not_approved, model_unavailable | correct_input |
+| 20, 21 | quota_limited, rate_limited | change_model_or_complete_directly |
+| 22 | authentication_failed | stop_and_report |
+| 23, 24, 25 | idle_timeout, total_timeout, incomplete | retry_once_smaller |
+| 26 | failed | retry_once_with_correction |
+| 130 | interrupted | stop_and_report |
 
 ## Review the result
 

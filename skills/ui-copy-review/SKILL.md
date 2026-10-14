@@ -1,6 +1,6 @@
 ---
 name: ui-copy-review
-description: Reviews UI copy and related accessibility. Use for microcopy, labels, instructions, errors, empty states, accessible names, status messages, and localized copy. Also use for a pull request, diff, staged change, or working-tree change that changes user-facing text. Resolves the change scope, compares old and new copy, inspects affected states, and classifies findings. This skill is read-only and is not a complete accessibility audit.
+description: Reviews UI copy and related accessibility. Use for microcopy, labels, instructions, errors, empty states, accessible names, status messages, and localized copy. Also use for a pull request, diff, staged change, or working-tree change that changes user-facing text. Resolves the change scope, compares old and new copy, inspects affected states, and classifies findings. This skill is read-only and is not a complete accessibility audit. Do not use to write, tighten, or cut copy; use clean-copy.
 ---
 
 # UI Copy Review

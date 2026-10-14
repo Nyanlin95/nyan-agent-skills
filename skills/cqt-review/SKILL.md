@@ -32,7 +32,7 @@ State the evidence limit. Do not report an inference as an observed defect.
 5. Rank evidence-backed findings and name the smallest responsible correction.
 6. Report checks, unavailable coverage, remaining risk, and deliberate non-fixes.
 
-For a pull request or feature, inspect the current status and diff, trace the changed behavior and its direct owners, compare it with its contract and tests, and separate new findings from existing debt.
+For a pull request or feature, inspect the current status and diff, trace the changed behavior and its direct owners, compare it with its contract and tests, and separate new findings from existing debt. For a small diff whose reach is unclear, use pstack's blast-radius skill to find what the change could break outside the diff and prove one safety fact by running code.
 
 Read [references/review-guide.md](references/review-guide.md) for detailed checks, critical-flow tracing, migration lifecycle, and review outputs. Read [references/language-behavior.md](references/language-behavior.md) when a finding depends on language or runtime semantics. Read [references/framework-behavior.md](references/framework-behavior.md) when framework lifecycle, reactivity, rendering, dependency injection, or server-client boundaries matter.
 

@@ -1,6 +1,6 @@
 ---
 name: simplified-technical-writing
-description: Rewrite prose (docs, READMEs, PR descriptions, error messages, release notes, comments — never code) into ASD-STE100 Simplified Technical English to remove "AI slop". Use when asked to make writing not sound like AI, make docs clear or plain, enforce a controlled writing style, or write technical documentation that reads human. Two modes — strict (procedures/safety) and STE-flavored (general prose).
+description: Rewrite prose (docs, READMEs, PR descriptions, error messages, release notes, comments — never code) into ASD-STE100 Simplified Technical English to remove "AI slop". Use when asked to make writing not sound like AI, make docs clear or plain, enforce a controlled writing style, or write technical documentation that reads human. Two modes — strict (procedures/safety) and STE-flavored (general prose). Do not use for document structure or style standards; use pstack's technical-writing skill. Do not use to remove AI tells without STE rules; use pstack's unslop skill.
 ---
 
 # Simplified Technical Writing
@@ -61,6 +61,8 @@ In artifact-edit mode, preserve required status, validation, evidence, and deliv
 4. Any passive voice with a known actor? Make it active.
 5. Any "-ing" main verb, nominalization ("perform an analysis"), or phrasal verb ("spin up")? Replace with a plain verb.
 6. Same thing named two ways? Pick one name.
+
+Run [ste_lint.py](scripts/ste_lint.py) on the text to check rules 1–3 and banned marketing words. Use `--strict` for the 20-word cap; the default cap is 25. Check rules 4–6 by reading.
 
 The mechanical rules above are lintable and are what removes slop. Full STE also needs human judgment (the right technical noun, whether a sentence "makes good sense") — a checker cannot certify that, and slop is not about that. This skill fixes the FORM of slop. It cannot make a hollow paragraph true.
 

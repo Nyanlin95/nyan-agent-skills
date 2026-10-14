@@ -38,7 +38,7 @@ Use existing interaction primitives and verification tools. Add dependencies, pe
 2. Exercise one complete successful journey and its material failure or interruption paths.
 3. Check affected direct entry, cold and warm navigation, browser history, refresh, and authentication transitions.
 4. Verify visible changes with matched content, viewport, and state in the rendered application, including relevant long-content, narrow-parent, keyboard, zoom, and reduced-motion conditions.
-5. Measure performance changes with a stated build, environment, dataset, cache state, device, network, sample count, and metric definition.
+5. Measure performance changes with a stated build, environment, dataset, cache state, device, network, sample count, and metric definition. Vet each number with pstack's benchmark-checklist skill before you report it. Use saas-perf-hillclimb for sustained improvement against a target.
 6. Confirm that the migrated consumers use one owner and that no obsolete path or unexplained exception remains.
 
 Use state or integration tests for identity, invalidation, out-of-order results, conflicts, and event reconciliation. Use browser evidence for focus, geometry, scrolling, and real interaction. Use performance traces for critical-path claims. Do not substitute CSS-class assertions for layout proof or local timings for production percentiles.

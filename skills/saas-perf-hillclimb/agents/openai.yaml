@@ -1,0 +1,4 @@
+interface:
+  display_name: "SaaS Performance Hill Climb"
+  short_description: "Climb SaaS performance one measured layer at a time"
+  default_prompt: "Use $saas-perf-hillclimb to improve this product's performance layer by layer, with an A/A noise baseline, one change per attempt, statistical acceptance, and a holdout score."

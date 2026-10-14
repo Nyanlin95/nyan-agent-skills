@@ -1,6 +1,6 @@
 ---
 name: clean-copy
-description: Cut interface copy that does not need to exist. Use when writing UI strings, tightening existing copy, or reviewing whether a user-facing string should stay. Apply to labels, hints, empty states, toasts, confirmations, button text, and similar microcopy. Use ui-copy-review when the task needs evidence about accessibility, localization, interface states, or rendering.
+description: Cut interface copy that does not need to exist. Use when writing UI strings, tightening existing copy, or deciding whether a user-facing string should stay. Apply to labels, hints, empty states, toasts, confirmations, button text, and similar microcopy. Do not use to review changed copy, accessibility, localization, or interface states; use ui-copy-review.
 ---
 
 # Clean Copy
@@ -38,3 +38,13 @@ Examples:
 - Leave copy that passes the checks unchanged.
 - If useful copy applies only to a rare state, recommend showing it in that state instead of keeping it on the page at all times.
 - Use `ui-copy-review` for accessibility, localization, state, or rendered-behavior questions. Do not claim those checks from source text alone.
+
+## Verify in the rendered state
+
+1. Open the running interface, a preview, or a screenshot that shows each changed string.
+2. Check each string in the state where it appears, such as empty, error, loading, or confirmation.
+3. Confirm the string fits its container without truncation or an unexpected wrap.
+4. Confirm the user can still understand the state and the next action without the removed text.
+5. Report each string you could not render as `unverified` with the reason.
+
+Do not claim a cut is safe from source text alone.
