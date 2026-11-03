@@ -1,4 +1,4 @@
 interface:
-  display_name: "Dev Process State Machine Verification"
-  short_description: "Check interleaved modes with a TLA+ model"
-  default_prompt: "Use $dev-process-state-machine-verification to model this system's modes, timers, and interleaved events and check the state machine for counterexamples."
+  display_name: "State-Machine Verification"
+  short_description: "Find counterexamples in stateful event flows"
+  default_prompt: "Use $dev-process-state-machine-verification to check this subsystem with an explicit model, bounded assumptions, and real-code regressions."

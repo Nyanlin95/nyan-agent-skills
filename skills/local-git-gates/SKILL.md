@@ -1,6 +1,6 @@
 ---
 name: local-git-gates
-description: Design, install, review, or improve repository-local Git hooks and verification gates, including their agreement with CI and self-hosted execution. Use for pre-commit/pre-push checks, changed-path or dependency-aware routing, exact-commit qualification, reproducible gate commands, and hook or runner verification. Derive commands and policy from the target repository; keep one gate owner and distinguish working-tree feedback from publication proof.
+description: Design, install, review, or improve repository-local Git hooks and verification gates, including their agreement with CI and self-hosted execution. Use for pre-commit/pre-push checks, changed-path or dependency-aware routing, exact-commit qualification, reproducible gate commands, hook or runner verification, and enforcement of recurring defects, path-scoped constraints, or performance budgets. Derive commands and policy from the target repository; keep one gate owner and distinguish working-tree feedback from publication proof.
 ---
 
 # Local Git Gates
@@ -22,7 +22,8 @@ Complete authorized local changes without repeated approval for ordinary routing
 | Mode | Establish | Do not claim |
 | --- | --- | --- |
 | Pre-commit / explicit paths | Fast feedback for staged scope or selected working-tree files | Validation of a committed tree when commands actually read unstaged content |
-| Publication range / pre-push | Complete affected checks for the exact candidate commit and actual publication base | Qualification of another tip or a dirty checkout |
+| Feature pre-push feedback | Repository-selected feedback for the pushed candidate and range | Full release qualification from feedback-only checks |
+| Publication checkpoint / explicit qualifying range | Complete required checks for the exact candidate commit and actual publication base | Qualification of another tip or a dirty checkout |
 | CI | Completed checks for the workflow's exact checkout and event scope | Local results as a substitute for the required remote result |
 | Supplemental lane | Coverage of its explicitly selected feature or fixture scope | Qualification of an arbitrary diff or a live provider |
 
@@ -53,13 +54,17 @@ Keep complete required journeys where the repository uses feature slices; do not
 
 Handle paths as opaque data with NUL-delimited Git output and argument arrays. Avoid line-split filename parsing, shell interpolation, and `eval`. Test spaced, dash-leading, metacharacter, renamed, deleted, and unclassified paths.
 
+## Add enforced constraints
+
+Read [Enforced constraints](references/enforced-constraints.md) for regression rules, path-scoped constraints, or performance budgets. Keep check logic with its existing owner and integrate through the canonical gate; preserve project conventions and justify measurement limits.
+
 ## Agree with CI and self-hosted execution
 
 1. Inspect workflow triggers, checkout depth, event SHA/base, wrapper, job names, runner labels, permissions, timeouts, concurrency, and evidence uploads.
 2. Require the CI wrapper to match the expected immutable revision to checkout HEAD before selecting checks.
 3. Propagate planning and execution failures through a stable required status.
 4. Skip expensive setup only after the canonical plan proves it unnecessary and all remaining required checks execute successfully.
-5. Separate release qualification from supplemental feature workflows and deterministic substitutes from live lanes.
+5. Separate development feedback, integration, release qualification and deployment readiness through [Publication qualification](references/publication-qualification.md). Preserve deterministic substitutes and retained live lanes. Follow the repository's explicit automatic or manual deployment boundary; do not add a manual button or another full gate by default.
 6. Preserve existing required-status names and trigger behavior unless changing them is in scope.
 7. Verify remote protection separately before describing publication as protected.
 
@@ -72,9 +77,11 @@ Read [CI and self-hosted execution](references/ci-self-hosted.md) for persistent
 3. Serialize checks that share a checkout, database, build output, port, or mutable artifact root.
 4. Isolate independent lanes only through supported test fixtures and unique resources.
 5. Record the candidate revision, plan, selected-check status, exit code, and useful failure logs.
-6. Require every selected check to complete successfully before reporting qualification.
+6. Require every selected check to complete successfully before reporting qualification. For tree-identical promotions, follow the explicit provenance-checked reuse contract in [Publication qualification](references/publication-qualification.md); a new merge SHA alone need not repeat tree-dependent checks.
 7. Report the failed check, earliest failing boundary, and exact reproduction command.
 8. Revalidate the qualified revision context after execution.
+
+Distinguish regenerable fixtures from pinned original evidence. When a check requires original inputs, fail closed if they are missing; do not regenerate, replace, or delete them as routine fixture repair or cleanup.
 
 Use a checkout lock and fresh run-specific evidence directories when concurrent gates or persistent runners can mix results. Keep planning read-only. Do not count stale artifacts, pending checks, timeout, cancellation, or a previous successful run as this attempt's proof. Keep evidence proportional; do not add a reporting service for a small hook.
 

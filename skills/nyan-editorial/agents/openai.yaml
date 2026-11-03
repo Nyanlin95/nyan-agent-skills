@@ -1,0 +1,4 @@
+interface:
+  display_name: "Nyan Editorial"
+  short_description: "Develop ideas and edit source-grounded content"
+  default_prompt: "Use $nyan-editorial to develop this idea or refine this draft while preserving my intent and evidence."

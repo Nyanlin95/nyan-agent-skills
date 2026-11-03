@@ -1,4 +1,4 @@
 interface:
-  display_name: "Dev Process Bot Playtesting and Tuning"
-  short_description: "Tune settings with bots toward a target"
-  default_prompt: "Use $dev-process-bot-playtesting-and-tuning to tune these settings with automated bots or replays toward the target outcomes."
+  display_name: "Bot Playtesting and Tuning"
+  short_description: "Tune parameters with reproducible simulations"
+  default_prompt: "Use $dev-process-bot-playtesting-and-tuning to tune these parameters against target outcomes and evaluate the selected settings on held-out inputs."

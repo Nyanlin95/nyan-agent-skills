@@ -1,4 +1,0 @@
-interface:
-  display_name: "Dev Process Context in File Paths"
-  short_description: "Encode special rules in file paths"
-  default_prompt: "Use $dev-process-context-in-file-paths so the file name or folder shows which special rules apply, and add a check scoped to that path."

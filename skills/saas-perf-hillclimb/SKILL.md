@@ -37,9 +37,11 @@ Use these as ceilings when the user gives none.
 2. Run the guard and record a green result.
 3. Run an A/A baseline: the unchanged system measured at least five times.
 4. Record the median and spread as the noise floor.
-5. Freeze the harness. Do not edit it during the climb.
+5. Freeze the harness and record the relevant source, fixture, and configuration identities.
 
 If the harness cannot separate an easy case from the complaint case, revise the workload or metric before continuing.
+
+If the harness or fixtures are defective, stop the comparison, repair them, and rerun the affected baseline and candidate measurements under matched conditions. Do not compare results produced under incompatible conditions. Treat a holdout used to guide further tuning as development input and select fresh evaluation inputs.
 
 ## Profile before guessing
 
@@ -63,9 +65,9 @@ Read [layers.md](references/layers.md) for per-layer metrics, profiling tools, a
 4. Run the guard.
 5. Measure with the frozen harness on the dev set.
 6. Accept only when the guard is green, p < 0.1 against the baseline samples, and the median improves by at least 3%.
-7. Revert the change in full when any condition fails.
+7. Revert only the candidate change when any condition fails, preserving unrelated edits.
 8. Log the attempt as kept or reverted.
-9. Commit each accepted change on its own, staging only its files.
+9. Keep each accepted change independently reviewable; commit only when authorized.
 
 Use [decision-log.md](references/decision-log.md) for the log format. Never stack untested changes.
 

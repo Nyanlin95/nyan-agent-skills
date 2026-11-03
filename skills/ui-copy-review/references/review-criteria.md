@@ -30,7 +30,8 @@ Use only the sections relevant to the changed interface states. Prefer product e
 - State whether the user's work was saved, sent, charged, published, or otherwise applied.
 - Give the next safe action when recovery is available.
 - Distinguish retryable, permission, offline, validation, conflict, and permanent failures.
-- Do not blame the user or expose internal implementation details.
+- Do not blame the user or expose secrets or irrelevant implementation details.
+- Preserve safe, actionable error detail when it explains the failure or next step. Flag generic replacements that erase that meaning; do not require raw provider messages when they contain sensitive or misleading content.
 - Do not promise success, timing, or data safety that the system cannot confirm.
 - Keep support identifiers copyable and secondary to recovery guidance.
 

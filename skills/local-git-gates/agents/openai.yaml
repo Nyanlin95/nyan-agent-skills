@@ -1,4 +1,4 @@
 interface:
   display_name: "Local Git Gates"
   short_description: "Local hooks, exact-commit gates, and CI agreement"
-  default_prompt: "Use $local-git-gates to design, revise, or verify this repository's hooks and canonical gate, including exact-commit qualification and CI or self-hosted execution where applicable."
+  default_prompt: "Use $local-git-gates to design, revise, or verify this repository's hooks and canonical gate, including exact-commit qualification, recurring-defect checks, performance budgets, and CI agreement where applicable."

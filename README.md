@@ -5,8 +5,8 @@ skill has one clear job and lives under `skills/`.
 
 The library covers project starts, implementation, frontend behavior, visual
 foundations, code and design review, Git gates, prototypes, technical writing,
-bounded OpenCode handoffs, a scoped Wonder design workflow, and a dev-process
-playbook for building software with agents.
+bounded OpenCode handoffs, a scoped Wonder design workflow, and focused
+simulation, replay, and state-machine verification skills.
 
 The project uses the [MIT License](LICENSE).
 
@@ -34,26 +34,22 @@ For a useful result:
 | [cqt-review](skills/cqt-review/) | Review code and migrations for ownership, dependencies, durable effects, state recovery, and evidence-backed correctness. |
 | [architecture-candidate-finder](skills/architecture-candidate-finder/) | Find and explain evidence-backed candidates for improving design patterns, module boundaries, and architecture decisions. |
 | [adversarial-review](skills/adversarial-review/) | Challenge material claims with bounded counterexamples, including exact authority, effect recovery, and evidence integrity. |
-| [implementation-quality](skills/implementation-quality/) | Start runnable projects and implement clear owners, complete journeys, durable commands, and explicit failure recovery. |
+| [implementation-quality](skills/implementation-quality/) | Start runnable projects and implement clear owners, complete journeys, generated assets, durable commands, and explicit failure recovery. |
 | [frontend-system-principles](skills/frontend-system-principles/) | Build frontend journeys with scoped state, draft and replay recovery, consistent caching, and measured performance. |
 | [saas-perf-hillclimb](skills/saas-perf-hillclimb/) | Improve SaaS performance one layer at a time with a measured, statistically gated hill-climb loop and a holdout check. |
 | [omelet-orchestrator](skills/omelet-orchestrator/) | Turn requests into working outcomes with consequential questions, routine defaults, grounded scope, and flexible design and implementation guidance. |
-| [local-git-gates](skills/local-git-gates/) | Design or verify thin Git hooks and one canonical gate with dependency-aware routing, exact-commit qualification, and CI/self-hosted agreement. |
+| [local-git-gates](skills/local-git-gates/) | Design or verify thin Git hooks and one canonical gate with dependency-aware routing, exact-commit qualification, CI/self-hosted agreement, regression rules, and performance budgets. |
 | [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Distill or scaffold visual foundations and critique compositions across media using binding grid contracts, measured audits, rendered evidence, and verified optical exceptions. |
 | [ui-copy-review](skills/ui-copy-review/) | Review changed interface copy for clarity, recovery, consistency, and copy-related accessibility. |
 | [clean-copy](skills/clean-copy/) | Remove interface text users do not need while keeping facts they need to act, decide, and recover. |
 | [build-html-prototype](skills/build-html-prototype/) | Build document, interface, or visual HTML prototypes inside one disposable folder. |
 | [handoff-to-opencode](skills/handoff-to-opencode/) | Route limited, non-sensitive implementation work to a current free OpenCode model based on task needs within explicit paths. |
 | [simplified-technical-writing](skills/simplified-technical-writing/) | Rewrite technical prose in strict or STE-flavored Simplified Technical English. |
+| [nyan-editorial](skills/nyan-editorial/) | Develop ideas and draft or review source-grounded campaign, social, article, and learning content while preserving author judgment and project voice. |
 | [wonder-design-workflow](skills/wonder-design-workflow/) | Create, change, verify, and save scoped Wonder designs with clear proof boundaries. |
-| [dev-process-playbook](skills/dev-process-playbook/) | Start or improve how a software project is built with agents, then route to the linked Dev Process skills below. |
-| [dev-process-bug-to-lint-rule](skills/dev-process-bug-to-lint-rule/) | Turn a bug, review nit, or repeated agent mistake into an automated lint or check rule. |
-| [dev-process-context-in-file-paths](skills/dev-process-context-in-file-paths/) | Encode special code rules in the file name or folder so agents and checks know which rules apply. |
-| [dev-process-state-machine-verification](skills/dev-process-state-machine-verification/) | Model modes, timers, pauses, and interleaved events, then check the state machine with TLA+. |
-| [dev-process-deterministic-core-and-replay](skills/dev-process-deterministic-core-and-replay/) | Make core logic deterministic so a run replays exactly from its recorded inputs. |
-| [dev-process-budgets-that-fail-the-build](skills/dev-process-budgets-that-fail-the-build/) | Fail the build when size, speed, or latency crosses a chosen limit. |
+| [dev-process-state-machine-verification](skills/dev-process-state-machine-verification/) | Check stateful event flows for counterexamples with explicit model bounds and implementation regressions. |
+| [dev-process-deterministic-core-and-replay](skills/dev-process-deterministic-core-and-replay/) | Implement recorded-input replay with explicit compatibility, isolated effects, and divergence checks. |
 | [dev-process-bot-playtesting-and-tuning](skills/dev-process-bot-playtesting-and-tuning/) | Tune difficulty, thresholds, or other settings with automated bots or replays aimed at a target outcome. |
-| [dev-process-everything-as-code](skills/dev-process-everything-as-code/) | Generate art, audio, images, translations, and share cards from reviewable text files. |
 
 ## Common requests
 
@@ -159,22 +155,16 @@ Use $simplified-technical-writing to rewrite this runbook in strict mode.
 Use $wonder-design-workflow to update this Wonder design and verify each requested state.
 ```
 
-### Set up how a project is built with agents
+### Add focused development checks
+
+Use `local-git-gates` for recurring-defect checks, path-scoped constraints, and
+performance budgets. Use `implementation-quality` for text-authored asset
+pipelines. Keep project setup and selection of these capabilities with Omelet.
 
 ```text
-Use $dev-process-playbook to set up or improve how this project is built with agents.
-```
-
-The playbook is the meta skill. It holds the source reference and routes to a linked skill when the request is more specific:
-
-```text
-Use $dev-process-bug-to-lint-rule when a bug or repeated agent mistake should become a lint rule.
-Use $dev-process-context-in-file-paths when a file path should show which special rules apply.
-Use $dev-process-state-machine-verification when modes, timers, or interleaved events need a checked state machine.
-Use $dev-process-deterministic-core-and-replay when a run must replay exactly from its recorded inputs.
-Use $dev-process-budgets-that-fail-the-build when size, speed, or latency must fail the build on regression.
-Use $dev-process-bot-playtesting-and-tuning when bots or replays should tune settings toward a target.
-Use $dev-process-everything-as-code when art, audio, or share cards should be generated from text files.
+Use $dev-process-state-machine-verification to check this subsystem's interleaved events and recovery rules.
+Use $dev-process-deterministic-core-and-replay to reproduce this failure from recorded inputs.
+Use $dev-process-bot-playtesting-and-tuning to tune these settings and evaluate them on held-out inputs.
 ```
 
 ## Combine skills

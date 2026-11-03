@@ -1,6 +1,6 @@
 ---
 name: implementation-quality
-description: Start runnable projects or implement and refactor repository code with simple design, clear ownership, and explicit failure behavior. Use for a blank repository, first working product journey, code changes, ownership or component boundaries, and parity-tested migrations or temporary forks, including skill-library files. Do not use for read-only reviews, planning-only work, or trivial mechanical edits; use cqt-review for evidence-based review and recommendations.
+description: Start runnable projects or implement and refactor repository code with simple design, clear ownership, and explicit failure behavior. Use for a blank repository, first working product journey, code changes, ownership or component boundaries, text-authored asset pipelines, and parity-tested migrations or temporary forks, including skill-library files. Do not use for read-only reviews, planning-only work, or trivial mechanical edits; use cqt-review for evidence-based review and recommendations.
 ---
 
 # Implementation Quality
@@ -112,11 +112,17 @@ Match the proof to the risk of the changed behavior.
 - Use focused tests to prove policies, state transitions, mapping, and expected failures.
 - Use an integration test, trace, or rendered user journey when behavior crosses a process, persistence, provider, or UI boundary.
 
+For packaged or installed changes, distinguish source, built package, installed files, and the artifact loaded by the running host. Verify the relevant identities and preserved settings before claiming runtime adoption. Report any unverified link without installing or restarting outside the authorized scope.
+
 Do not report runtime success from static checks alone. State any unverified boundary and its remaining risk.
 
 ## Abstraction and code shape
 
 Create an abstraction only for a stable concept, an ownership or external boundary, an invariant, or hidden mechanics that do not hide behavior or failures. Keep duplication while cases may diverge. Read [abstraction-and-code-shape.md](references/abstraction-and-code-shape.md) for the abstraction model, decision rules, ownership layers, code shape, and predictable internals.
+
+## Generated assets
+
+Read [generated-assets.md](references/generated-assets.md) for assets authored as text and rendered or packed by a build. Preserve native workflows when they serve the artifact better, and inspect or play the final output in its consumer.
 
 ## Migrations
 

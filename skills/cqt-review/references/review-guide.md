@@ -32,6 +32,8 @@ Use a trace, test, or rendered journey for runtime claims. Static inspection pro
 
 Check the primary path, expected failures, trust boundaries, authorization, state consistency, destructive or financial operations, concurrency, retries, idempotency, compatibility, and important tests.
 
+For a test supporting a material conclusion, identify the wrong behavior its assertion would reject. Where proportionate, verify a controlled negative case in isolation. Treat execution, mock calls, and success flags alone as insufficient evidence of the claimed outcome.
+
 For a generated artifact that supports a release or approval claim, trace its producer, inspect the emitted artifact, inspect the consumer validation, and record freshness when it affects the claim.
 
 ### Ownership and abstraction

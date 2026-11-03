@@ -1,4 +1,0 @@
-interface:
-  display_name: "Dev Process Everything as Code"
-  short_description: "Generate assets from reviewable text files"
-  default_prompt: "Use $dev-process-everything-as-code to generate these assets from reviewable text files that an agent can write, diff, and test."

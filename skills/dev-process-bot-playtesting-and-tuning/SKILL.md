@@ -1,25 +1,19 @@
 ---
 name: dev-process-bot-playtesting-and-tuning
-description: >-
-  Use when a system has tunable difficulty or parameters (game balance, alert
-  thresholds, strategy settings) and you want automated bots or replays to tune
-  them toward target outcomes.
+description: Tune difficulty, thresholds, or other parameters with headless bots or recorded-input replays against target outcomes. Use for simulation-based tuning; use saas-perf-hillclimb for sustained SaaS performance optimization.
 ---
 
 # Bot playtesting and tuning
 
-Part of the [Dev Process playbook](../dev-process-playbook/SKILL.md). Principle: let automated players run the thing headless thousands of times and tune settings to hit a target number, instead of tuning by feel.
+1. Define target outcomes, parameter bounds, and correctness guardrails.
+2. Build a headless runner using the production logic with isolated effects.
+3. Choose representative bots or recordings and reproducible seeds.
+4. Separate tuning inputs from held-out evaluation inputs before adjusting parameters.
+5. Measure outcome rates and uncertainty across enough trials to support the decision.
+6. Evaluate the selected settings once on the holdout set.
 
-## What the source did
-Bots play the game headless to tune each difficulty against target survival rates.
+Compare candidates on matched workloads and seeds. Include relevant weak and strong strategies or adverse conditions; do not equate bot success with human experience or replay performance with live results. Stop at the agreed trial or time budget and report missed targets rather than tuning indefinitely. Treat repeated holdout-driven adjustment as further tuning that requires fresh evaluation inputs.
 
-## Steps
-1. Write down the target outcome per setting (for example: easy 80% survive, hard 20%).
-2. Build a headless runner that needs no UI and runs fast on the deterministic core (see [Deterministic core and replay](../dev-process-deterministic-core-and-replay/SKILL.md)).
-3. Write a simple bot (random plus a few heuristics) and, if useful, a skilled bot.
-4. Run many seeded games per setting; report the outcome rate and its spread.
-5. Adjust parameters until each setting meets its target. Commit the result and the target as a test.
-6. Re-run on every balance change.
+Retain the selected configuration and reproducible evaluation command. Use deterministic assertions for exact rules and justified tolerances for noisy outcomes. Report baseline and selected outcomes, trial counts, uncertainty, holdout results, and untested conditions. Keep publication subject to the user's authority.
 
-## For a signal watcher
-The bot is a replay of recorded market days. The targets are things like signals per day, false-signal rate and signal delay. Tune thresholds on some days and check them on other days.
+Adapted from the [tibo.dog development thread](https://x.com/poteto/status/2117043478140276847).
