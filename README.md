@@ -151,11 +151,28 @@ Use $handoff-to-opencode to select a current free model and implement this task 
 
 Select from the live free-model list using task needs, tool reliability, context limits, and available performance evidence. Keep selection provisional when comparative evidence is unavailable. Do not include credentials, confidential code, or paths outside the approved scope. Omelet retains acceptance and Git delivery decisions.
 
+Use exact supported verification commands, such as `python -m unittest`, before
+adding arguments or wildcards. The wrapper rejects unsupported command patterns
+before delegation. A failed or incomplete session is not delegated completion;
+report verified fallback work separately. Default error diagnostics show a safe
+category and HTTP status when available, without raw provider payloads.
+
 ### Rewrite technical prose
 
 ```text
 Use $simplified-technical-writing to rewrite this runbook in strict mode.
 ```
+
+### Develop or revise editorial content
+
+```text
+Use $nyan-editorial to revise draft.md against brief.md and VOICE.md.
+Keep the factual offer and write the two approved-length options into draft.md.
+```
+
+File-edit requests update the named editable draft. Reports and review notes stay
+separate. Discussion or review requests return findings without changing the draft;
+publishing and scheduling require separate authority.
 
 ### Work in Wonder
 
@@ -225,3 +242,17 @@ actions and artifacts, including a relevant failure or recovery path. Give an
 independent evaluator the task and raw inputs without the intended answer.
 Fix demonstrated guidance failures and rerun affected cases. Keep synthetic,
 bounded, and unavailable coverage explicit.
+
+Match the trial to the skill's actual job:
+
+| Skill family | Useful behavioral checks |
+| :--- | :--- |
+| Review and architecture | Reproduce a concrete counterexample, compare a small correction with a structural change, and preserve reviewed source. |
+| Frontend, visual, and prototype | Exercise browser interactions and recovery, inspect renders and geometry, and verify artifact containment. |
+| Copy, technical writing, and editorial | Preserve facts, commands, warnings, and the editable owner while removing unsupported claims or redundant language. |
+| Orchestration and delegation | Preserve scope and unrelated edits, enforce bounded commands and lifecycle results, and distinguish fallback from delegated completion. |
+| Design-provider workflows | Test pinned-context and unavailable-evidence recovery without treating local receipts as proof of a live canvas edit. |
+
+A local scenario pass does not establish production behavior or reliability across
+all prompts. Report the tested model, inputs, commands, artifacts, and limits.
+Keep live provider qualification separate from fixture and subprocess tests.

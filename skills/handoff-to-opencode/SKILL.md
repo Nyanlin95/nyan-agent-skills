@@ -138,6 +138,8 @@ The wrapper:
 
 Use `--allow-non-free` only after the user approves a paid model.
 
+Use an exact supported verification command before adding a wildcard. For Python unittest, use `--allow-command "python -m unittest"`; use `"python -m unittest *"` only when arguments are needed. The wrapper does not accept `"python -m unittest*"` or launcher flags before `-m`, such as `"py -3.14 -B -m unittest*"`. Inspect the wrapper's verification prefixes after a configuration rejection instead of guessing another pattern.
+
 Use the narrowest practical edit paths. Do not pass `.` or the repository root. Add a command pattern only when the task needs that command. Never allow commit, push, destructive, installation, deployment, or credential commands.
 
 Do not attach arbitrary files to a delegated session. Put only approved, non-sensitive material under an assigned repository-relative path. The wrapper rejects command chaining, redirection, substitution, and command patterns outside its local verification allowlist.
@@ -150,7 +152,7 @@ Do not continue an old OpenCode session unless the user requests it. Old session
 
 ## Interpret session status and recover
 
-Use the `OPENCODE_STATUS` record as the lifecycle record. Require a terminal event for `completed`; exit code zero alone is not completion. Follow its `recovery` field, and allow at most one retry across all failure types. Read [session-status.md](references/session-status.md) for each status and its recovery steps.
+Use the `OPENCODE_STATUS` record as the lifecycle record. Require a terminal event for `completed`; exit code zero alone is not completion. Use the default output's error category and HTTP status as diagnostic leads; do not infer a provider cause from a generic failure or expose raw provider payloads in the handback. Follow its `recovery` field, and allow at most one retry across all failure types. Read [session-status.md](references/session-status.md) for each status and its recovery steps.
 
 | Exit code | Status | `recovery` |
 | --- | --- | --- |

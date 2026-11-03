@@ -7,6 +7,7 @@ import argparse
 import json
 import os
 import queue
+import re
 import shutil
 import signal
 import subprocess
@@ -180,7 +181,10 @@ def normalize_verification_command(pattern: str) -> str:
 
     raise RuntimeError(
         "Allowed commands must be local test, lint, typecheck, or format-check "
-        "commands from the wrapper verification allowlist."
+        "commands from the wrapper verification allowlist. "
+        "Examples: 'python -m unittest', 'python -m unittest *', "
+        "or 'npm run test:feature*'. Launcher flags before '-m' "
+        "and an attached 'unittest*' wildcard are not supported."
     )
 
 
@@ -378,6 +382,20 @@ def render_event(raw_line: str, output_format: str) -> dict[str, object] | None:
 
     if output_format == "json":
         print(stripped, flush=True)
+    elif event.get("type") == "error":
+        error = event.get("error")
+        label = "unclassified"
+        status = ""
+        if isinstance(error, dict):
+            name = error.get("name")
+            if isinstance(name, str) and re.fullmatch(r"[A-Za-z][A-Za-z0-9_]{0,63}", name):
+                label = name
+            data = error.get("data")
+            if isinstance(data, dict):
+                code = data.get("statusCode")
+                if type(code) is int and 100 <= code <= 599:
+                    status = f" (HTTP {code})"
+        print(f"OpenCode error event: {label}{status}", file=sys.stderr, flush=True)
     elif event.get("type") == "text":
         part = event.get("part")
         if isinstance(part, dict):

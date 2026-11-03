@@ -9,7 +9,7 @@ Use a flexible editorial workflow adapted from Nyan's supplied plans. Read [sour
 
 ## Choose the smallest useful mode
 
-Determine whether the user wants discussion, options, review, or edits. Discussion and review do not authorize changing a draft. For authorized edits, preserve the editable owner, existing structure, and requested scope. Do not force a full editorial pipeline onto a caption.
+Determine whether the user wants discussion, options, review, or edits. Discussion and review do not authorize changing a draft. For authorized edits, preserve the editable owner, existing structure, and requested scope. Do not force a full editorial pipeline onto a caption. For a file-edit request, write the revised content to the named editable draft and keep reports or review notes separate, unless the user specifies another destination. Do not leave the original draft unchanged while presenting a report as the completed edit.
 
 Read the applicable brief, current draft, approved examples, and existing project VOICE.md, STYLE.md, AUDIENCE.md, or ISSUES.md. The current request and project brand voice govern. Do not substitute Nyan's personal voice for a client's voice. Missing guide files do not block writing or justify inventing a personal profile.
 

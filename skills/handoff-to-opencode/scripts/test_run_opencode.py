@@ -50,6 +50,15 @@ class BuildPermissionsTests(unittest.TestCase):
             {"*": "deny", "npm run test:feature*": "allow"},
         )
 
+    def test_python_verification_patterns_keep_the_command_boundary(self) -> None:
+        for pattern in ("python -m unittest", "python -m unittest *", "python -m unittest -v"):
+            with self.subTest(pattern=pattern):
+                self.assertEqual(run_opencode.normalize_verification_command(pattern), pattern)
+        for pattern in ("python -m unittest*", "py -3.14 -B -m unittest*"):
+            with self.subTest(pattern=pattern):
+                with self.assertRaises(RuntimeError):
+                    run_opencode.normalize_verification_command(pattern)
+
     def test_rejects_commands_that_escape_verification_scope(self) -> None:
         rejected_patterns = (
             "*",
@@ -92,6 +101,26 @@ class BuildPermissionsTests(unittest.TestCase):
         self.assertEqual(permissions["edit"]["src/feature/*"], "allow")
         self.assertNotIn("src/*", permissions["edit"])
         self.assertEqual(permissions["edit"]["*"], "deny")
+
+
+class EventDiagnosticTests(unittest.TestCase):
+    def test_default_output_reports_error_category_without_provider_payload(self) -> None:
+        event = '{"type":"error","error":{"name":"APIError","data":{"statusCode":503,"message":"token=TEST_PRIVATE_VALUE"}}}'
+        stderr = io.StringIO()
+        with contextlib.redirect_stderr(stderr):
+            parsed = run_opencode.render_event(event, "default")
+        self.assertIsNotNone(parsed)
+        self.assertIn("APIError", stderr.getvalue())
+        self.assertIn("503", stderr.getvalue())
+        self.assertNotIn("TEST_PRIVATE_VALUE", stderr.getvalue())
+
+    def test_error_name_cannot_inject_provider_details(self) -> None:
+        event = '{"type":"error","error":{"name":"credential=TEST_PRIVATE_VALUE"}}'
+        stderr = io.StringIO()
+        with contextlib.redirect_stderr(stderr):
+            run_opencode.render_event(event, "default")
+        self.assertIn("unclassified", stderr.getvalue())
+        self.assertNotIn("TEST_PRIVATE_VALUE", stderr.getvalue())
 
 
 class LifecycleClassificationTests(unittest.TestCase):
