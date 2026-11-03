@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dev Process Playbook"
+  short_description: "Route agent project setup to the linked checks"
+  default_prompt: "Use $dev-process-playbook to set up or improve how this project is built with agents, and open the linked skill that matches the check you need."
