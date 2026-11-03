@@ -5,7 +5,8 @@ skill has one clear job and lives under `skills/`.
 
 The library covers project starts, implementation, frontend behavior, visual
 foundations, code and design review, Git gates, prototypes, technical writing,
-bounded OpenCode handoffs, and a scoped Wonder design workflow.
+bounded OpenCode handoffs, a scoped Wonder design workflow, and a dev-process
+playbook for building software with agents.
 
 The project uses the [MIT License](LICENSE).
 
@@ -45,6 +46,14 @@ For a useful result:
 | [handoff-to-opencode](skills/handoff-to-opencode/) | Route limited, non-sensitive implementation work to a current free OpenCode model based on task needs within explicit paths. |
 | [simplified-technical-writing](skills/simplified-technical-writing/) | Rewrite technical prose in strict or STE-flavored Simplified Technical English. |
 | [wonder-design-workflow](skills/wonder-design-workflow/) | Create, change, verify, and save scoped Wonder designs with clear proof boundaries. |
+| [dev-process-playbook](skills/dev-process-playbook/) | Start or improve how a software project is built with agents, then route to the linked Dev Process skills below. |
+| [dev-process-bug-to-lint-rule](skills/dev-process-bug-to-lint-rule/) | Turn a bug, review nit, or repeated agent mistake into an automated lint or check rule. |
+| [dev-process-context-in-file-paths](skills/dev-process-context-in-file-paths/) | Encode special code rules in the file name or folder so agents and checks know which rules apply. |
+| [dev-process-state-machine-verification](skills/dev-process-state-machine-verification/) | Model modes, timers, pauses, and interleaved events, then check the state machine with TLA+. |
+| [dev-process-deterministic-core-and-replay](skills/dev-process-deterministic-core-and-replay/) | Make core logic deterministic so a run replays exactly from its recorded inputs. |
+| [dev-process-budgets-that-fail-the-build](skills/dev-process-budgets-that-fail-the-build/) | Fail the build when size, speed, or latency crosses a chosen limit. |
+| [dev-process-bot-playtesting-and-tuning](skills/dev-process-bot-playtesting-and-tuning/) | Tune difficulty, thresholds, or other settings with automated bots or replays aimed at a target outcome. |
+| [dev-process-everything-as-code](skills/dev-process-everything-as-code/) | Generate art, audio, images, translations, and share cards from reviewable text files. |
 
 ## Common requests
 
@@ -148,6 +157,24 @@ Use $simplified-technical-writing to rewrite this runbook in strict mode.
 
 ```text
 Use $wonder-design-workflow to update this Wonder design and verify each requested state.
+```
+
+### Set up how a project is built with agents
+
+```text
+Use $dev-process-playbook to set up or improve how this project is built with agents.
+```
+
+The playbook is the meta skill. It holds the source reference and routes to a linked skill when the request is more specific:
+
+```text
+Use $dev-process-bug-to-lint-rule when a bug or repeated agent mistake should become a lint rule.
+Use $dev-process-context-in-file-paths when a file path should show which special rules apply.
+Use $dev-process-state-machine-verification when modes, timers, or interleaved events need a checked state machine.
+Use $dev-process-deterministic-core-and-replay when a run must replay exactly from its recorded inputs.
+Use $dev-process-budgets-that-fail-the-build when size, speed, or latency must fail the build on regression.
+Use $dev-process-bot-playtesting-and-tuning when bots or replays should tune settings toward a target.
+Use $dev-process-everything-as-code when art, audio, or share cards should be generated from text files.
 ```
 
 ## Combine skills

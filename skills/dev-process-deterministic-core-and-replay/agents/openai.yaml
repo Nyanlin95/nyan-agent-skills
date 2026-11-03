@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dev Process Deterministic Core and Replay"
+  short_description: "Replay a run from its recorded inputs"
+  default_prompt: "Use $dev-process-deterministic-core-and-replay to make this core deterministic so a run replays exactly from its recorded inputs."

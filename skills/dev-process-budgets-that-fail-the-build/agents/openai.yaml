@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dev Process Budgets That Fail the Build"
+  short_description: "Fail the build when a budget regresses"
+  default_prompt: "Use $dev-process-budgets-that-fail-the-build to put a size, speed, or latency limit in CI so a regression fails the build."

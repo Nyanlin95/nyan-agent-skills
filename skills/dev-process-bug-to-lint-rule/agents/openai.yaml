@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dev Process Bug to Lint Rule"
+  short_description: "Turn a fixed bug into a lint rule"
+  default_prompt: "Use $dev-process-bug-to-lint-rule to turn this bug, review nit, or repeated agent mistake into a lint or check rule with a failing fixture, a passing fixture, and a CI failure."
