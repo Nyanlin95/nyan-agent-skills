@@ -40,7 +40,7 @@ For a useful result:
 | [omelet-orchestrator](skills/omelet-orchestrator/) | Turn requests into working outcomes with consequential questions, routine defaults, grounded scope, and flexible design and implementation guidance. |
 | [local-git-gates](skills/local-git-gates/) | Design or verify thin Git hooks and one canonical gate with dependency-aware routing, exact-commit qualification, CI/self-hosted agreement, regression rules, and performance budgets. |
 | [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Distill or scaffold visual foundations and critique compositions across media using binding grid contracts, measured audits, rendered evidence, and verified optical exceptions. |
-| [ui-copy-review](skills/ui-copy-review/) | Review changed interface copy for clarity, recovery, consistency, and copy-related accessibility. |
+| [ui-copy-review](skills/ui-copy-review/) | Review interface copy and recovery language with compact quick findings or a full state and accessibility review. |
 | [clean-copy](skills/clean-copy/) | Remove interface text users do not need while keeping facts they need to act, decide, and recover. |
 | [build-html-prototype](skills/build-html-prototype/) | Build document, interface, or visual HTML prototypes inside one disposable folder. |
 | [handoff-to-opencode](skills/handoff-to-opencode/) | Route limited, non-sensitive implementation work to a current free OpenCode model based on task needs within explicit paths. |
@@ -126,6 +126,14 @@ Use $ui-copy-review to review the interface copy changed on this branch.
 The review compares added and removed language, follows it to affected interface
 states, and checks accessible names, instructions, errors, status, and recovery.
 
+Use `quick` for a few strings or one component. The result is one compact table
+ordered by severity, followed by evidence limits and a verdict. Use `full` for a
+route, workflow, or branch review that needs related states and consumers.
+
+```text
+Use $ui-copy-review quick to review these invite and password-reset messages.
+```
+
 ### Build a contained HTML prototype
 
 ```text
@@ -210,3 +218,10 @@ py -3.14 "$env:USERPROFILE\.codex\skills\.system\skill-creator\scripts\quick_val
 ```
 
 Before finishing, confirm that `agents/openai.yaml` matches the final skill, that this catalog has one current entry, and that the validation command ran after the final material edit.
+
+The validator checks skill structure; it does not prove instruction-following.
+For behavioral changes, use isolated realistic tasks and inspect the resulting
+actions and artifacts, including a relevant failure or recovery path. Give an
+independent evaluator the task and raw inputs without the intended answer.
+Fix demonstrated guidance failures and rerun affected cases. Keep synthetic,
+bounded, and unavailable coverage explicit.

@@ -155,7 +155,9 @@ Consolidate repeated symptoms under one owner. Do not manufacture findings to fi
 
 ## Report
 
-Lead with what the changed copy does well. Then report:
+Scale the report to the selected mode. For a quick review, return one compact table ordered by severity and task impact with status, location/state, recommended copy, and the evidence-backed reason. Add a short scope/evidence-limit statement and the verdict. Do not repeat the same findings in separate summary, finding, and replacement sections. Retain a material security or recovery caveat even when it needs a short note outside the table.
+
+For a full review, briefly name what works when useful, then report:
 
 1. **Scope:** Target, base and head refs when applicable, files, exclusions, expanded consumers, and unavailable evidence.
 2. **Summary:** User task, copy intent, strongest quality, highest-risk weakness, and first action.
