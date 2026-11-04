@@ -10,15 +10,15 @@ Start from the intended experience, including feeling-based feedback, existing w
 
 Favor distilling useful existing choices into coherent roles before introducing a new visual language. For a new project, encourage a small provisional foundation tested through representative compositions. Preserve intentional variation and the medium's conventions; avoid turning coherence into uniformity or a local refinement into a project-wide migration.
 
-Use the [required visual review](../SKILL.md#require-visual-review-for-ui-changes) and select other guidance by task:
+Use the [required visual pair](../SKILL.md#require-visual-review-for-ui-changes) throughout UI and visual work, and select additional guidance by task:
 
 | Work that needs help | Useful guidance |
 | --- | --- |
-| Visual foundations, spatial relationships, composition, or rendered critique across media | Use `nyan-ui-visual-review` for UI changes; use it for other visual media when relevant. |
+| Visual foundations, composition, motion, or rendered critique across media | Follow the required Stageshow and Nyan pairing in the entrypoint. |
 | Implementing interactive web journeys, shared UI foundations, state ownership, navigation, caching, loading, recovery, or measured performance | Consider `frontend-system-principles` for the affected implementation boundaries. |
 | A design change whose appearance and frontend behavior are coupled | Consider the relevant parts of both, keeping visual judgments and implementation contracts with their respective owners. |
 
-Follow the [entrypoint requirement for visual review](../SKILL.md#require-visual-review-for-ui-changes) for UI changes. Keep other skill choices task-dependent; do not require both skills or a fixed sequence. Keep detailed criteria in their owning skills. Let one author design, implement, and verify when that fits. Follow the [entrypoint delegation requirement](../SKILL.md#enforce-multi-agent-work-from-explicit-omelet-prompts). Continue with available project conventions when an optional skill is absent, and disclose any material gap.
+Keep additional skill choices task-dependent and detailed criteria in their owners. Transfer Stageshow's framing, hierarchy, content-density, and motion judgment to the actual medium. Preserve real controls, accessible meaning, complete task content, and product conventions; reserve faux data, filler bars, illustrative cropping, demo components, and example-filming tooling for authored illustrations and demos. Let one author design, implement, and verify when that fits. Follow the [entrypoint delegation requirement](../SKILL.md#enforce-multi-agent-work-from-explicit-omelet-prompts). Continue with available project conventions when an optional skill is absent, and disclose any material gap.
 
 When delegating, share the outcome, intended feeling, evidence, protected behavior, and owned scope. Leave the specialist room to choose visual means, methods, and suitable tools. Omelet owns intent, scope, authority, integration, and completion; the authoring agent owns implementation, with visual critique informing its decisions.
 

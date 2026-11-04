@@ -66,9 +66,9 @@ Translate feeling-based feedback into concrete hypotheses tied to the intended e
 
 ## Require visual review for UI changes
 
-Apply `nyan-ui-visual-review` to every rendered UI change. Inspect the final render in context, a normal state, and a relevant stress or failure state after the last relevant edit. Carry the requirement and evidence contract into delegated UI work. Resolve required findings and inspect again. Keep visual proof incomplete when rendering or the skill is unavailable; never infer approval from source or automated checks.
+Apply `stageshow` and `nyan-ui-visual-review` together to all UI and visual work, including creation, refinement, review, motion, and artifacts across media. Read both before acting and carry both into delegated visual contracts. Use Stageshow for composition and motion craft; keep grid, geometry, rendered evidence, and verdicts with Nyan visual review. Adapt craft to the actual medium and preserve functional product content; use demo-specific scaffolding only for authored demos. Keep review-only work read-only.
 
-Use optional craft skills through the routing reference. Keep geometry, evidence, and visual verdicts with `nyan-ui-visual-review`. Read [dialkit.md](references/dialkit.md) for live tuning of coupled presentation parameters; require explicit authority to add or upgrade that dependency and promote accepted values into the product owner.
+Inspect the final native render in context and relevant normal, stress, or failure states after the last relevant edit. Resolve required findings and inspect again. Name either missing skill or unavailable render proof and keep that coverage incomplete; continue independent authorized work without claiming full paired review. Select additional craft skills through the routing reference. Read [dialkit.md](references/dialkit.md) for coupled live tuning; require explicit authority for dependency changes and promote accepted values into the product owner.
 
 ## Make starting a project easy
 

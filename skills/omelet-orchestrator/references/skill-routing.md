@@ -21,7 +21,7 @@ Use these sibling-relative links in this repository or when the linked skills ar
 | Discover and compare structural improvements | [architecture-candidate-finder](../../architecture-candidate-finder/SKILL.md) | Return evidence and options before implementing a redesign. |
 | Challenge an uncertain decision-critical claim | [adversarial-review](../../adversarial-review/SKILL.md) | Use bounded counterexamples; avoid adding a routine second review. |
 | Shared hooks, CI agreement, recurring defects and budgets | [local-git-gates](../../local-git-gates/SKILL.md) | Keep regression tests in their owning suite and recurring enforcement in the existing gate. |
-| Visual foundations, geometry, composition and verdict | [nyan-ui-visual-review](../../nyan-ui-visual-review/SKILL.md) | Require for rendered UI changes; retain its evidence and verdict ownership. |
+| Visual foundations, geometry, composition and verdict | [nyan-ui-visual-review](../../nyan-ui-visual-review/SKILL.md) | Follow the entrypoint's required visual pair; retain its grid, evidence, and verdict ownership. |
 | Author or remove unnecessary interface text | [clean-copy](../../clean-copy/SKILL.md) | Preserve facts, decisions, recovery and accessible meaning. |
 | Review changed copy and related accessibility | [ui-copy-review](../../ui-copy-review/SKILL.md) | Keep findings read-only; avoid treating it as a complete accessibility audit. |
 | Disposable browser document or interaction study | [build-html-prototype](../../build-html-prototype/SKILL.md) | Contain the artifact in one removable folder; keep production untouched. |
@@ -41,14 +41,14 @@ Use these sibling-relative links in this repository or when the linked skills ar
 
 ## Installed and plugin capabilities
 
-Discover the matching currently available skill for each row. Read its actual trigger and requirements before use. Preserve repository and product conventions over a craft skill's preferred visual style.
+Discover the matching currently available skill for each row. Follow the [entrypoint visual-pair requirement](../SKILL.md#require-visual-review-for-ui-changes) for UI and visual work; select other rows by their actual triggers. Preserve repository and product conventions over a craft skill's preferred visual style.
 
 | Work | Skills to discover | Routing decision |
 | --- | --- | --- |
 | Existing web stack and current platform guidance | `modern-web-guidance`, relevant framework/provider skill | Observe mandatory research prerequisites when applicable; verify exact versions before changing contracts. |
 | Interface craft and motion | `emil-design-eng`, `apple-design`, `design-taste-frontend`, `animate`, `animate-expo`, `animation-vocabulary` | Select the medium and needed craft; avoid loading multiple aesthetic systems by default. |
 | Find or review motion | `find-animation-opportunities`, `improve-animations`, `review-animations` | Match discovery, advisory refinement or read-only review to the requested outcome. |
-| Faux product illustration or cursor demo | `stageshow` | Pair its authoring craft with Nyan visual review; treat authored demos as illustrations, never runtime acceptance. |
+| All UI and visual work, including review, motion and other media | `stageshow` | Follow the required visual pair in the entrypoint. Adapt composition and motion craft to the actual medium; keep demo scaffolding specific to demos. |
 | Figma design or implementation | `figma-use`, `figma:figma-use`, `figma:figma-design-to-code`, relevant Figma workflow | Load the tool's mandated prerequisite; use the actual file and selected-node context. |
 | Wonder or tldraw authoring | `wonder:wonder-design`, `tldraw-offline` | Pair the Wonder provider adapter with the library workflow; select tldraw only for its actual canvas. |
 | Images and desktop inspection | `imagegen`, `computer-use:computer-use`, `screenshot` | Match generation, app operation or explicit screenshot capture; prefer purpose-built tools when sufficient. |
@@ -68,8 +68,8 @@ Discover the matching currently available skill for each row. Read its actual tr
 
 Adapt these examples instead of prescribing pipelines:
 
-- Build or repair an app journey: use implementation guidance, add frontend guidance for state boundaries, and require visual review when the UI changes.
-- Refine a Wonder screen: use the library Wonder workflow plus the provider adapter; add motion or illustration craft only when the requested artifact needs it.
+- Build or repair an app journey: use implementation guidance, add frontend guidance for state boundaries, and use the required visual pair for UI work.
+- Refine a Wonder screen: use the library Wonder workflow, provider adapter, and required visual pair; select any additional motion guidance by task.
 - Investigate a watcher or webhook: start with read-only provider evidence; add webhook testing or replay for the unresolved delivery boundary; implement only within the authorized scope.
 - Improve CI or application performance: use hillclimb for a sustained measured target and local Git gates when enforcement changes; retain the project's qualification owner.
 - Test a product from user perspectives: route broad work through the testing playbook, or select the specific testing owner for a bounded request; send bug fixes to implementation and retest the original failure.

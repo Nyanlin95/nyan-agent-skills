@@ -99,7 +99,7 @@ Do not turn this list into a mandatory audit. Build the smallest state matrix th
 
 Adapt the loop around a concrete hypothesis, such as “the metadata feels detached because its alignment follows the card edge instead of the title column.” Establish a comparable baseline, trace the cause, make the authorized correction through its owner, and compare the result. Research unresolved decisions when necessary rather than treating research as a mandatory phase.
 
-Select the relevant skills from [skill-routing.md](skill-routing.md). Keep visual critique and frontend implementation guidance complementary; neither needs to run as a separate agent or fixed stage.
+Use the [required visual pair](../SKILL.md#require-visual-review-for-ui-changes) and select additional skills from [skill-routing.md](skill-routing.md). Keep craft, visual critique, and frontend implementation guidance complementary; each skill need not run as a separate agent or fixed stage.
 
 Exercise the content, interaction, or failure cases that can falsify the correction and run applicable repository gates. Remove replaced rules within the verified migration scope. Report the decision, achieved proof, and unavailable coverage without requiring a standard presentation for every small change.
 

@@ -1,4 +1,4 @@
 interface:
   display_name: "Omelet Orchestrator"
   short_description: "Orchestrate work and route relevant skills"
-  default_prompt: "Use $omelet-orchestrator to complete this task, route each part to the relevant available skills, and verify the result within the authorized scope."
+  default_prompt: "Use $omelet-orchestrator to complete and verify this task within its authorized scope, applying $stageshow with $nyan-ui-visual-review to all UI and visual work."
