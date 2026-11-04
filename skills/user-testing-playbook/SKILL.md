@@ -18,7 +18,7 @@ Simulate real people using an app, find where it fails them, and prove it with e
 ## What this is and is not
 - It finds usability problems, confusion, dead ends, broken flows, crashes, slowness, trust and accessibility gaps, and missing feedback.
 - It does not prove people want the product or will pay for it. Simulated users are not real users: label every finding "simulated", and say which questions need real people (see the Limits section).
-- It never replaces automated tests. When a finding is a bug, turn it into a regression check (see [Bug to Lint Rule](../dev-process-bug-to-lint-rule/SKILL.md)).
+- It never replaces automated tests. When a finding is a bug, turn it into a regression check. Use [Local Git Gates](../local-git-gates/SKILL.md) when enforcing recurring defects in hooks or CI.
 
 ## The linked skills
 | Step | Skill |

@@ -99,7 +99,7 @@ Do not turn this list into a mandatory audit. Build the smallest state matrix th
 
 Adapt the loop around a concrete hypothesis, such as “the metadata feels detached because its alignment follows the card edge instead of the title column.” Establish a comparable baseline, trace the cause, make the authorized correction through its owner, and compare the result. Research unresolved decisions when necessary rather than treating research as a mandatory phase.
 
-Use the relevant domain checks from the skills suggested in `SKILL.md` under “Orchestrate product design.” Keep visual critique and frontend implementation guidance complementary; neither needs to run as a separate agent or fixed stage.
+Select the relevant skills from [skill-routing.md](skill-routing.md). Keep visual critique and frontend implementation guidance complementary; neither needs to run as a separate agent or fixed stage.
 
 Exercise the content, interaction, or failure cases that can falsify the correction and run applicable repository gates. Remove replaced rules within the verified migration scope. Report the decision, achieved proof, and unavailable coverage without requiring a standard presentation for every small change.
 

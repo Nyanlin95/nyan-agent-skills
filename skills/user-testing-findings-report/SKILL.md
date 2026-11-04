@@ -59,7 +59,7 @@ Never say "no issues"; say "no issues found in N sessions covering X; not covere
 
 ## Hand-off and re-test
 1. Group findings by owner (design, frontend, backend, content, product) and by suggested order: Blockers, then Majors on P1, then the rest.
-2. For each finding that is a bug, suggest the regression check that would have caught it; see [Bug to Lint Rule](../dev-process-bug-to-lint-rule/SKILL.md) and [Budgets That Fail the Build](../dev-process-budgets-that-fail-the-build/SKILL.md) for slowness.
+2. For each finding that is a bug, suggest the regression check that would have caught it; use [Local Git Gates](../local-git-gates/SKILL.md) when enforcing recurring defects or measured performance budgets in hooks or CI.
 3. After a fix, re-run the failed sessions and the chaos seeds that found it. Mark the finding closed only when the same session passes, never because the symptom is hidden.
 4. Keep the matrix and logs so the next round starts from them.
 

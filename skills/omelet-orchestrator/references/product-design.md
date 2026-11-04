@@ -10,7 +10,7 @@ Start from the intended experience, including feeling-based feedback, existing w
 
 Favor distilling useful existing choices into coherent roles before introducing a new visual language. For a new project, encourage a small provisional foundation tested through representative compositions. Preserve intentional variation and the medium's conventions; avoid turning coherence into uniformity or a local refinement into a project-wide migration.
 
-Use the required visual review below and select other guidance by task:
+Use the [required visual review](../SKILL.md#require-visual-review-for-ui-changes) and select other guidance by task:
 
 | Work that needs help | Useful guidance |
 | --- | --- |
@@ -18,7 +18,7 @@ Use the required visual review below and select other guidance by task:
 | Implementing interactive web journeys, shared UI foundations, state ownership, navigation, caching, loading, recovery, or measured performance | Consider `frontend-system-principles` for the affected implementation boundaries. |
 | A design change whose appearance and frontend behavior are coupled | Consider the relevant parts of both, keeping visual judgments and implementation contracts with their respective owners. |
 
-Require visual review for UI changes as specified below. Keep other skill choices task-dependent; do not require both skills or a fixed sequence. Keep detailed criteria in their owning skills. Let one agent design, implement, and verify when that fits; delegate only when a bounded independent contribution helps. Continue with available project conventions when an optional skill is absent, and disclose any material gap.
+Follow the [entrypoint requirement for visual review](../SKILL.md#require-visual-review-for-ui-changes) for UI changes. Keep other skill choices task-dependent; do not require both skills or a fixed sequence. Keep detailed criteria in their owning skills. Let one author design, implement, and verify when that fits. Follow the [entrypoint delegation requirement](../SKILL.md#enforce-multi-agent-work-from-explicit-omelet-prompts). Continue with available project conventions when an optional skill is absent, and disclose any material gap.
 
 When delegating, share the outcome, intended feeling, evidence, protected behavior, and owned scope. Leave the specialist room to choose visual means, methods, and suitable tools. Omelet owns intent, scope, authority, integration, and completion; the authoring agent owns implementation, with visual critique informing its decisions.
 
