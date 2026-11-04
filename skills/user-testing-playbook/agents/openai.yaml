@@ -1,0 +1,4 @@
+interface:
+  display_name: "User Testing Playbook"
+  short_description: "Test an app as different simulated users"
+  default_prompt: "Use $user-testing-playbook to test this app the way different users would, and report what breaks with evidence."

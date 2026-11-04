@@ -1,0 +1,4 @@
+interface:
+  display_name: "User Testing Scenarios"
+  short_description: "Build a persona-by-situation test matrix"
+  default_prompt: "Use $user-testing-scenarios to turn the app and personas into a test matrix."
