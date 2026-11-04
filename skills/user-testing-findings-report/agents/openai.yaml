@@ -1,0 +1,4 @@
+interface:
+  display_name: "User Testing Findings Report"
+  short_description: "Rank simulated findings and hand off fixes"
+  default_prompt: "Use $user-testing-findings-report to turn session logs into a ranked findings report and a hand-off."

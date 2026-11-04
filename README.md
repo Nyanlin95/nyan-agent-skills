@@ -5,8 +5,9 @@ skill has one clear job and lives under `skills/`.
 
 The library covers project starts, implementation, frontend behavior, visual
 foundations, code and design review, Git gates, prototypes, technical writing,
-bounded OpenCode handoffs, a scoped Wonder design workflow, and focused
-simulation, replay, and state-machine verification skills.
+bounded OpenCode handoffs, a scoped Wonder design workflow, focused
+simulation, replay, and state-machine verification skills, and user-testing
+skills for simulated sessions, chaos input, and findings.
 
 The project uses the [MIT License](LICENSE).
 
@@ -50,6 +51,12 @@ For a useful result:
 | [dev-process-state-machine-verification](skills/dev-process-state-machine-verification/) | Check stateful event flows for counterexamples with explicit model bounds and implementation regressions. |
 | [dev-process-deterministic-core-and-replay](skills/dev-process-deterministic-core-and-replay/) | Implement recorded-input replay with explicit compatibility, isolated effects, and divergence checks. |
 | [dev-process-bot-playtesting-and-tuning](skills/dev-process-bot-playtesting-and-tuning/) | Tune difficulty, thresholds, or other settings with automated bots or replays aimed at a target outcome. |
+| [user-testing-playbook](skills/user-testing-playbook/) | Test an app the way different users would, find where it breaks or disappoints, and route to the linked User Testing skills below. |
+| [user-testing-personas](skills/user-testing-personas/) | Choose or write simulated users as a want, a state of mind, and a behavior rule for a specific app. |
+| [user-testing-scenarios](skills/user-testing-scenarios/) | Turn an app and its personas into scenarios and a persona-by-situation-by-environment test matrix. |
+| [user-testing-session-runner](skills/user-testing-session-runner/) | Run one simulated session in character, log expectation versus result, and capture evidence. |
+| [user-testing-chaos-and-random-input](skills/user-testing-chaos-and-random-input/) | Run seeded random and careless input so a crash, lost state, or broken layout can be replayed. |
+| [user-testing-findings-report](skills/user-testing-findings-report/) | Turn session logs and chaos runs into severity-ranked findings, a verdict, and a re-test hand-off. |
 
 ## Common requests
 
@@ -190,6 +197,19 @@ pipelines. Keep project setup and selection of these capabilities with Omelet.
 Use $dev-process-state-machine-verification to check this subsystem's interleaved events and recovery rules.
 Use $dev-process-deterministic-core-and-replay to reproduce this failure from recorded inputs.
 Use $dev-process-bot-playtesting-and-tuning to tune these settings and evaluate them on held-out inputs.
+```
+
+### Test a product as its users
+
+The playbook is the meta skill. It routes to a linked skill when the request is more specific:
+
+```text
+Use $user-testing-playbook to test this app the way different users would, and report what breaks with evidence.
+Use $user-testing-personas to choose or write the simulated users for this test.
+Use $user-testing-scenarios to turn the app and personas into a test matrix.
+Use $user-testing-session-runner to run one session in character and log expectation versus result.
+Use $user-testing-chaos-and-random-input to run a seeded random-input pass and replay what breaks.
+Use $user-testing-findings-report to turn session logs into a ranked findings report and a hand-off.
 ```
 
 ## Combine skills

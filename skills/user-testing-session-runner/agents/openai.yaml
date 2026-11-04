@@ -1,0 +1,4 @@
+interface:
+  display_name: "User Testing Session Runner"
+  short_description: "Run one in-character session with evidence"
+  default_prompt: "Use $user-testing-session-runner to run one session in character and log expectation versus result."

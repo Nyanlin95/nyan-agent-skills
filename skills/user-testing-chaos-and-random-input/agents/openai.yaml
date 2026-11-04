@@ -1,0 +1,4 @@
+interface:
+  display_name: "User Testing Chaos and Random Input"
+  short_description: "Replay seeded random and careless input"
+  default_prompt: "Use $user-testing-chaos-and-random-input to run a seeded random-input pass and replay what breaks."

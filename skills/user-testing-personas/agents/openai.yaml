@@ -1,0 +1,4 @@
+interface:
+  display_name: "User Testing Personas"
+  short_description: "Choose simulated users and how they act"
+  default_prompt: "Use $user-testing-personas to choose or write the simulated users for this test."
