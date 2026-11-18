@@ -1,6 +1,6 @@
 ---
 name: nyan-ui-visual-review
-description: Guide and critique visual design during creation or refinement using a binding grid contract, spatial principles, rendered evidence, and measured geometry. Use to scaffold or distill a project's visual system, or review and polish icons, controls, forms, cards, applications, web pages, presentations, books, graphics, and motion. Pair with the authoring workflow. Do not use for code-only correctness review or as the artifact implementation workflow.
+description: Guide and critique visual design during creation or refinement using a binding grid contract, spatial principles, rendered evidence, and measured geometry. Use to scaffold or distill a project's visual system, or review and polish icons, controls, forms, cards, applications, agent interfaces such as Solid Glass-style turn status, tool steps, and composers, web pages, presentations, books, graphics, and motion. Pair with the authoring workflow. Do not use for code-only correctness review or as the artifact implementation workflow.
 ---
 
 # Nyan UI Visual Review
@@ -76,6 +76,7 @@ Read only the relevant references:
 - [Media and scale checks](references/media-and-scale.md): icons through pages, presentations, books, graphics, and native export checks.
 - [Spatial motion](references/spatial-motion.md): anchors, coordinated geometry, timing, interruption, and intermediate-frame review.
 - [Review domains](references/review-domains.md): interface-specific usability, accessibility, writing, color, and product structure.
+- [Agent interfaces](references/agent-interfaces.md): AI application status, tool steps, diffs, composers, decisions, context usage, and background notices, adapted from Solid Glass without its simulated lighting.
 
 ## Review flow
 

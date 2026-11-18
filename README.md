@@ -40,7 +40,7 @@ For a useful result:
 | [saas-perf-hillclimb](skills/saas-perf-hillclimb/) | Improve SaaS performance one layer at a time with a measured, statistically gated hill-climb loop and a holdout check. |
 | [omelet-orchestrator](skills/omelet-orchestrator/) | Orchestrate grounded work through a thin skill router, with required Stageshow and Nyan visual guidance for all UI and visual work. |
 | [local-git-gates](skills/local-git-gates/) | Design or verify thin Git hooks and one canonical gate with dependency-aware routing, exact-commit qualification, CI/self-hosted agreement, regression rules, and performance budgets. |
-| [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Distill or scaffold visual foundations and critique compositions across media using binding grid contracts, measured audits, rendered evidence, and verified optical exceptions. |
+| [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Distill or scaffold visual foundations and critique compositions across media, including agent interfaces, using binding grid contracts, measured audits, rendered evidence, and verified optical exceptions. |
 | [ui-copy-review](skills/ui-copy-review/) | Review interface copy and recovery language with compact quick findings or a full state and accessibility review. |
 | [clean-copy](skills/clean-copy/) | Remove interface text users do not need while keeping facts they need to act, decide, and recover. |
 | [build-html-prototype](skills/build-html-prototype/) | Build document, interface, or visual HTML prototypes inside one disposable folder. |
