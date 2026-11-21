@@ -26,6 +26,7 @@ Complete authorized local changes without repeated approval for ordinary routing
 | Publication checkpoint / explicit qualifying range | Complete required checks for the exact candidate commit and actual publication base | Qualification of another tip or a dirty checkout |
 | CI | Completed checks for the workflow's exact checkout and event scope | Local results as a substitute for the required remote result |
 | Supplemental lane | Coverage of its explicitly selected feature or fixture scope | Qualification of an arbitrary diff or a live provider |
+| Skipped-live or feedback-only run | Selected checks that actually ran, with `feedback_only` and `qualified: false` recorded | Qualification, promotion, or deployment readiness |
 
 Choose a publication execution model the repository can support. Prefer a clean existing checkout with exact-HEAD and cleanliness guards when sufficient. Use object-isolated execution only when required and authorized; do not create a worktree implicitly. Reject an unsupported pushed object rather than validate HEAD and label it as that object. Read [Publication qualification](references/publication-qualification.md) for revision, range, and multi-ref rules.
 
@@ -49,6 +50,8 @@ Treat interface flags as repository choices, not a required spelling. Keep check
 5. Broaden to full qualification for shared configuration, gate policy, security, runtime, storage, migrations, contracts, coupled owners, or uncertain impact where narrower coverage is unproven.
 6. Allow hygiene-only handling only for known documentation paths outside executable gate or release policy.
 7. Validate selected command wiring and required test inventory before expensive service setup.
+8. Treat renamed or deleted owners as both old and new ownership. A manifest or runner that still requires a deleted file fails planning.
+9. Emit the plan as data (selected owners, closure, prerequisites, required checks, and per-entrypoint commands) and let CI and hooks replay it. A selector returned by the plan must replan against current source when reused.
 
 Keep complete required journeys where the repository uses feature slices; do not silently narrow them by test-name filters. Fail on required missing, empty, disabled, exclusive, unwired, or skipped coverage according to the repository's test policy. Do not import another project's ban on a test type or its provider/performance requirements. State what each lane actually proves.
 
@@ -64,11 +67,14 @@ Read [Enforced constraints](references/enforced-constraints.md) for regression r
 2. Require the CI wrapper to match the expected immutable revision to checkout HEAD before selecting checks.
 3. Propagate planning and execution failures through a stable required status.
 4. Skip expensive setup only after the canonical plan proves it unnecessary and all remaining required checks execute successfully.
-5. Separate development feedback, integration, release qualification and deployment readiness through [Publication qualification](references/publication-qualification.md). Preserve deterministic substitutes and retained live lanes. Follow the repository's explicit automatic or manual deployment boundary; do not add a manual button or another full gate by default.
+5. Separate development feedback, integration, release qualification and deployment readiness through [Publication qualification](references/publication-qualification.md). Preserve deterministic substitutes and retained live lanes. Follow the repository's explicit automatic or manual deployment boundary. Do not add a new manual button or full gate; honor a manual full recheck only where the repository already defines one.
 6. Preserve existing required-status names and trigger behavior unless changing them is in scope.
 7. Verify remote protection separately before describing publication as protected.
+8. Make CI repeat cheap static checks even when local hooks exist, because hooks can be bypassed. CI never accepts a receipt produced on a developer machine. A remote promotion accepts a source receipt only when CI produced it and its digest verifies ([Publication qualification](references/publication-qualification.md)).
+9. Size nested timeouts: each job timeout must exceed its steps' timeouts plus setup and teardown margin.
+10. Decide checkpoint ownership on each attempt from the provider's job records, not from the scheduling label. Fresh-retry when assignment moves to another runner.
 
-Read [CI and self-hosted execution](references/ci-self-hosted.md) for persistent-runner state, cache ownership, credential boundaries, evidence, and availability. Treat a queued, offline, cancelled, or missing run as incomplete remote proof; do not change runner infrastructure or purchase capacity merely to make a status green.
+Read [CI and self-hosted execution](references/ci-self-hosted.md) for persistent-runner state, cache ownership, credential boundaries, evidence, and availability. Read [CI retries and checkpoints](references/ci-retry-and-checkpoints.md) when a plan resumes, retries, or pins jobs to runners. Treat a queued, offline, cancelled, or missing run as incomplete remote proof; do not change runner infrastructure or purchase capacity merely to make a status green.
 
 ## Execute and retain truthful results
 
