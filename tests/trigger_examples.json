@@ -263,6 +263,17 @@
       "keywords": ["test matrix", "stop condition"]
     }
   },
+  "vision": {
+    "should_trigger": {
+      "prompt": "Draft a project vision for this repo from its merged decisions. Give me hard proposals to decide on before we put it in STRATEGY.md.",
+      "keywords": ["project vision"]
+    },
+    "should_not_trigger": {
+      "instead": "cqt-review",
+      "prompt": "Use our existing vision as context for a code quality review of this PR. Flag ownership problems in the diff and leave the vision as it is.",
+      "keywords": ["code quality"]
+    }
+  },
   "wonder-design-workflow": {
     "should_trigger": {
       "prompt": "Open the signup design in Wonder through its canvas. Fix the mobile error state, verify it there, and save the updated design.",

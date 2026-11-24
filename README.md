@@ -70,6 +70,7 @@ For a useful result:
 | [user-testing-playbook](skills/user-testing-playbook/) | Test an app the way different users would, find where it breaks or disappoints, and route to the linked User Testing skills. |
 | [user-testing-scenarios](skills/user-testing-scenarios/) | Turn an app and its personas into scenarios and a persona-by-situation-by-environment test matrix. |
 | [user-testing-session-runner](skills/user-testing-session-runner/) | Run one simulated session in character, log expectation versus result, and capture evidence. |
+| [vision](skills/vision/) | Draft and stress-test a project vision with repository evidence and author review. |
 | [wonder-design-workflow](skills/wonder-design-workflow/) | Create, change, verify, and save scoped Wonder designs with clear proof boundaries. |
 <!-- skills-catalog:end -->
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: Vision
+  short_description: Draft and stress-test a project vision with repository evidence and author review.
+  default_prompt: Use $vision to draft or refine this project's vision from repository evidence, then test it with concrete proposals before I approve it.
