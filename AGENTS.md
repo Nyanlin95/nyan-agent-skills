@@ -2,6 +2,8 @@
 
 This repository is a library of independent Codex skills.
 
+See the [architecture and ownership map](docs/architecture.md) for the repository layout and entry points.
+
 ## Commands
 
 Run from the repository root with Python 3.11 or newer.

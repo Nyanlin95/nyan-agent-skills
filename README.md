@@ -11,6 +11,8 @@ skills for simulated sessions, chaos input, and findings.
 
 The project uses the [MIT License](LICENSE).
 
+See the [architecture and ownership map](docs/architecture.md) for where to make changes and how they are checked.
+
 ## Scope
 
 Add a general, reusable skill when it has a distinct job and an existing skill

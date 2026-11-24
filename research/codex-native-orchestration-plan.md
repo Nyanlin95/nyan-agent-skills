@@ -1,6 +1,7 @@
-# Codex-native orchestration plan for Wer Ywet Studio
+# Codex-native orchestration plan for Wer Ywet Studio (archived)
 
-> **Historical research, 2026-08-12.** This document records a proposal for Wer Ywet Studio at the snapshot below. Use [AGENTS.md](../AGENTS.md) and [.codex/config.toml](../.codex/config.toml) for current Nyan Agent Skills policy. Verify any Studio guidance against Studio's current code and repository instructions before applying it.
+> [!IMPORTANT]
+> **Archived proposal from 2026-08-12.** Read the plan below as a record of that Wer Ywet Studio snapshot. Follow [AGENTS.md](../AGENTS.md) and the [Omelet workflow](../skills/omelet-orchestrator/SKILL.md) for current Nyan Agent Skills instructions. For current Studio work, use Studio's own repository instructions and code.
 
 Research date: 2026-08-12
 

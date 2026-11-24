@@ -1,68 +1,277 @@
 {
   "adversarial-review": {
     "should_trigger": {
-      "prompt": "Stress-test this architecture decision with hostile scrutiny before we act on it.",
-      "keywords": ["architecture decision", "hostile scrutiny"]
+      "prompt": "Try to falsify the claim in this architecture decision that every retried import is safe. Bring me a concrete counterexample before we approve it.",
+      "keywords": ["falsify", "architecture decision"]
     },
     "should_not_trigger": {
-      "instead": "user-testing-personas",
-      "prompt": "Choose or write simulated users for this user test.",
-      "keywords": ["simulated users"]
+      "instead": "cqt-review",
+      "prompt": "Review the retry PR for code quality. Trace how failed jobs recover and point me to defects in the branch.",
+      "keywords": ["code quality"]
+    }
+  },
+  "architecture-candidate-finder": {
+    "should_trigger": {
+      "prompt": "Our billing jobs break whenever we change the invoice model. Look at the module boundaries and tell me which structural changes are worth exploring first.",
+      "keywords": ["module boundaries"]
+    },
+    "should_not_trigger": {
+      "instead": "cqt-review",
+      "prompt": "Review the code quality of the module split in this PR. Point out concrete defects in the diff, with file references.",
+      "keywords": ["code quality"]
+    }
+  },
+  "build-html-prototype": {
+    "should_trigger": {
+      "prompt": "Make a disposable HTML prototype of this returns kiosk for interaction tests in the browser. Put everything in one folder I can delete after the demo.",
+      "keywords": ["interaction tests"]
+    },
+    "should_not_trigger": {
+      "instead": "frontend-system-principles",
+      "prompt": "Build this checkout mockup into our live app. Keep the cart draft intact after reload and fix cache consistency between shipping and payment.",
+      "keywords": ["cache consistency"]
+    }
+  },
+  "clean-copy": {
+    "should_trigger": {
+      "prompt": "Tighten the button text and the hint below it on this invite screen. Keep the expiry detail and cut anything the button already makes clear.",
+      "keywords": ["button text"]
+    },
+    "should_not_trigger": {
+      "instead": "ui-copy-review",
+      "prompt": "Check whether the new invite button text and its translations are misleading. Review the accessible names and localized copy in the diff and send findings.",
+      "keywords": ["accessible names", "localized copy"]
+    }
+  },
+  "cqt-review": {
+    "should_trigger": {
+      "prompt": "Review this refund PR for code quality. Trace how the refund recovers from a failed write and point me to any defects in the changed code.",
+      "keywords": ["code quality"]
+    },
+    "should_not_trigger": {
+      "instead": "architecture-candidate-finder",
+      "prompt": "We keep hitting this refund bug across services. Look at the module boundaries and rank the structural changes we could explore.",
+      "keywords": ["module boundaries"]
+    }
+  },
+  "dev-process-bot-playtesting-and-tuning": {
+    "should_trigger": {
+      "prompt": "Use headless bots to adjust the difficulty until the median round lasts six minutes. Check the new settings on seeds you held back during tuning.",
+      "keywords": ["headless bots"]
+    },
+    "should_not_trigger": {
+      "instead": "dev-process-deterministic-core-and-replay",
+      "prompt": "Make the simulator deterministic so I can replay the exact bot match that froze from its input log. Keep difficulty where it is.",
+      "keywords": ["deterministic", "replay"]
+    }
+  },
+  "dev-process-deterministic-core-and-replay": {
+    "should_trigger": {
+      "prompt": "Make the match simulator deterministic so I can replay a frozen match from its seed and input log. Flag the first step where the replay diverges.",
+      "keywords": ["deterministic", "replay"]
+    },
+    "should_not_trigger": {
+      "instead": "dev-process-state-machine-verification",
+      "prompt": "Model the timeout and final move as interleaved events. Show whether the match can get stuck or finish twice.",
+      "keywords": ["interleaved events"]
+    }
+  },
+  "dev-process-state-machine-verification": {
+    "should_trigger": {
+      "prompt": "Model the reservation timer and check for illegal transitions from interleaved events, like a confirmation arriving just after expiry.",
+      "keywords": ["interleaved events"]
+    },
+    "should_not_trigger": {
+      "instead": "dev-process-deterministic-core-and-replay",
+      "prompt": "I caught a cancellation race in the simulator. Make replay deterministic so I can run the same event log and reproduce it.",
+      "keywords": ["deterministic", "replay"]
+    }
+  },
+  "frontend-system-principles": {
+    "should_trigger": {
+      "prompt": "Keep the checkout draft after Back or reload. Fix the cache consistency issue that makes the payment step show old shipping details.",
+      "keywords": ["cache consistency"]
+    },
+    "should_not_trigger": {
+      "instead": "nyan-ui-visual-review",
+      "prompt": "Use our grid contract to review whether the cards in the checkout screenshots line up at desktop and mobile widths. Point out where the layout drifts.",
+      "keywords": ["grid contract"]
     }
   },
   "handoff-to-opencode": {
     "should_trigger": {
-      "prompt": "Hand off a small non-sensitive fix to OpenCode Zen on the current free model.",
-      "keywords": ["OpenCode Zen", "non-sensitive"]
+      "prompt": "Hand off this non-sensitive date-format fix and its focused tests to a current free OpenCode Zen model. Limit edits to src/dates/.",
+      "keywords": ["non-sensitive", "OpenCode Zen"]
     },
     "should_not_trigger": {
-      "instead": "wonder-design-workflow",
-      "prompt": "Create and export this design in Wonder through its canvas.",
-      "keywords": ["in Wonder", "canvas"]
+      "instead": "implementation-quality",
+      "prompt": "Make the date-format fix directly in our repository code and run the focused tests here.",
+      "keywords": ["repository code"]
     }
   },
   "implementation-quality": {
     "should_trigger": {
-      "prompt": "Start from a blank repository and build the first working product journey.",
-      "keywords": ["blank repository", "first working product journey"]
+      "prompt": "Start from a blank repository and build a small inventory tool. The first version should let me enter a count, save it, and see it again when I reopen the app.",
+      "keywords": ["blank repository"]
     },
     "should_not_trigger": {
-      "instead": "ui-copy-review",
-      "prompt": "Review only the accessible names and localized copy changed in this diff.",
-      "keywords": ["accessible names", "localized copy"]
+      "instead": "cqt-review",
+      "prompt": "Review the code quality of the inventory save flow. Trace what happens if a write fails and report any risks you find in the current code.",
+      "keywords": ["code quality"]
     }
   },
   "local-git-gates": {
     "should_trigger": {
-      "prompt": "Add a pre-commit hook and demonstrate exact-commit qualification on CI.",
-      "keywords": ["pre-commit", "exact-commit qualification"]
+      "prompt": "Add a pre-commit hook for changed migration files. Have it call the same checker as CI and make sure CI checks the exact commit we plan to publish.",
+      "keywords": ["pre-commit", "CI"]
     },
     "should_not_trigger": {
-      "instead": "dev-process-bot-playtesting-and-tuning",
-      "prompt": "Tune difficulty with headless bots and compare against target outcomes.",
-      "keywords": ["headless bots", "target outcomes"]
+      "instead": "cqt-review",
+      "prompt": "Review this migration PR for code quality. Can the migration be retried or rolled back after a partial write? Point me to any issues in the diff.",
+      "keywords": ["code quality"]
+    }
+  },
+  "nyan-editorial": {
+    "should_trigger": {
+      "prompt": "Use the customer interview and launch brief to develop three campaign copy ideas for the onboarding release. Keep the offer grounded in the source material.",
+      "keywords": ["campaign copy"]
+    },
+    "should_not_trigger": {
+      "instead": "clean-copy",
+      "prompt": "The release campaign is ready. Tighten the signup button text in the app so it fits on mobile and keep the meaning of the action.",
+      "keywords": ["button text"]
     }
   },
   "nyan-ui-visual-review": {
     "should_trigger": {
-      "prompt": "Use a binding grid contract and measured geometry to critique this dashboard.",
-      "keywords": ["binding grid contract", "measured geometry"]
+      "prompt": "Review these dashboard screenshots at mobile and desktop widths. Check the grid contract and measure where the summary cards drift out of alignment.",
+      "keywords": ["grid contract"]
     },
     "should_not_trigger": {
-      "instead": "dev-process-deterministic-core-and-replay",
-      "prompt": "Implement deterministic core logic and recorded-input replay for these bugs.",
-      "keywords": ["deterministic core logic", "recorded-input replay"]
+      "instead": "frontend-system-principles",
+      "prompt": "Fix the dashboard so the selected invoice stays selected when the list refetches. Check cache consistency between the list and the detail pane.",
+      "keywords": ["cache consistency"]
     }
   },
   "omelet-orchestrator": {
     "should_trigger": {
-      "prompt": "Omelet, revise our repository workflow and skill routing.",
-      "keywords": ["Omelet", "skill routing"]
+      "prompt": "Omelet, coordinate this release. Start by auditing the billing flow, then route any fixes to the right skills and verify the release against the acceptance checklist.",
+      "keywords": ["Omelet"]
     },
     "should_not_trigger": {
-      "instead": "simplified-technical-writing",
-      "prompt": "Rewrite this runbook into Simplified Technical English.",
+      "instead": "cqt-review",
+      "prompt": "This repo has no orchestration policy. Give me a standalone code quality review of this diff and list the issues you find.",
+      "keywords": ["code quality"]
+    }
+  },
+  "saas-perf-hillclimb": {
+    "should_trigger": {
+      "prompt": "Get p95 search latency under 180 ms. Measure query time and end-to-end latency first, then test changes to one layer at a time and verify the gains on held-out traffic.",
+      "keywords": ["query time"]
+    },
+    "should_not_trigger": {
+      "instead": "cqt-review",
+      "prompt": "Review the code quality of this query optimization PR. Do the new queries return the same results? Flag regressions in the diff.",
+      "keywords": ["code quality"]
+    }
+  },
+  "simplified-technical-writing": {
+    "should_trigger": {
+      "prompt": "Rewrite the troubleshooting section of this operator runbook in strict Simplified Technical English. Keep every recovery step and warning.",
       "keywords": ["Simplified Technical English"]
+    },
+    "should_not_trigger": {
+      "instead": "nyan-editorial",
+      "prompt": "Use these runbook notes and the launch brief to develop campaign copy for the new recovery feature. Explain what customers can now do.",
+      "keywords": ["campaign copy"]
+    }
+  },
+  "ui-copy-review": {
+    "should_trigger": {
+      "prompt": "Review the accessible names and localized copy changed by this checkout PR. Compare the old and new text in the affected states and report findings.",
+      "keywords": ["accessible names", "localized copy"]
+    },
+    "should_not_trigger": {
+      "instead": "clean-copy",
+      "prompt": "Rewrite the checkout button text to fit in two words and cut the repeated sentence below it. Keep the payment commitment clear.",
+      "keywords": ["button text"]
+    }
+  },
+  "user-testing-chaos-and-random-input": {
+    "should_trigger": {
+      "prompt": "Try to break checkout with seeded input. Have simulated users mash buttons, paste junk into shipping fields, and lose network during submission. Record the seed for any failure.",
+      "keywords": ["mash buttons", "paste junk"]
+    },
+    "should_not_trigger": {
+      "instead": "user-testing-session-runner",
+      "prompt": "Go through the normal checkout path in character as a nervous first-time shopper. Log what you expected and what happened at each step.",
+      "keywords": ["in character"]
+    }
+  },
+  "user-testing-findings-report": {
+    "should_trigger": {
+      "prompt": "Turn these checkout session logs and chaos runs into ranked findings. Group the repeated payment failure and say what to retest after each fix.",
+      "keywords": ["session logs", "ranked findings"]
+    },
+    "should_not_trigger": {
+      "instead": "user-testing-session-runner",
+      "prompt": "We still need a checkout run in character as the budget shopper. Capture what you see and give me the raw log for later analysis.",
+      "keywords": ["in character"]
+    }
+  },
+  "user-testing-personas": {
+    "should_trigger": {
+      "prompt": "Choose three simulated users for a grocery pickup study. Give each a goal, a state of mind, and a rule for what they'd do if a pickup slot disappeared.",
+      "keywords": ["simulated users"]
+    },
+    "should_not_trigger": {
+      "instead": "user-testing-scenarios",
+      "prompt": "We already have shopper personas. Turn them into a checkout test matrix with a stop condition for each case.",
+      "keywords": ["test matrix", "stop condition"]
+    }
+  },
+  "user-testing-playbook": {
+    "should_trigger": {
+      "prompt": "Try this checkout prototype as a first-time mobile shopper, a keyboard-only shopper, and someone trying to finish fast. Show where each person gets stuck and capture evidence.",
+      "keywords": ["prototype", "keyboard-only"]
+    },
+    "should_not_trigger": {
+      "instead": "user-testing-findings-report",
+      "prompt": "We finished the checkout sessions. Use the session logs to write ranked findings and specify what to retest after the fixes.",
+      "keywords": ["session logs", "ranked findings"]
+    }
+  },
+  "user-testing-scenarios": {
+    "should_trigger": {
+      "prompt": "Turn these checkout personas into a test matrix. For each device and situation, give the start state, goal, and stop condition, then prioritize the cases.",
+      "keywords": ["test matrix", "stop condition"]
+    },
+    "should_not_trigger": {
+      "instead": "user-testing-personas",
+      "prompt": "Choose simulated users for our checkout study. For now I only need their goals and behavior rules.",
+      "keywords": ["simulated users"]
+    }
+  },
+  "user-testing-session-runner": {
+    "should_trigger": {
+      "prompt": "Go through checkout in character as a shopper on a slow connection. Log what you expect at each step and take screenshots when the site surprises you.",
+      "keywords": ["in character"]
+    },
+    "should_not_trigger": {
+      "instead": "user-testing-scenarios",
+      "prompt": "Draft the test matrix for the impatient shopper and set a stop condition for each checkout scenario before we run a session.",
+      "keywords": ["test matrix", "stop condition"]
+    }
+  },
+  "wonder-design-workflow": {
+    "should_trigger": {
+      "prompt": "Open the signup design in Wonder through its canvas. Fix the mobile error state, verify it there, and save the updated design.",
+      "keywords": ["in Wonder", "canvas"]
+    },
+    "should_not_trigger": {
+      "instead": "build-html-prototype",
+      "prompt": "Use this signup design to make a browser-only HTML prototype for interaction tests. Keep it in one disposable folder.",
+      "keywords": ["interaction tests"]
     }
   }
 }
