@@ -19,4 +19,4 @@ For OpenCode work, use [handoff-to-opencode](../skills/handoff-to-opencode/SKILL
 
 Treat changed orchestration configuration as `policy-only` until a fresh trusted-project session loads it, resolves the registered roles, and returns one bounded read-only delegation result. Record the host and tested revision; CLI proof does not establish activation in an already-running desktop task.
 
-Commit and push directly to `main` when publication is authorized. Create a feature branch or PR only when explicitly requested. Follow AGENTS.md for the full-workflow route and authorized cleanup of merged branches.
+Follow [AGENTS.md](../AGENTS.md#skill-library-orchestration) for publication authority, branch and PR choices, and authorized cleanup of merged branches.

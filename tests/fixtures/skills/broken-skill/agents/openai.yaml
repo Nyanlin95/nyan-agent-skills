@@ -1,0 +1,4 @@
+interface:
+  display_name: "Broken Skill"
+  short_description: "Demonstrate a broken skill"
+  default_prompt: "Use $broken-skill-extra to check this example."

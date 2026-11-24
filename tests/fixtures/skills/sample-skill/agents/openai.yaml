@@ -1,0 +1,6 @@
+interface:
+  display_name: "Sample Skill"
+  short_description: 'Check a sample skill | with examples'
+  default_prompt: "Use $sample-skill to check this example."
+policy:
+  allow_implicit_invocation: true

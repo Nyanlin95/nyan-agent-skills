@@ -11,6 +11,17 @@ skills for simulated sessions, chaos input, and findings.
 
 The project uses the [MIT License](LICENSE).
 
+## Scope
+
+Add a general, reusable skill when it has a distinct job and an existing skill
+cannot cover it with a focused change. Search the catalog for an owner first.
+Resolve overlap by sharpening each skill's trigger or extending the existing
+owner. Give new skills general names that describe their job.
+
+Keep project-specific rules in that project's `AGENTS.md` or `.agents/skills/`.
+Use the library's `skills/<skill-name>/` folders as the source for edits. Treat
+installed copies as destinations for explicitly authorized synchronization.
+
 ## Use a skill
 
 Give the agent the outcome, scope, limits, and relevant evidence. The agent can
@@ -30,33 +41,35 @@ For a useful result:
 
 ## Skills
 
+<!-- skills-catalog:start -->
 | Skill | Purpose |
 | :--- | :--- |
-| [cqt-review](skills/cqt-review/) | Review code and migrations for ownership, dependencies, durable effects, state recovery, and evidence-backed correctness. |
-| [architecture-candidate-finder](skills/architecture-candidate-finder/) | Find and explain evidence-backed candidates for improving design patterns, module boundaries, and architecture decisions. |
 | [adversarial-review](skills/adversarial-review/) | Challenge material claims with bounded counterexamples, including exact authority, effect recovery, and evidence integrity. |
-| [implementation-quality](skills/implementation-quality/) | Start runnable projects and implement clear owners, complete journeys, generated assets, durable commands, and explicit failure recovery. |
-| [frontend-system-principles](skills/frontend-system-principles/) | Build frontend journeys with scoped state, draft and replay recovery, consistent caching, and measured performance. |
-| [saas-perf-hillclimb](skills/saas-perf-hillclimb/) | Improve SaaS performance one layer at a time with a measured, statistically gated hill-climb loop and a holdout check. |
-| [omelet-orchestrator](skills/omelet-orchestrator/) | Orchestrate grounded work through a thin skill router, with required Stageshow and Nyan visual guidance for all UI and visual work. |
-| [local-git-gates](skills/local-git-gates/) | Design or verify thin Git hooks and one canonical gate with dependency-aware routing, exact-commit qualification, CI/self-hosted agreement, regression rules, and performance budgets. |
-| [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Distill or scaffold visual foundations and critique compositions across media, including agent interfaces, using binding grid contracts, measured audits, rendered evidence, and verified optical exceptions. |
-| [ui-copy-review](skills/ui-copy-review/) | Review interface copy and recovery language with compact quick findings or a full state and accessibility review. |
-| [clean-copy](skills/clean-copy/) | Remove interface text users do not need while keeping facts they need to act, decide, and recover. |
+| [architecture-candidate-finder](skills/architecture-candidate-finder/) | Find and explain evidence-backed candidates for improving design patterns, module boundaries, and architecture decisions. |
 | [build-html-prototype](skills/build-html-prototype/) | Build document, interface, or visual HTML prototypes inside one disposable folder. |
-| [handoff-to-opencode](skills/handoff-to-opencode/) | Route limited, non-sensitive implementation work to a current free OpenCode model based on task needs within explicit paths. |
-| [simplified-technical-writing](skills/simplified-technical-writing/) | Rewrite technical prose in strict or STE-flavored Simplified Technical English. |
-| [nyan-editorial](skills/nyan-editorial/) | Develop ideas and draft or review source-grounded campaign, social, article, and learning content while preserving author judgment and project voice. |
-| [wonder-design-workflow](skills/wonder-design-workflow/) | Create, change, verify, and save scoped Wonder designs with clear proof boundaries. |
-| [dev-process-state-machine-verification](skills/dev-process-state-machine-verification/) | Check stateful event flows for counterexamples with explicit model bounds and implementation regressions. |
-| [dev-process-deterministic-core-and-replay](skills/dev-process-deterministic-core-and-replay/) | Implement recorded-input replay with explicit compatibility, isolated effects, and divergence checks. |
+| [clean-copy](skills/clean-copy/) | Remove interface text users do not need while keeping facts they need to act, decide, and recover. |
+| [cqt-review](skills/cqt-review/) | Review code and migrations for ownership, dependencies, durable effects, state recovery, and evidence-backed correctness. |
 | [dev-process-bot-playtesting-and-tuning](skills/dev-process-bot-playtesting-and-tuning/) | Tune difficulty, thresholds, or other settings with automated bots or replays aimed at a target outcome. |
-| [user-testing-playbook](skills/user-testing-playbook/) | Test an app the way different users would, find where it breaks or disappoints, and route to the linked User Testing skills below. |
-| [user-testing-personas](skills/user-testing-personas/) | Choose or write simulated users as a want, a state of mind, and a behavior rule for a specific app. |
-| [user-testing-scenarios](skills/user-testing-scenarios/) | Turn an app and its personas into scenarios and a persona-by-situation-by-environment test matrix. |
-| [user-testing-session-runner](skills/user-testing-session-runner/) | Run one simulated session in character, log expectation versus result, and capture evidence. |
+| [dev-process-deterministic-core-and-replay](skills/dev-process-deterministic-core-and-replay/) | Implement recorded-input replay with explicit compatibility, isolated effects, and divergence checks. |
+| [dev-process-state-machine-verification](skills/dev-process-state-machine-verification/) | Check stateful event flows for counterexamples with explicit model bounds and implementation regressions. |
+| [frontend-system-principles](skills/frontend-system-principles/) | Build frontend journeys with scoped state, draft and replay recovery, consistent caching, and measured performance. |
+| [handoff-to-opencode](skills/handoff-to-opencode/) | Route limited, non-sensitive implementation work to a current free OpenCode model based on task needs within explicit paths. |
+| [implementation-quality](skills/implementation-quality/) | Start runnable projects and implement clear owners, complete journeys, generated assets, durable commands, and explicit failure recovery. |
+| [local-git-gates](skills/local-git-gates/) | Design or verify thin Git hooks and one canonical gate with dependency-aware routing, exact-commit qualification, CI/self-hosted agreement, regression rules, and performance budgets. |
+| [nyan-editorial](skills/nyan-editorial/) | Develop ideas and draft or review source-grounded campaign, social, article, and learning content while preserving author judgment and project voice. |
+| [nyan-ui-visual-review](skills/nyan-ui-visual-review/) | Distill or scaffold visual foundations and critique compositions across media, including agent interfaces, using binding grid contracts, measured audits, rendered evidence, and verified optical exceptions. |
+| [omelet-orchestrator](skills/omelet-orchestrator/) | Orchestrate grounded work through a thin skill router, with required Stageshow and Nyan visual guidance for all UI and visual work. |
+| [saas-perf-hillclimb](skills/saas-perf-hillclimb/) | Improve SaaS performance one layer at a time with a measured, statistically gated hill-climb loop and a holdout check. |
+| [simplified-technical-writing](skills/simplified-technical-writing/) | Rewrite technical prose in strict or STE-flavored Simplified Technical English. |
+| [ui-copy-review](skills/ui-copy-review/) | Review interface copy and recovery language with compact quick findings or a full state and accessibility review. |
 | [user-testing-chaos-and-random-input](skills/user-testing-chaos-and-random-input/) | Run seeded random and careless input so a crash, lost state, or broken layout can be replayed. |
 | [user-testing-findings-report](skills/user-testing-findings-report/) | Turn session logs and chaos runs into severity-ranked findings, a verdict, and a re-test hand-off. |
+| [user-testing-personas](skills/user-testing-personas/) | Choose or write simulated users as a want, a state of mind, and a behavior rule for a specific app. |
+| [user-testing-playbook](skills/user-testing-playbook/) | Test an app the way different users would, find where it breaks or disappoints, and route to the linked User Testing skills. |
+| [user-testing-scenarios](skills/user-testing-scenarios/) | Turn an app and its personas into scenarios and a persona-by-situation-by-environment test matrix. |
+| [user-testing-session-runner](skills/user-testing-session-runner/) | Run one simulated session in character, log expectation versus result, and capture evidence. |
+| [wonder-design-workflow](skills/wonder-design-workflow/) | Create, change, verify, and save scoped Wonder designs with clear proof boundaries. |
+<!-- skills-catalog:end -->
 
 ## Common requests
 
@@ -107,7 +120,7 @@ Use $implementation-quality to move this behavior to the correct owner.
 Use $omelet-orchestrator to coordinate this repository change.
 ```
 
-Omelet acts as both orchestrator and skill router. Keep its main workflow thin and load the relevant [skill routes](skills/omelet-orchestrator/references/skill-routing.md), including its [required visual pair](skills/omelet-orchestrator/SKILL.md#require-visual-review-for-ui-changes). Complete focused work directly or delegate a bounded task when useful. It uses GPT-6.1-Sol by default, Astra only for deep reviews of abstract problems, and Luna xhigh for documentation and support work. Use focused checks and add independent review for consequential decisions. See [repository orchestration](.codex/README.md) for roles, routes, and activation proof.
+Omelet acts as both orchestrator and skill router. Keep its main workflow thin and load the relevant [skill routes](skills/omelet-orchestrator/references/skill-routing.md), including its [required visual pair](skills/omelet-orchestrator/SKILL.md#require-visual-review-for-ui-changes). Complete focused work directly or delegate a bounded task when useful. Use focused checks and add independent review for consequential decisions. See [model selection](skills/omelet-orchestrator/SKILL.md#guide-model-selection) for current defaults and [repository orchestration](.codex/README.md) for registered roles and activation proof.
 
 ### Add a local Git gate
 
@@ -225,7 +238,7 @@ Do not let a review skill silently become the implementation owner.
 - Put the core workflow in `SKILL.md`.
 - Put detailed checks in direct files under `references/`.
 - Put deterministic helpers under `scripts/`.
-- Keep optional interface metadata in `agents/openai.yaml`.
+- Keep the required interface metadata in `agents/openai.yaml`.
 - Verify rendered behavior with rendered evidence.
 - Preserve repository and product conventions.
 - Do not commit generated research unless the repository explicitly includes it.
@@ -243,18 +256,18 @@ The repository folder `skills/<skill-name>/` is the canonical source for each li
 4. Add or update `agents/openai.yaml`.
 5. Put detailed material in `references/`, `scripts/`, or `assets/`.
 6. Keep every `SKILL.md` reference direct and one level deep.
-7. Update the skill catalog in this README.
-8. Validate after the last material edit.
-9. Run `git diff --check`.
+7. Regenerate the skill catalog when the table changes.
+8. Run the full check after the last material edit.
 
-Run the validator from the repository root:
+Run these commands from the repository root with Python 3.11 or newer.
 
-```powershell
-$env:PYTHONUTF8 = '1'
-py -3.14 "$env:USERPROFILE\.codex\skills\.system\skill-creator\scripts\quick_validate.py" "skills\<skill-name>"
+```sh
+python scripts/gen_catalog.py
+python scripts/check.py
 ```
 
-Before finishing, confirm that `agents/openai.yaml` matches the final skill, that this catalog has one current entry, and that the validation command ran after the final material edit.
+The generator sorts by skill name so new skills have a predictable insertion point.
+See [AGENTS.md](AGENTS.md#commands) for scoped validation, test discovery, and the opt-in hook.
 
 The validator checks skill structure; it does not prove instruction-following.
 For behavioral changes, use isolated realistic tasks and inspect the resulting

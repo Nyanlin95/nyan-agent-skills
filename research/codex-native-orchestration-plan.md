@@ -1,6 +1,6 @@
 # Codex-native orchestration plan for Wer Ywet Studio
 
-> **Research note — non-authoritative.** This document records an external proposal for Wer Ywet Studio at the dated snapshot below. It does not define rules or configuration for Nyan Agent Skills. Use this repository's `AGENTS.md` and `.codex/config.toml` as its authority. Before applying any Studio guidance, verify it against Studio's current code and repository instructions.
+> **Historical research, 2026-08-12.** This document records a proposal for Wer Ywet Studio at the snapshot below. Use [AGENTS.md](../AGENTS.md) and [.codex/config.toml](../.codex/config.toml) for current Nyan Agent Skills policy. Verify any Studio guidance against Studio's current code and repository instructions before applying it.
 
 Research date: 2026-08-12
 

@@ -1,4 +1,4 @@
-model = "gpt-6.1-sol"
+model = "gpt-6.2-sol"
 model_reasoning_effort = "medium"
 
 [agents.history_analyst]
@@ -22,5 +22,5 @@ description = "Validate repository skills and synchronize approved source files 
 config_file = "agents/skill-syncer.toml"
 
 [agents.git_pr_manager]
-description = "Commit and push authorized changes to main; handle PRs, merges, and branch cleanup when explicitly requested."
+description = "Handle authorized commits, pushes, and pull requests under AGENTS.md. Merge and clean up branches only when separately authorized."
 config_file = "agents/git-pr-manager.toml"

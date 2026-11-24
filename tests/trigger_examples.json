@@ -1,0 +1,68 @@
+{
+  "adversarial-review": {
+    "should_trigger": {
+      "prompt": "Stress-test this architecture decision with hostile scrutiny before we act on it.",
+      "keywords": ["architecture decision", "hostile scrutiny"]
+    },
+    "should_not_trigger": {
+      "instead": "user-testing-personas",
+      "prompt": "Choose or write simulated users for this user test.",
+      "keywords": ["simulated users"]
+    }
+  },
+  "handoff-to-opencode": {
+    "should_trigger": {
+      "prompt": "Hand off a small non-sensitive fix to OpenCode Zen on the current free model.",
+      "keywords": ["OpenCode Zen", "non-sensitive"]
+    },
+    "should_not_trigger": {
+      "instead": "wonder-design-workflow",
+      "prompt": "Create and export this design in Wonder through its canvas.",
+      "keywords": ["in Wonder", "canvas"]
+    }
+  },
+  "implementation-quality": {
+    "should_trigger": {
+      "prompt": "Start from a blank repository and build the first working product journey.",
+      "keywords": ["blank repository", "first working product journey"]
+    },
+    "should_not_trigger": {
+      "instead": "ui-copy-review",
+      "prompt": "Review only the accessible names and localized copy changed in this diff.",
+      "keywords": ["accessible names", "localized copy"]
+    }
+  },
+  "local-git-gates": {
+    "should_trigger": {
+      "prompt": "Add a pre-commit hook and demonstrate exact-commit qualification on CI.",
+      "keywords": ["pre-commit", "exact-commit qualification"]
+    },
+    "should_not_trigger": {
+      "instead": "dev-process-bot-playtesting-and-tuning",
+      "prompt": "Tune difficulty with headless bots and compare against target outcomes.",
+      "keywords": ["headless bots", "target outcomes"]
+    }
+  },
+  "nyan-ui-visual-review": {
+    "should_trigger": {
+      "prompt": "Use a binding grid contract and measured geometry to critique this dashboard.",
+      "keywords": ["binding grid contract", "measured geometry"]
+    },
+    "should_not_trigger": {
+      "instead": "dev-process-deterministic-core-and-replay",
+      "prompt": "Implement deterministic core logic and recorded-input replay for these bugs.",
+      "keywords": ["deterministic core logic", "recorded-input replay"]
+    }
+  },
+  "omelet-orchestrator": {
+    "should_trigger": {
+      "prompt": "Omelet, revise our repository workflow and skill routing.",
+      "keywords": ["Omelet", "skill routing"]
+    },
+    "should_not_trigger": {
+      "instead": "simplified-technical-writing",
+      "prompt": "Rewrite this runbook into Simplified Technical English.",
+      "keywords": ["Simplified Technical English"]
+    }
+  }
+}

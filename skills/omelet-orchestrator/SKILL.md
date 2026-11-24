@@ -47,10 +47,10 @@ Use Omelet plus at least one bounded specialist when an unnegated user prompt na
 
 | Responsibility | Model | Effort |
 | --- | --- | --- |
-| Primary Omelet | `gpt-6.1-sol` | `medium` |
-| Implementation, routine review or advice | `gpt-6.1-sol` | `low` or `medium` |
-| Deep review of abstract problems | `gpt-6-astra` | `medium` |
-| Documentation, research, testing, synchronization and monitoring support | `gpt-6-luna` | `xhigh` |
+| Primary Omelet | `gpt-6.2-sol` | `medium` |
+| Implementation, routine review or advice | `gpt-6.2-sol` | `low` or `medium` |
+| Deep review of abstract problems | `gpt-6.2-astra` | `medium` |
+| Documentation, research, testing, synchronization and monitoring support | `gpt-6.2-sol` | `xhigh` |
 
 Set delegated model and effort explicitly where supported; use bounded context when full inheritance conflicts. Interpret “light” as `low`. Split mixed assignments by responsibility and keep reviewers non-mutating. Obtain a user-selected alternative when a required combination is unavailable; never silently substitute. Distinguish saved configuration from the active session.
 
