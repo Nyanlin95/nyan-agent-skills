@@ -49,10 +49,13 @@ Routing must not sleep, poll, or fail because a reservation exists. Treat a rout
 
 - Each attempt writes its own run-specific evidence directory keyed by the run and attempt identity.
 - Upload only this attempt's evidence. Mandatory evidence that is missing fails the attempt.
+- For a failed workflow on an unchanged candidate, prefer a failed-only retry of the exact run when the repository supports it. Check which passing jobs a new push would invalidate before requesting a fresh run.
+- Bind each result to the base, candidate, plan, selected job, workflow run, and attempt that actually executed it. If the provider carries job records into later attempts, resolve the original execution from provider metadata such as job ID, runner, and execution times. Use the original passing sibling receipt only after verifying it against that execution. Reject missing, duplicate, or mismatched evidence and any latest execution that failed or remained incomplete. Follow the repository's explicit provenance rules for any reuse across runs.
 - A retry's green result never repairs an earlier failed attempt's record. Report both attempts.
 
 ## Verify before claiming
 
 - Test each rule with a fixture: original-runner restore, reassignment to a different runner, no prior job, invalid checkpoint, and timeout.
+- Test failed-only replay with a copied passing sibling record and a freshly executed failed job. Check that an invalid receipt or a superseding unsuccessful execution keeps the aggregate gate incomplete.
 - Test the feedback-only flag: a run that skips live proof must write `qualified: false`.
 - Confirm the provider's job-assignment behavior on a real run before describing it as enforced. Repository files establish configured behavior only.

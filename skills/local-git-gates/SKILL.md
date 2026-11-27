@@ -53,7 +53,7 @@ Treat interface flags as repository choices, not a required spelling. Keep check
 8. Treat renamed or deleted owners as both old and new ownership. A manifest or runner that still requires a deleted file fails planning.
 9. Emit the plan as data (selected owners, closure, prerequisites, required checks, and per-entrypoint commands) and let CI and hooks replay it. A selector returned by the plan must replan against current source when reused.
 
-Keep complete required journeys where the repository uses feature slices; do not silently narrow them by test-name filters. Fail on required missing, empty, disabled, exclusive, unwired, or skipped coverage according to the repository's test policy. Do not import another project's ban on a test type or its provider/performance requirements. State what each lane actually proves.
+Keep complete required journeys where the repository uses feature slices. Use [CI and self-hosted execution](references/ci-self-hosted.md) when splitting execution into independently retryable jobs or qualifying routing-only changes. Fail on required missing, empty, disabled, exclusive, unwired, or skipped coverage according to the repository's test policy. Do not import another project's ban on a test type or its provider/performance requirements. State what each lane actually proves.
 
 Handle paths as opaque data with NUL-delimited Git output and argument arrays. Avoid line-split filename parsing, shell interpolation, and `eval`. Test spaced, dash-leading, metacharacter, renamed, deleted, and unclassified paths.
 

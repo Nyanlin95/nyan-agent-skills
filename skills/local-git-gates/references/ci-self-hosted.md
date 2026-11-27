@@ -16,10 +16,18 @@ Use repository-appropriate minimum permissions, pinned actions where that is the
 
 Keep untrusted pull-request code outside privileged persistent runners and credential-bearing execution unless the repository has an explicitly approved isolation design. Inspect workflow triggers and trust boundaries before adding self-hosted coverage. Repository files establish configured behavior; live runner state and remote rules require separate inspection.
 
+## Split execution without losing coverage
+
+- Assign suites to the owner of the behavior or shared fixture. Keep cases that depend on the same lifecycle together. Keep business rules at the lowest layer that proves them and retain browser journeys for user-visible wiring, recovery, and layout.
+- Compare native discovery before and after the split using stable case identities, including their entrypoint and execution configuration. Check for missing cases, duplicates, and unowned selectors. Keep shared consumers and whole-suite obligations when an audited consumer can select a smaller named group within a suite.
+- Project local rerun commands and CI jobs from the same canonical plan. Bind the plan handed between jobs to its digest, candidate, and base. Reconstruct expected jobs and case identities in the final verifier. Require passing evidence from every selected job before completing the stable gate status.
+- If the repository supports routing-only qualification, classify the exact committed range using trusted policy. Narrow only proven selection and projection edits that preserve execution, discovery, prerequisites, coverage guards, and receipt verification. Include the normal obligations from every other changed path. Exercise narrow, mixed, unknown, and full-release cases through the public planner.
+- Size concurrency to verified eligible runner capacity and fixture isolation. Default to serial execution when jobs share mutable resources. When evaluating CI speed, compare the same cases in cold, warm, and failed-job replay trials. Record elapsed time to the final gate, total runner minutes including failed attempts, and time spent in queue, setup, execution, and verification. Label local measurements and unavailable hosted timings.
+
 ## Own persistent state
 
 - Namespace dependency caches by repository, runtime/toolchain, and dependency lock identity.
-- Reuse a cache for downloads, while still installing from the lockfile; never treat a warm cache as qualification evidence.
+- Install from the lockfile when restoring a download cache. Require separately verified setup before skipping an install. Keep cache hits separate from qualification evidence.
 - Validate absolute owned roots and ownership markers before pruning cache generations.
 - Reject unexpected entries, symlinks, junctions, and reparse points that could redirect cleanup outside the owned root.
 - Preserve developer caches, profiles, credentials, and unrelated runner repositories.
@@ -27,6 +35,8 @@ Keep untrusted pull-request code outside privileged persistent runners and crede
 - Serialize execution that shares mutable resources; state the limits of a checkout lock across clones, direct test commands, or descendants after a crash.
 
 Reuse existing cache and fixture owners. Add cache rotation, locks, or run directories only where persistent state or concurrency creates a concrete need. Do not copy a machine path, runtime version, database name, or another project's cache namespace into the target.
+
+When sharing installed dependencies, browser binaries, or builds, key each family to its relevant inputs and host compatibility. Publish it only after validating readiness. Treat stale or missing setup as a cache miss and rebuild. Give each job fresh runtime state, including data, ports, process ownership, and evidence. Test cold reconstruction, invalidated setup, and overlapping jobs before increasing concurrency.
 
 ## Separate credential and provider lanes
 
